@@ -1,0 +1,53 @@
+{
+  "cross_run_source_collision": {
+    "first": {
+      "status": "done",
+      "verified": 2
+    },
+    "second": {
+      "status": "blocked",
+      "verified": 0,
+      "rejected": 2
+    },
+    "second_evidence_rows": 0
+  },
+  "exhausted_dependency_hang": {
+    "timed_out": true,
+    "run_status": "running",
+    "tasks": [
+      {
+        "kind": "research",
+        "status": "exhausted",
+        "attempt": 3
+      },
+      {
+        "kind": "verify",
+        "status": "pending",
+        "attempt": 0
+      },
+      {
+        "kind": "write",
+        "status": "pending",
+        "attempt": 0
+      }
+    ]
+  },
+  "citation_laundering": {
+    "known_fact": "Caching reduces calls by 40%.",
+    "retained": "## Findings\nCaching increases calls by 900% [F-aaaaaaaa].",
+    "gate": {
+      "sentences": 1,
+      "removed_uncited_or_unverified": [],
+      "passed": true
+    }
+  },
+  "concurrent_budget_overshoot": {
+    "cap": 100,
+    "spent": 400
+  },
+  "unfenced_exhaustion": {
+    "old_fence": 1,
+    "current_fence": 2,
+    "status_after_success_then_stale_failure": "exhausted"
+  }
+}

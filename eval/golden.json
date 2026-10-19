@@ -1,0 +1,243 @@
+[
+    {
+        "id": "eval_001",
+        "topic": "Transformer attention mechanisms and their variants",
+        "constraints": "Focus on papers from 2020-2024",
+        "depth": "normal",
+        "required_sections": [
+            "TL;DR",
+            "Background",
+            "Key Papers",
+            "Gaps & Open Questions",
+            "References"
+        ]
+    },
+    {
+        "id": "eval_002",
+        "topic": "Vision transformers for medical image analysis",
+        "constraints": null,
+        "depth": "normal",
+        "required_sections": [
+            "TL;DR",
+            "Background",
+            "Key Papers",
+            "References"
+        ]
+    },
+    {
+        "id": "eval_003",
+        "topic": "Reinforcement learning from human feedback (RLHF)",
+        "constraints": "Include comparison with other alignment methods",
+        "depth": "deep",
+        "required_sections": [
+            "TL;DR",
+            "Key Papers",
+            "Disagreements",
+            "References"
+        ]
+    },
+    {
+        "id": "eval_004",
+        "topic": "Graph neural networks for drug discovery",
+        "constraints": null,
+        "depth": "normal",
+        "required_sections": [
+            "TL;DR",
+            "Background",
+            "Key Papers",
+            "References"
+        ]
+    },
+    {
+        "id": "eval_005",
+        "topic": "Diffusion models for image generation",
+        "constraints": "Compare with GANs",
+        "depth": "normal",
+        "required_sections": [
+            "TL;DR",
+            "Key Papers",
+            "Disagreements",
+            "References"
+        ]
+    },
+    {
+        "id": "eval_006",
+        "topic": "Large language model quantization techniques",
+        "constraints": "Focus on 4-bit and 8-bit methods",
+        "depth": "quick",
+        "required_sections": [
+            "TL;DR",
+            "Key Papers",
+            "References"
+        ]
+    },
+    {
+        "id": "eval_007",
+        "topic": "Federated learning privacy preservation",
+        "constraints": null,
+        "depth": "normal",
+        "required_sections": [
+            "TL;DR",
+            "Background",
+            "Key Papers",
+            "Gaps & Open Questions",
+            "References"
+        ]
+    },
+    {
+        "id": "eval_008",
+        "topic": "Neural architecture search automation",
+        "constraints": "Include efficiency-focused methods",
+        "depth": "normal",
+        "required_sections": [
+            "TL;DR",
+            "Key Papers",
+            "References"
+        ]
+    },
+    {
+        "id": "eval_009",
+        "topic": "Multimodal learning combining vision and language",
+        "constraints": null,
+        "depth": "deep",
+        "required_sections": [
+            "TL;DR",
+            "Background",
+            "Key Papers",
+            "Disagreements",
+            "Gaps & Open Questions",
+            "References"
+        ]
+    },
+    {
+        "id": "eval_010",
+        "topic": "Self-supervised learning in computer vision",
+        "constraints": "Focus on contrastive methods",
+        "depth": "normal",
+        "required_sections": [
+            "TL;DR",
+            "Key Papers",
+            "References"
+        ]
+    },
+    {
+        "id": "eval_011",
+        "topic": "Prompt engineering for large language models",
+        "constraints": null,
+        "depth": "quick",
+        "required_sections": [
+            "TL;DR",
+            "Key Papers",
+            "References"
+        ]
+    },
+    {
+        "id": "eval_012",
+        "topic": "Continual learning and catastrophic forgetting",
+        "constraints": null,
+        "depth": "normal",
+        "required_sections": [
+            "TL;DR",
+            "Background",
+            "Key Papers",
+            "Gaps & Open Questions",
+            "References"
+        ]
+    },
+    {
+        "id": "eval_013",
+        "topic": "Efficient inference for transformer models",
+        "constraints": "Include knowledge distillation methods",
+        "depth": "normal",
+        "required_sections": [
+            "TL;DR",
+            "Key Papers",
+            "References"
+        ]
+    },
+    {
+        "id": "eval_014",
+        "topic": "Explainable AI and interpretability methods",
+        "constraints": null,
+        "depth": "normal",
+        "required_sections": [
+            "TL;DR",
+            "Background",
+            "Key Papers",
+            "Disagreements",
+            "References"
+        ]
+    },
+    {
+        "id": "eval_015",
+        "topic": "Time series forecasting with deep learning",
+        "constraints": "Focus on transformer-based approaches",
+        "depth": "normal",
+        "required_sections": [
+            "TL;DR",
+            "Key Papers",
+            "References"
+        ]
+    },
+    {
+        "id": "eval_016",
+        "topic": "Adversarial robustness in neural networks",
+        "constraints": null,
+        "depth": "normal",
+        "required_sections": [
+            "TL;DR",
+            "Background",
+            "Key Papers",
+            "Gaps & Open Questions",
+            "References"
+        ]
+    },
+    {
+        "id": "eval_017",
+        "topic": "Zero-shot and few-shot learning techniques",
+        "constraints": null,
+        "depth": "quick",
+        "required_sections": [
+            "TL;DR",
+            "Key Papers",
+            "References"
+        ]
+    },
+    {
+        "id": "eval_018",
+        "topic": "Retrieval-augmented generation (RAG) systems",
+        "constraints": "Include vector database optimizations",
+        "depth": "normal",
+        "required_sections": [
+            "TL;DR",
+            "Key Papers",
+            "References"
+        ]
+    },
+    {
+        "id": "eval_019",
+        "topic": "Neural network pruning and sparsity",
+        "constraints": null,
+        "depth": "normal",
+        "required_sections": [
+            "TL;DR",
+            "Background",
+            "Key Papers",
+            "References"
+        ]
+    },
+    {
+        "id": "eval_020",
+        "topic": "Synthetic data generation for machine learning",
+        "constraints": "Focus on privacy-preserving methods",
+        "depth": "deep",
+        "required_sections": [
+            "TL;DR",
+            "Background",
+            "Key Papers",
+            "Disagreements",
+            "Gaps & Open Questions",
+            "References"
+        ]
+    }
+]

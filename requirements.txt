@@ -1,0 +1,61 @@
+# Agentic Research Copilot - Dependencies
+# Optimized for MacBook Pro M2 (8GB RAM)
+
+# Core Framework
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+python-dotenv==1.0.0
+pydantic==2.5.3
+pydantic-settings==2.1.0
+
+# LangChain + LangGraph
+# langchain is not imported anywhere; the old pins (langchain 0.1.20 + langgraph 0.0.55) do not resolve together.
+# Tested with langgraph 1.2.x.
+langgraph>=0.2
+
+# LLM Client (Ollama via HTTP)
+httpx==0.26.0
+aiohttp==3.9.1
+
+# Embeddings (CPU-friendly, small model)
+sentence-transformers>=2.7  # 2.2.2 breaks on modern huggingface_hub (cached_download removed)
+
+# Vector Database
+chromadb>=0.4.22  # tested with 1.5.x
+
+# Database
+sqlalchemy==2.0.25
+aiosqlite==0.19.0
+
+# Knowledge Graph
+networkx==3.2.1
+
+# arXiv & Academic APIs
+arxiv>=2.1.0
+
+# Text Processing
+beautifulsoup4==4.12.2
+lxml==5.1.0
+
+# PDF Export (lightweight)
+markdown==3.5.1
+weasyprint==60.2
+
+# Testing
+pytest==7.4.4
+pytest-asyncio==0.23.3
+pytest-cov==4.1.0
+
+# Streamlit UI
+
+
+# Utilities
+tenacity==8.2.3
+python-multipart==0.0.6
+sse-starlette==1.8.2
+
+# LLM provider SDKs (provider-agnostic routing, see llm.example.yaml)
+openai>=1.40
+anthropic>=0.34
+google-genai>=0.3
+pyyaml>=6.0

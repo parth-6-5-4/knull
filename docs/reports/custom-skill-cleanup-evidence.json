@@ -1,0 +1,177 @@
+{
+  "date": "2026-10-19",
+  "target_model": "gpt-6.1-sol",
+  "scope": "17 user-confirmed custom skills; entrypoint edits only",
+  "installation": "completed and verified",
+  "backup_root": "/Users/parthsdambhare/.codex/skill-backups/hive-custom-skills-0sz2j6sz",
+  "before_entrypoint_characters": 47977,
+  "after_entrypoint_characters": 27360,
+  "character_reduction_percent": 42.97,
+  "protected_file_count": 1818,
+  "structural_validation": "17/17 installed skills passed built-in validator, local links and final hash checks",
+  "behavioral_evidence": {
+    "kind": "qualitative one sample per skill, plus feedback-informed recruiter rerun",
+    "scenarios": 17,
+    "initial_unsupported_signature_case": 1,
+    "targeted_rerun": "52 words, no unsupported name or attachment; same-context limitation",
+    "preservation_issue_groups_restored": 4,
+    "comparative_benchmark": "not performed"
+  },
+  "skills": [
+    {
+      "skill": "stripe-agentic-delivery",
+      "before_chars": 2343,
+      "after_chars": 1780,
+      "before_words": 278,
+      "after_words": 209,
+      "structural_validation": "passed"
+    },
+    {
+      "skill": "stripe-api-review",
+      "before_chars": 2651,
+      "after_chars": 1496,
+      "before_words": 325,
+      "after_words": 169,
+      "structural_validation": "passed"
+    },
+    {
+      "skill": "stripe-behavioral-replay",
+      "before_chars": 2437,
+      "after_chars": 1486,
+      "before_words": 286,
+      "after_words": 169,
+      "structural_validation": "passed"
+    },
+    {
+      "skill": "stripe-codebase-migrations",
+      "before_chars": 2467,
+      "after_chars": 1535,
+      "before_words": 297,
+      "after_words": 179,
+      "structural_validation": "passed"
+    },
+    {
+      "skill": "stripe-engineering",
+      "before_chars": 3858,
+      "after_chars": 1944,
+      "before_words": 459,
+      "after_words": 209,
+      "structural_validation": "passed"
+    },
+    {
+      "skill": "stripe-hiring-system",
+      "before_chars": 3080,
+      "after_chars": 1671,
+      "before_words": 374,
+      "after_words": 190,
+      "structural_validation": "passed"
+    },
+    {
+      "skill": "stripe-incident-response",
+      "before_chars": 2606,
+      "after_chars": 1610,
+      "before_words": 301,
+      "after_words": 185,
+      "structural_validation": "passed"
+    },
+    {
+      "skill": "stripe-interview-prep",
+      "before_chars": 2419,
+      "after_chars": 1474,
+      "before_words": 280,
+      "after_words": 167,
+      "structural_validation": "passed"
+    },
+    {
+      "skill": "stripe-invariant-recovery",
+      "before_chars": 2498,
+      "after_chars": 1668,
+      "before_words": 293,
+      "after_words": 186,
+      "structural_validation": "passed"
+    },
+    {
+      "skill": "stripe-production-readiness",
+      "before_chars": 2653,
+      "after_chars": 1637,
+      "before_words": 301,
+      "after_words": 179,
+      "structural_validation": "passed"
+    },
+    {
+      "skill": "stripe-safe-migrations",
+      "before_chars": 2780,
+      "after_chars": 1581,
+      "before_words": 323,
+      "after_words": 179,
+      "structural_validation": "passed"
+    },
+    {
+      "skill": "stripe-security-review",
+      "before_chars": 2738,
+      "after_chars": 1675,
+      "before_words": 289,
+      "after_words": 179,
+      "structural_validation": "passed"
+    },
+    {
+      "skill": "stripe-staff-engineering",
+      "before_chars": 2677,
+      "after_chars": 1505,
+      "before_words": 316,
+      "after_words": 176,
+      "structural_validation": "passed"
+    },
+    {
+      "skill": "stripe-testing-rigor",
+      "before_chars": 2199,
+      "after_chars": 1472,
+      "before_words": 260,
+      "after_words": 172,
+      "structural_validation": "passed"
+    },
+    {
+      "skill": "write-human-social-posts",
+      "before_chars": 3135,
+      "after_chars": 1435,
+      "before_words": 452,
+      "after_words": 206,
+      "structural_validation": "passed"
+    },
+    {
+      "skill": "write-job-outreach-dms",
+      "before_chars": 4339,
+      "after_chars": 1772,
+      "before_words": 648,
+      "after_words": 253,
+      "structural_validation": "passed"
+    },
+    {
+      "skill": "write-recruiter-emails",
+      "before_chars": 3097,
+      "after_chars": 1619,
+      "before_words": 434,
+      "after_words": 213,
+      "structural_validation": "passed"
+    }
+  ],
+  "installed_hashes": {
+    "stripe-agentic-delivery": "c30593dc808bf14462bde67af27762e257420850c35cbe9a1a039ee77c1fc867",
+    "stripe-api-review": "5240ddb4e962971b0f4c804c432adbc96a1bcdccf68826e4fce2cfdb00155791",
+    "stripe-behavioral-replay": "169de940367169da353a889d73ed788489418a2e71563bf5993905b58285ebcc",
+    "stripe-codebase-migrations": "d4c94e55e5510fb88ba28004b84eccd6b78e4b3d1d2e5134c53c09697ad0bd4f",
+    "stripe-engineering": "930f8d5092110e989012f6fc332861a35c6d147a21dc51a54fc495c92bb8f6bb",
+    "stripe-hiring-system": "37286a665bce6cc91e517178daf2e7b06c8b9e6161a332f31383c07cbfee3cac",
+    "stripe-incident-response": "035ada7c168aea145df73f0665d019c4ae1f9d053857e385698ad35eb2daf126",
+    "stripe-interview-prep": "bad095dc46529431552ce9e82617969f993890fcd4fc0f3e9f148208dba06eb8",
+    "stripe-invariant-recovery": "0f236962ba123880d69d4359ccaa614db504dbfc45a4e3b4b4d1c7a60a158346",
+    "stripe-production-readiness": "28073ca93b42e748ff13eb2d4194d87f3804e044f8dbe9c4e7a170095533ccf7",
+    "stripe-safe-migrations": "f446daa6d285c5c969f394d2665d389338fb14f3a55f73da2956e4cd4545eed6",
+    "stripe-security-review": "c71b0e03a1fb99e7b14093156d98887969ebf0a0e1ca122c1ef37cdd9ab99d89",
+    "stripe-staff-engineering": "8821ef16fb769ab87b74b0a33c40219620900f9cee8c2f648692a270b3135240",
+    "stripe-testing-rigor": "6267c8c449c22a641d7dcdd3394cd9bed0f5e749e20695bc35e80609ac539bdd",
+    "write-human-social-posts": "1afe3aaded3d3b335c3649dc48a635f73c890d8f8a04eea19a6c16429cab7633",
+    "write-job-outreach-dms": "8562b5d0bd773060d2c689f57ca111ee4f2cc8b9246e752432dbe94e58ed3e02",
+    "write-recruiter-emails": "71e7073b80980e280c0e4be981183b195ba9030edd11b37d900a56756f7030a2"
+  }
+}

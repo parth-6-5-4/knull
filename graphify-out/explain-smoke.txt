@@ -1,0 +1,34 @@
+Node: HiveStore
+  ID:        app_hive_store_hivestore
+  Source:    app/hive/store.py L43
+  Type:      code
+  Community: HiveStore
+  Degree:    44
+
+Connections (44):
+  <-- test_hive.py [imports] [EXTRACTED] tests/test_hive.py:L7
+  <-- agents.py [imports] [EXTRACTED] app/hive/agents.py:L9
+  <-- main() [calls] [EXTRACTED] docs/reviews/reproduce_hive_gaps.py:L25
+  <-- run_hive() [calls] [EXTRACTED] app/hive/runner.py:L33
+  <-- reproduce_hive_gaps.py [imports] [EXTRACTED] docs/reviews/reproduce_hive_gaps.py:L16
+  <-- runner.py [imports] [EXTRACTED] app/hive/runner.py:L11
+  <-- routes_hive.py [imports] [EXTRACTED] app/api/routes_hive.py:L16
+  <-- store.py [contains] [EXTRACTED] app/hive/store.py:L43
+  <-- Caller [uses] [INFERRED] app/hive/agents.py:L24
+  <-- cli.py [imports] [EXTRACTED] app/hive/cli.py:L7
+  <-- run_verifier() [uses] [INFERRED] app/hive/agents.py:L157
+  <-- _result() [uses] [INFERRED] app/hive/runner.py:L119
+  <-- test_lease_fence_blocks_stale_worker() [calls] [EXTRACTED] tests/test_hive.py:L95
+  --> .claim() [method] [EXTRACTED] app/hive/store.py:L110
+  --> .publish() [method] [EXTRACTED] app/hive/store.py:L150
+  <-- test_expired_lease_cannot_publish_and_attempts_cap() [calls] [EXTRACTED] tests/test_hive.py:L112
+  <-- run_writer() [uses] [INFERRED] app/hive/agents.py:L215
+  --> .add_task() [method] [EXTRACTED] app/hive/store.py:L84
+  <-- test_dependencies_gate_claims() [calls] [EXTRACTED] tests/test_hive.py:L125
+  --> .expire_leases() [method] [EXTRACTED] app/hive/store.py:L207
+  ... and 24 more (--all lists all 44)
+  Grouped by file:
+    --> app/hive/store.py: 21 connections
+    <-- app/api/routes_hive.py: 1 connection
+    <-- app/hive/agents.py: 1 connection
+    <-- app/hive/cli.py: 1 connection

@@ -1,0 +1,21 @@
+# Copy to llm.yaml. Resolution: agents.<kind> > layers.<layer> > default.
+# API keys are read from environment variables (never put keys in this file).
+# Model names below are examples; set whatever your accounts have access to.
+providers:
+  openai:    {api_key_env: OPENAI_API_KEY}
+  anthropic: {api_key_env: ANTHROPIC_API_KEY}
+  gemini:    {api_key_env: GEMINI_API_KEY}
+  ollama:    {base_url: http://localhost:11434}
+
+default: {provider: ollama, model: "llama3.2:3b"}        # original local behaviour
+
+layers:
+  knull:    {provider: anthropic, model: claude-sonnet-4-5, temperature: 0.2}   # orchestrator
+  workers:  {provider: gemini,    model: gemini-2.0-flash}                      # symbiote workers
+  verifier: {provider: openai,    model: gpt-4o, temperature: 0}                # separate context
+  graph:    {provider: ollama,    model: "llama3.2:3b"}                         # legacy 7-node graph
+
+agents:                       # most specific wins
+  researcher: {provider: gemini,    model: gemini-2.0-flash}
+  writer:     {provider: anthropic, model: claude-sonnet-4-5}
+  critic:     {provider: openai,    model: gpt-4o}

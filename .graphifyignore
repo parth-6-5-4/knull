@@ -1,0 +1,15 @@
+# Keep generated maintenance artifacts and fixtures out of the source-code map.
+graphify-out/
+docs/reports/
+docs/research/
+docs/reviews/hive-gap-evidence.json
+web/package-lock.json
+integrations/mcp/uv.lock
+web/public/demo-run.json
+app_data/
+chroma_data/
+__pycache__/
+.pytest_cache/
+.venv/
+node_modules/
+web/dist/

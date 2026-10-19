@@ -1,0 +1,26 @@
+[build-system]
+requires = ["hatchling==1.29.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "hive-lite-mcp"
+version = "0.1.0"
+description = "Optional isolated MCP adapter for the Hive Lite HTTP API"
+requires-python = ">=3.12"
+dependencies = ["mcp==2.3.0", "httpx==0.28.1"]
+
+[project.scripts]
+hive-mcp = "hive_mcp.__main__:main"
+
+[dependency-groups]
+dev = ["pytest==8.4.2", "pytest-asyncio==1.2.0"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/hive_mcp"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+testpaths = ["tests"]
+addopts = "-q"
+

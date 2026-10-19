@@ -1,0 +1,270 @@
+{
+ "run_id": "dea13b4091d0",
+ "objective": "How do modern LLMs scale attention efficiently?",
+ "status": "done",
+ "report": "# How do modern LLMs scale attention efficiently?\n\n## Findings\nThe Transformer relies entirely on self-attention and dispenses with recurrence. [F-2bb60ad6]\n\nThe Transformer is based solely on attention mechanisms. [F-e43acbc1]\n\nSparse mixture-of-experts layers increase model capacity. [F-f884bfa6]\n\nMoE capacity grows without a proportional increase in compute. [F-53d5a9a6]\n\n## Sources\n- [F-2bb60ad6] Attention Is All You Need - https://arxiv.org/abs/1706.03762\n- [F-e43acbc1] Attention Is All You Need - https://arxiv.org/abs/1706.03762\n- [F-f884bfa6] Mixture of Experts Survey - https://arxiv.org/abs/2201.05596\n- [F-53d5a9a6] Mixture of Experts Survey - https://arxiv.org/abs/2201.05596\n",
+ "spent_tokens": 2599,
+ "budget_tokens": 150000,
+ "tasks": [
+  {
+   "id": "545b5094d7",
+   "kind": "research",
+   "title": "Transformer attention mechanism",
+   "status": "done",
+   "attempt": 1,
+   "deps": [],
+   "result": {
+    "claims_proposed": 2,
+    "claims_dropped_pre_verify": 0,
+    "sources": 3
+   }
+  },
+  {
+   "id": "29e9274a26",
+   "kind": "verify",
+   "title": "Verify: Transformer attention mechanism",
+   "status": "done",
+   "attempt": 1,
+   "deps": [
+    "545b5094d7"
+   ],
+   "result": {
+    "verified": 2,
+    "rejected": 0
+   }
+  },
+  {
+   "id": "eba0957a47",
+   "kind": "research",
+   "title": "Inference cost reduction",
+   "status": "done",
+   "attempt": 1,
+   "deps": [],
+   "result": {
+    "claims_proposed": 0,
+    "claims_dropped_pre_verify": 2,
+    "sources": 2
+   }
+  },
+  {
+   "id": "ba050b2db3",
+   "kind": "verify",
+   "title": "Verify: Inference cost reduction",
+   "status": "done",
+   "attempt": 1,
+   "deps": [
+    "eba0957a47"
+   ],
+   "result": {
+    "verified": 0,
+    "rejected": 0
+   }
+  },
+  {
+   "id": "245c42dba6",
+   "kind": "research",
+   "title": "Sparse model scaling",
+   "status": "done",
+   "attempt": 1,
+   "deps": [],
+   "result": {
+    "claims_proposed": 2,
+    "claims_dropped_pre_verify": 0,
+    "sources": 2
+   }
+  },
+  {
+   "id": "989ca2420c",
+   "kind": "verify",
+   "title": "Verify: Sparse model scaling",
+   "status": "done",
+   "attempt": 1,
+   "deps": [
+    "245c42dba6"
+   ],
+   "result": {
+    "verified": 2,
+    "rejected": 0
+   }
+  },
+  {
+   "id": "9d9a1f1575",
+   "kind": "write",
+   "title": "Write report",
+   "status": "done",
+   "attempt": 1,
+   "deps": [
+    "29e9274a26",
+    "ba050b2db3",
+    "989ca2420c"
+   ],
+   "result": {
+    "report": "# How do modern LLMs scale attention efficiently?\n\n## Findings\nThe Transformer relies entirely on self-attention and dispenses with recurrence. [F-2bb60ad6]\n\nThe Transformer is based solely on attention mechanisms. [F-e43acbc1]\n\nSparse mixture-of-experts layers increase model capacity. [F-f884bfa6]\n\nMoE capacity grows without a proportional increase in compute. [F-53d5a9a6]\n\n## Sources\n- [F-2bb60ad6] Attention Is All You Need - https://arxiv.org/abs/1706.03762\n- [F-e43acbc1] Attention Is All You Need - https://arxiv.org/abs/1706.03762\n- [F-f884bfa6] Mixture of Experts Survey - https://arxiv.org/abs/2201.05596\n- [F-53d5a9a6] Mixture of Experts Survey - https://arxiv.org/abs/2201.05596\n",
+    "gate": {
+     "sentences": 4,
+     "removed_uncited_or_unverified": [],
+     "passed": true
+    }
+   }
+  }
+ ],
+ "facts": [
+  {
+   "id": "F-2bb60ad6",
+   "task_id": "545b5094d7",
+   "claim": "The Transformer relies entirely on self-attention and dispenses with recurrence.",
+   "status": "verified",
+   "note": "directly entailed",
+   "quote": "relies entirely on self-attention and dispenses with recurrence",
+   "evidence_id": "E-9c02c848"
+  },
+  {
+   "id": "F-e43acbc1",
+   "task_id": "545b5094d7",
+   "claim": "The Transformer is based solely on attention mechanisms.",
+   "status": "verified",
+   "note": "directly entailed",
+   "quote": "based solely on attention mechanisms",
+   "evidence_id": "E-9c02c848"
+  },
+  {
+   "id": "F-f884bfa6",
+   "task_id": "245c42dba6",
+   "claim": "Sparse mixture-of-experts layers increase model capacity.",
+   "status": "verified",
+   "note": "directly entailed",
+   "quote": "increase model capacity",
+   "evidence_id": "E-c735bcb7"
+  },
+  {
+   "id": "F-53d5a9a6",
+   "task_id": "245c42dba6",
+   "claim": "MoE capacity grows without a proportional increase in compute.",
+   "status": "verified",
+   "note": "directly entailed",
+   "quote": "without a proportional increase in compute",
+   "evidence_id": "E-c735bcb7"
+  }
+ ],
+ "usage_by_route": [
+  {
+   "layer": "knull",
+   "agent": "planner",
+   "provider": "mock",
+   "model": "m-default",
+   "calls": 1,
+   "in_tok": 156,
+   "out_tok": 67
+  },
+  {
+   "layer": "verifier",
+   "agent": "verifier",
+   "provider": "mock",
+   "model": "m-default",
+   "calls": 4,
+   "in_tok": 835,
+   "out_tok": 52
+  },
+  {
+   "layer": "workers",
+   "agent": "researcher",
+   "provider": "mock",
+   "model": "m-default",
+   "calls": 3,
+   "in_tok": 930,
+   "out_tok": 251
+  },
+  {
+   "layer": "workers",
+   "agent": "writer",
+   "provider": "mock",
+   "model": "m-default",
+   "calls": 1,
+   "in_tok": 227,
+   "out_tok": 81
+  }
+ ],
+ "events": [
+  {
+   "ts": 1792242802.8130584,
+   "kind": "plan",
+   "subtasks": [
+    {
+     "title": "Transformer attention mechanism",
+     "query": "self-attention transformer architecture"
+    },
+    {
+     "title": "Inference cost reduction",
+     "query": "semantic caching inference cost"
+    },
+    {
+     "title": "Sparse model scaling",
+     "query": "mixture of experts scaling"
+    }
+   ]
+  },
+  {
+   "ts": 1792242802.8134937,
+   "kind": "claim",
+   "task": "545b5094d7",
+   "task_kind": "research",
+   "worker": "symbiote-1",
+   "attempt": 1,
+   "fence": 1
+  },
+  {
+   "ts": 1792242802.8140335,
+   "kind": "claim",
+   "task": "29e9274a26",
+   "task_kind": "verify",
+   "worker": "symbiote-1",
+   "attempt": 1,
+   "fence": 1
+  },
+  {
+   "ts": 1792242802.8142745,
+   "kind": "claim",
+   "task": "eba0957a47",
+   "task_kind": "research",
+   "worker": "symbiote-1",
+   "attempt": 1,
+   "fence": 1
+  },
+  {
+   "ts": 1792242802.8144262,
+   "kind": "claim",
+   "task": "ba050b2db3",
+   "task_kind": "verify",
+   "worker": "symbiote-1",
+   "attempt": 1,
+   "fence": 1
+  },
+  {
+   "ts": 1792242802.8144987,
+   "kind": "claim",
+   "task": "245c42dba6",
+   "task_kind": "research",
+   "worker": "symbiote-1",
+   "attempt": 1,
+   "fence": 1
+  },
+  {
+   "ts": 1792242802.814646,
+   "kind": "claim",
+   "task": "989ca2420c",
+   "task_kind": "verify",
+   "worker": "symbiote-1",
+   "attempt": 1,
+   "fence": 1
+  },
+  {
+   "ts": 1792242802.8148491,
+   "kind": "claim",
+   "task": "9d9a1f1575",
+   "task_kind": "write",
+   "worker": "symbiote-1",
+   "attempt": 1,
+   "fence": 1
+  }
+ ]
+}
