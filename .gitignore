@@ -58,3 +58,23 @@ htmlcov/
 graphify-out/cache/
 graphify-out/.graphify*
 graphify-out/20??-??-??/
+
+# Local agent workspaces, personal host setup and generated review intermediates.
+.local-only/
+.superpowers/
+.archify/
+.codex/
+.agents/
+.mcp.json
+graphify-out/memory/
+graphify-out/reflections/
+graphify-out/.vocab.txt
+
+# Secrets and machine installation logs; keep only explicit example templates.
+.env.*
+!.env.example
+!.env.sample
+*.pem
+*.key
+docs/reports/hive-003/frontend-dependencies*.txt
+docs/reports/hive-003/browser-install.txt

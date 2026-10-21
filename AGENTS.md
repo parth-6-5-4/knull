@@ -24,6 +24,7 @@ Skill discovery and missing-skill handling are documented in `docs/DEVELOPMENT.m
 - The hive and legacy LangGraph are separate execution paths. Identify which one each change affects and verify the entrypoint actually used.
 - Update the governing spec when intended behavior changes. Keep implementation checklists and executed verification evidence in the linked plan.
 - Check the actual Git root before worktree, staging, commit, or push operations. Operate on a project-owned checkout; do not stage unrelated parent-directory content.
+- Before staging or pushing, apply [the local-only publication rules](docs/LOCAL_ONLY.md). Keep personal host configuration, agent scratch workspaces, query history and runtime data out of commits; inspect already tracked files as well as ignore rules.
 
 ## Completion
 
