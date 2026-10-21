@@ -17,9 +17,19 @@ import uuid
 from typing import Optional
 
 from app.hive.schema import SCHEMA, initialize_hive_schema
+from app.hive.reporting import (
+    MAX_CANDIDATES, ReportInputError, ReportSelectionError, ReportSnapshot,
+    ReportSnapshotChanged, WriterAssignment, render_report, snapshot_from_rows,
+)
 
 TERMINAL = ("done", "exhausted", "failed", "blocked")
 TASK_KINDS = {"research", "verify", "write"}
+_REPORT_ROWS = (
+    "SELECT f.id,f.run_id,f.status,f.claim,f.evidence_id,f.quote,"
+    "e.run_id AS evidence_run_id,e.source_id,e.title,e.url,e.text "
+    "FROM facts f JOIN evidence e ON e.run_id=f.run_id AND e.id=f.evidence_id "
+    "WHERE f.run_id=? AND f.status='verified'"
+)
 
 
 class TaskGraphError(ValueError):
@@ -142,25 +152,33 @@ class HiveStore:
             return self._holds(task_id, worker, attempt, fence, time.time() if now is None else now)
 
     def heartbeat(self, task_id, worker, attempt, fence, lease_s=600, now=None) -> bool:
-        now = time.time() if now is None else now
         with self._lock:
-            changed = self.db.execute(
-                "UPDATE tasks SET lease_expires=? WHERE id=? AND status='claimed' AND owner=? "
-                "AND attempt=? AND fence=? AND lease_expires>?",
-                (now + lease_s, task_id, worker, attempt, fence, now))
-            return changed.rowcount == 1
+            self.db.execute("BEGIN IMMEDIATE")
+            try:
+                now = time.time() if now is None else now
+                changed = self.db.execute(
+                    "UPDATE tasks SET lease_expires=? WHERE id=? AND status='claimed' AND owner=? "
+                    "AND attempt=? AND fence=? AND lease_expires>?",
+                    (now + lease_s, task_id, worker, attempt, fence, now))
+                self.db.execute("COMMIT")
+                return changed.rowcount == 1
+            except BaseException:
+                self.db.execute("ROLLBACK")
+                raise
 
     def publish(self, task_id, worker, attempt, fence, result: dict, evidence: Optional[list[dict]] = None,
                 facts: Optional[list[dict]] = None, now: Optional[float] = None) -> bool:
         """Write result + evidence + proposed facts in ONE transaction, only if the claim is still held."""
-        now = now if now is not None else time.time()
         with self._lock:
             self.db.execute("BEGIN IMMEDIATE")
             try:
+                now = time.time() if now is None else now
                 if not self._holds(task_id, worker, attempt, fence, now):
                     self.db.execute("ROLLBACK")
                     return False
-                t = self.db.execute("SELECT run_id FROM tasks WHERE id=?", (task_id,)).fetchone()
+                t = self.db.execute("SELECT run_id,kind FROM tasks WHERE id=?", (task_id,)).fetchone()
+                if t["kind"] == "write":
+                    raise TaskGraphError("Writer tasks require report publication")
                 run_id = t["run_id"]
                 for e in evidence or []:
                     eid = e.get("id")
@@ -183,7 +201,7 @@ class HiveStore:
                     self.db.execute("INSERT OR IGNORE INTO facts(id,run_id,task_id,claim,evidence_id,quote,status,note) VALUES(?,?,?,?,?,?,?,?)",
                                     (f["id"], run_id, task_id, f["claim"], f.get("evidence_id"), f.get("quote"),
                                      f.get("status", "proposed"), f.get("note", "")))
-                self.db.execute("UPDATE tasks SET status='done', result=? WHERE id=?", (json.dumps(result), task_id))
+                self._complete_task(task_id, result)
                 self.db.execute("COMMIT")
                 return True
             except Exception:
@@ -193,35 +211,113 @@ class HiveStore:
     def set_fact_status(self, task_id, worker, attempt, fence, updates: dict[str, tuple[str, str]],
                         result: dict, now: Optional[float] = None) -> bool:
         """Verifier publication: {fact_id: (status, note)} + task done, atomically, fence-checked."""
-        now = now if now is not None else time.time()
         with self._lock:
             self.db.execute("BEGIN IMMEDIATE")
             try:
+                now = time.time() if now is None else now
                 if not self._holds(task_id, worker, attempt, fence, now):
                     self.db.execute("ROLLBACK")
                     return False
-                run_id = self.db.execute("SELECT run_id FROM tasks WHERE id=?", (task_id,)).fetchone()[0]
+                task = self.db.execute("SELECT run_id,kind FROM tasks WHERE id=?", (task_id,)).fetchone()
+                if task["kind"] != "verify":
+                    raise TaskGraphError("Fact-status publication requires a verifier task")
+                run_id = task["run_id"]
                 for fid, (status, note) in updates.items():
                     fact = self.db.execute("SELECT evidence_id FROM facts WHERE id=? AND run_id=?", (fid, run_id)).fetchone()
                     if fact is None or (status == "verified" and not self.db.execute(
                             "SELECT 1 FROM evidence WHERE run_id=? AND id=?", (run_id, fact[0])).fetchone()):
                         raise EvidenceIntegrityError(f"run {run_id}: unresolved provenance for fact {fid}")
                     self.db.execute("UPDATE facts SET status=?, note=? WHERE id=? AND run_id=?", (status, note, fid, run_id))
-                self.db.execute("UPDATE tasks SET status='done', result=? WHERE id=?", (json.dumps(result), task_id))
+                self._complete_task(task_id, result)
                 self.db.execute("COMMIT")
                 return True
             except Exception:
                 self.db.execute("ROLLBACK")
                 raise
 
-    def _transition_attempt(self, task_id, worker, attempt, fence, status, reason, code, now):
-        now = time.time() if now is None else now
+    def _complete_task(self, task_id: str, result: dict) -> None:
+        """Complete inside the caller's fenced write transaction; never acquire the lock."""
+        self.db.execute("UPDATE tasks SET status='done', result=? WHERE id=?", (json.dumps(result), task_id))
+
+    def report_snapshot(self, run_id: str, objective: str, *,
+                        assignment: WriterAssignment | None = None) -> ReportSnapshot:
+        """Capture count and candidate sources in one short SQLite read snapshot."""
         with self._lock:
-            changed = self.db.execute(
-                "UPDATE tasks SET status=?, owner=NULL, lease_expires=NULL, result=? "
-                "WHERE id=? AND owner=? AND attempt=? AND fence=? AND status='claimed' AND lease_expires>?",
-                (status, json.dumps({"error": reason, "code": code}), task_id, worker, attempt, fence, now))
-            return changed.rowcount == 1
+            self.db.execute("BEGIN")
+            try:
+                count = self.db.execute("SELECT COUNT(*) FROM (" + _REPORT_ROWS + ")", (run_id,)).fetchone()[0]
+                rows = self.db.execute(_REPORT_ROWS + " ORDER BY f.id LIMIT ?", (run_id, MAX_CANDIDATES)).fetchall()
+                self.db.execute("COMMIT")
+            except BaseException:
+                self.db.execute("ROLLBACK")
+                raise
+        # Hashing/validation and subsequent model dispatch happen after releasing the read.
+        return snapshot_from_rows(run_id, objective, [dict(row) for row in rows], count, assignment)
+
+    def publish_report(self, task_id: str, worker: str, attempt: int, fence: int,
+                       snapshot: ReportSnapshot, report: str, gate: dict, *,
+                       now: float | None = None) -> bool:
+        """Fence, recheck selected provenance, and commit only deterministic report output."""
+        with self._lock:
+            self.db.execute("BEGIN IMMEDIATE")
+            try:
+                now = time.time() if now is None else now
+                if not self._holds(task_id, worker, attempt, fence, now):
+                    self.db.execute("ROLLBACK")
+                    return False
+                task = self.db.execute("SELECT run_id,kind FROM tasks WHERE id=?", (task_id,)).fetchone()
+                if task["kind"] != "write":
+                    raise TaskGraphError("Report publication requires a writer task")
+                if (not isinstance(snapshot, ReportSnapshot) or snapshot.run_id != task["run_id"]
+                        or snapshot.assignment != WriterAssignment(task_id, worker, attempt, fence)):
+                    raise ReportInputError("report_assignment_mismatch")
+                if type(gate) is not dict or type(gate.get("selected_fact_ids")) is not list:
+                    raise ReportInputError("report_gate_invalid")
+                selected = tuple(gate["selected_fact_ids"])
+                try:
+                    expected_report, expected_gate = render_report(snapshot, selected)
+                except ReportSelectionError:
+                    raise ReportInputError("report_selection_invalid") from None
+                candidates = {fact.id: fact for fact in snapshot.candidates}
+                for fact_id in selected:
+                    row = self.db.execute(_REPORT_ROWS + " AND f.id=?", (task["run_id"], fact_id)).fetchone()
+                    if row is None:
+                        raise ReportSnapshotChanged("report_selected_fact_missing")
+                    try:
+                        current = snapshot_from_rows(snapshot.run_id, snapshot.objective, [dict(row)], 1).candidates[0]
+                    except ReportInputError:
+                        raise ReportSnapshotChanged("report_selected_fact_changed") from None
+                    # Equality also rejects caller-edited display fields with unchanged digest fields.
+                    if current != candidates[fact_id]:
+                        raise ReportSnapshotChanged("report_selected_fact_changed")
+                try:
+                    gate_matches = json.dumps(gate, sort_keys=True, allow_nan=False) == json.dumps(
+                        expected_gate, sort_keys=True, allow_nan=False)
+                except (TypeError, ValueError, RecursionError):
+                    raise ReportInputError("report_gate_invalid") from None
+                if type(report) is not str or report != expected_report or not gate_matches:
+                    raise ReportInputError("report_artifact_mismatch")
+                self._complete_task(task_id, {"report": expected_report, "gate": expected_gate})
+                self.db.execute("COMMIT")
+                return True
+            except BaseException:
+                self.db.execute("ROLLBACK")
+                raise
+
+    def _transition_attempt(self, task_id, worker, attempt, fence, status, reason, code, now):
+        with self._lock:
+            self.db.execute("BEGIN IMMEDIATE")
+            try:
+                now = time.time() if now is None else now
+                changed = self.db.execute(
+                    "UPDATE tasks SET status=?, owner=NULL, lease_expires=NULL, result=? "
+                    "WHERE id=? AND owner=? AND attempt=? AND fence=? AND status='claimed' AND lease_expires>?",
+                    (status, json.dumps({"error": reason, "code": code}), task_id, worker, attempt, fence, now))
+                self.db.execute("COMMIT")
+                return changed.rowcount == 1
+            except BaseException:
+                self.db.execute("ROLLBACK")
+                raise
 
     def release(self, task_id, worker, attempt, fence, error, *, now=None, code="execution_error") -> bool:
         """Retry only a still-current live assignment."""

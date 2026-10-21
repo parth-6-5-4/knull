@@ -1,0 +1,52 @@
+/opt/anaconda3/lib/python3.12/site-packages/pytest_asyncio/plugin.py:247: PytestDeprecationWarning: The configuration option "asyncio_default_fixture_loop_scope" is unset.
+The event loop scope for asynchronous fixtures will default to the fixture caching scope. Future versions of pytest-asyncio will default the loop scope for asynchronous fixtures to function scope. Set the default fixture loop scope explicitly in order to avoid unexpected behavior in the future. Valid fixture loop scopes are: "function", "class", "module", "package", "session"
+
+  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))
+============================= test session starts ==============================
+platform darwin -- Python 3.12.7, pytest-8.2.2, pluggy-1.6.0
+rootdir: /Users/parthsdambhare/hive-lite-v5
+configfile: pytest.ini
+plugins: mock-3.15.1, anyio-4.9.0, asyncio-1.3.0, cov-7.0.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 40 items / 34 deselected / 6 selected
+
+tests/test_hive_report_store.py FFFFFF                                   [100%]
+
+=================================== FAILURES ===================================
+_______ test_report_publication_rechecks_lease_after_database_contention _______
+tests/test_hive_report_store.py:266: in test_report_publication_rechecks_lease_after_database_contention
+    assert accepted is False
+E   assert True is False
+___ test_existing_mutation_rechecks_lease_after_database_contention[publish] ___
+tests/test_hive_report_store.py:293: in test_existing_mutation_rechecks_lease_after_database_contention
+    assert after_database_contention(store, assignment, mutate) is False
+E   AssertionError: assert True is False
+E    +  where True = after_database_contention(<app.hive.store.HiveStore object at 0x106a9bd10>, WriterAssignment(task_id='8af2115523', worker='writer', attempt=1, fence=1), <function test_existing_mutation_rechecks_lease_after_database_contention.<locals>.mutate at 0x106a90a40>)
+_ test_existing_mutation_rechecks_lease_after_database_contention[set_fact_status] _
+tests/test_hive_report_store.py:293: in test_existing_mutation_rechecks_lease_after_database_contention
+    assert after_database_contention(store, assignment, mutate) is False
+E   AssertionError: assert True is False
+E    +  where True = after_database_contention(<app.hive.store.HiveStore object at 0x106aaade0>, WriterAssignment(task_id='ff9567857a', worker='writer', attempt=1, fence=1), <function test_existing_mutation_rechecks_lease_after_database_contention.<locals>.mutate at 0x106a92ca0>)
+__ test_existing_mutation_rechecks_lease_after_database_contention[heartbeat] __
+tests/test_hive_report_store.py:293: in test_existing_mutation_rechecks_lease_after_database_contention
+    assert after_database_contention(store, assignment, mutate) is False
+E   AssertionError: assert True is False
+E    +  where True = after_database_contention(<app.hive.store.HiveStore object at 0x106aaae70>, WriterAssignment(task_id='5fe7fd1944', worker='writer', attempt=1, fence=1), <function test_existing_mutation_rechecks_lease_after_database_contention.<locals>.mutate at 0x106a93240>)
+___ test_existing_mutation_rechecks_lease_after_database_contention[release] ___
+tests/test_hive_report_store.py:293: in test_existing_mutation_rechecks_lease_after_database_contention
+    assert after_database_contention(store, assignment, mutate) is False
+E   AssertionError: assert True is False
+E    +  where True = after_database_contention(<app.hive.store.HiveStore object at 0x106aa9eb0>, WriterAssignment(task_id='33b204aa81', worker='writer', attempt=1, fence=1), <function test_existing_mutation_rechecks_lease_after_database_contention.<locals>.mutate at 0x106a93920>)
+___ test_existing_mutation_rechecks_lease_after_database_contention[exhaust] ___
+tests/test_hive_report_store.py:293: in test_existing_mutation_rechecks_lease_after_database_contention
+    assert after_database_contention(store, assignment, mutate) is False
+E   AssertionError: assert True is False
+E    +  where True = after_database_contention(<app.hive.store.HiveStore object at 0x106aabec0>, WriterAssignment(task_id='6f0dbbbdfa', worker='writer', attempt=1, fence=1), <function test_existing_mutation_rechecks_lease_after_database_contention.<locals>.mutate at 0x106a937e0>)
+=========================== short test summary info ============================
+FAILED tests/test_hive_report_store.py::test_report_publication_rechecks_lease_after_database_contention
+FAILED tests/test_hive_report_store.py::test_existing_mutation_rechecks_lease_after_database_contention[publish]
+FAILED tests/test_hive_report_store.py::test_existing_mutation_rechecks_lease_after_database_contention[set_fact_status]
+FAILED tests/test_hive_report_store.py::test_existing_mutation_rechecks_lease_after_database_contention[heartbeat]
+FAILED tests/test_hive_report_store.py::test_existing_mutation_rechecks_lease_after_database_contention[release]
+FAILED tests/test_hive_report_store.py::test_existing_mutation_rechecks_lease_after_database_contention[exhaust]
+======================= 6 failed, 34 deselected in 2.45s =======================

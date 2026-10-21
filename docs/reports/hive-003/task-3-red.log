@@ -1,0 +1,237 @@
+/opt/anaconda3/lib/python3.12/site-packages/pytest_asyncio/plugin.py:247: PytestDeprecationWarning: The configuration option "asyncio_default_fixture_loop_scope" is unset.
+The event loop scope for asynchronous fixtures will default to the fixture caching scope. Future versions of pytest-asyncio will default the loop scope for asynchronous fixtures to function scope. Set the default fixture loop scope explicitly in order to avoid unexpected behavior in the future. Valid fixture loop scopes are: "function", "class", "module", "package", "session"
+
+  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))
+============================= test session starts ==============================
+platform darwin -- Python 3.12.7, pytest-8.2.2, pluggy-1.6.0
+rootdir: /Users/parthsdambhare/hive-lite-v5
+configfile: pytest.ini
+plugins: mock-3.15.1, anyio-4.9.0, asyncio-1.3.0, cov-7.0.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 34 items
+
+tests/test_hive_report_store.py FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF       [100%]
+
+=================================== FAILURES ===================================
+___________ test_snapshot_excludes_unaccepted_or_foreign_provenance ____________
+tests/test_hive_report_store.py:74: in test_snapshot_excludes_unaccepted_or_foreign_provenance
+    snapshot = store.report_snapshot(run, "own")
+E   AttributeError: 'HiveStore' object has no attribute 'report_snapshot'
+_______________________ test_candidate_window_is_stable ________________________
+tests/test_hive_report_store.py:84: in test_candidate_window_is_stable
+    snapshot = store.report_snapshot(run, "Objective")
+E   AttributeError: 'HiveStore' object has no attribute 'report_snapshot'
+________________________ test_snapshot_read_is_coherent ________________________
+tests/test_hive_report_store.py:117: in test_snapshot_read_is_coherent
+    snapshot = store.report_snapshot(run, "Objective")
+E   AttributeError: 'HiveStore' object has no attribute 'report_snapshot'
+____________ test_snapshot_releases_transaction_before_model_await _____________
+tests/test_hive_report_store.py:132: in test_snapshot_releases_transaction_before_model_await
+    snapshot = store.report_snapshot(run, "Objective")
+E   AttributeError: 'HiveStore' object has no attribute 'report_snapshot'
+______________ test_changed_snapshot_publication_is_atomic[claim] ______________
+tests/test_hive_report_store.py:149: in test_changed_snapshot_publication_is_atomic
+    run, assignment, snapshot, report, gate = prepared(store)
+tests/test_hive_report_store.py:59: in prepared
+    snapshot = store.report_snapshot(run, "Objective", assignment=assignment)
+E   AttributeError: 'HiveStore' object has no attribute 'report_snapshot'
+______________ test_changed_snapshot_publication_is_atomic[quote] ______________
+tests/test_hive_report_store.py:149: in test_changed_snapshot_publication_is_atomic
+    run, assignment, snapshot, report, gate = prepared(store)
+tests/test_hive_report_store.py:59: in prepared
+    snapshot = store.report_snapshot(run, "Objective", assignment=assignment)
+E   AttributeError: 'HiveStore' object has no attribute 'report_snapshot'
+________ test_changed_snapshot_publication_is_atomic[evidence_binding] _________
+tests/test_hive_report_store.py:149: in test_changed_snapshot_publication_is_atomic
+    run, assignment, snapshot, report, gate = prepared(store)
+tests/test_hive_report_store.py:59: in prepared
+    snapshot = store.report_snapshot(run, "Objective", assignment=assignment)
+E   AttributeError: 'HiveStore' object has no attribute 'report_snapshot'
+____________ test_changed_snapshot_publication_is_atomic[source_id] ____________
+tests/test_hive_report_store.py:149: in test_changed_snapshot_publication_is_atomic
+    run, assignment, snapshot, report, gate = prepared(store)
+tests/test_hive_report_store.py:59: in prepared
+    snapshot = store.report_snapshot(run, "Objective", assignment=assignment)
+E   AttributeError: 'HiveStore' object has no attribute 'report_snapshot'
+______________ test_changed_snapshot_publication_is_atomic[text] _______________
+tests/test_hive_report_store.py:149: in test_changed_snapshot_publication_is_atomic
+    run, assignment, snapshot, report, gate = prepared(store)
+tests/test_hive_report_store.py:59: in prepared
+    snapshot = store.report_snapshot(run, "Objective", assignment=assignment)
+E   AttributeError: 'HiveStore' object has no attribute 'report_snapshot'
+______________ test_changed_snapshot_publication_is_atomic[title] ______________
+tests/test_hive_report_store.py:149: in test_changed_snapshot_publication_is_atomic
+    run, assignment, snapshot, report, gate = prepared(store)
+tests/test_hive_report_store.py:59: in prepared
+    snapshot = store.report_snapshot(run, "Objective", assignment=assignment)
+E   AttributeError: 'HiveStore' object has no attribute 'report_snapshot'
+_______________ test_changed_snapshot_publication_is_atomic[url] _______________
+tests/test_hive_report_store.py:149: in test_changed_snapshot_publication_is_atomic
+    run, assignment, snapshot, report, gate = prepared(store)
+tests/test_hive_report_store.py:59: in prepared
+    snapshot = store.report_snapshot(run, "Objective", assignment=assignment)
+E   AttributeError: 'HiveStore' object has no attribute 'report_snapshot'
+_____________ test_changed_snapshot_publication_is_atomic[revoked] _____________
+tests/test_hive_report_store.py:149: in test_changed_snapshot_publication_is_atomic
+    run, assignment, snapshot, report, gate = prepared(store)
+tests/test_hive_report_store.py:59: in prepared
+    snapshot = store.report_snapshot(run, "Objective", assignment=assignment)
+E   AttributeError: 'HiveStore' object has no attribute 'report_snapshot'
+__________ test_changed_snapshot_publication_is_atomic[removed_fact] ___________
+tests/test_hive_report_store.py:149: in test_changed_snapshot_publication_is_atomic
+    run, assignment, snapshot, report, gate = prepared(store)
+tests/test_hive_report_store.py:59: in prepared
+    snapshot = store.report_snapshot(run, "Objective", assignment=assignment)
+E   AttributeError: 'HiveStore' object has no attribute 'report_snapshot'
+_________ test_changed_snapshot_publication_is_atomic[removed_source] __________
+tests/test_hive_report_store.py:149: in test_changed_snapshot_publication_is_atomic
+    run, assignment, snapshot, report, gate = prepared(store)
+tests/test_hive_report_store.py:59: in prepared
+    snapshot = store.report_snapshot(run, "Objective", assignment=assignment)
+E   AttributeError: 'HiveStore' object has no attribute 'report_snapshot'
+____________ test_changed_snapshot_publication_is_atomic[fact_run] _____________
+tests/test_hive_report_store.py:149: in test_changed_snapshot_publication_is_atomic
+    run, assignment, snapshot, report, gate = prepared(store)
+tests/test_hive_report_store.py:59: in prepared
+    snapshot = store.report_snapshot(run, "Objective", assignment=assignment)
+E   AttributeError: 'HiveStore' object has no attribute 'report_snapshot'
+___________ test_changed_snapshot_publication_is_atomic[source_run] ____________
+tests/test_hive_report_store.py:149: in test_changed_snapshot_publication_is_atomic
+    run, assignment, snapshot, report, gate = prepared(store)
+tests/test_hive_report_store.py:59: in prepared
+    snapshot = store.report_snapshot(run, "Objective", assignment=assignment)
+E   AttributeError: 'HiveStore' object has no attribute 'report_snapshot'
+_________ test_changed_snapshot_publication_is_atomic[malformed_claim] _________
+tests/test_hive_report_store.py:149: in test_changed_snapshot_publication_is_atomic
+    run, assignment, snapshot, report, gate = prepared(store)
+tests/test_hive_report_store.py:59: in prepared
+    snapshot = store.report_snapshot(run, "Objective", assignment=assignment)
+E   AttributeError: 'HiveStore' object has no attribute 'report_snapshot'
+________ test_changed_snapshot_publication_is_atomic[malformed_source] _________
+tests/test_hive_report_store.py:149: in test_changed_snapshot_publication_is_atomic
+    run, assignment, snapshot, report, gate = prepared(store)
+tests/test_hive_report_store.py:59: in prepared
+    snapshot = store.report_snapshot(run, "Objective", assignment=assignment)
+E   AttributeError: 'HiveStore' object has no attribute 'report_snapshot'
+___________ test_publication_requires_matching_snapshot_binding[run] ___________
+tests/test_hive_report_store.py:182: in test_publication_requires_matching_snapshot_binding
+    run, assignment, snapshot, report, gate = prepared(store)
+tests/test_hive_report_store.py:59: in prepared
+    snapshot = store.report_snapshot(run, "Objective", assignment=assignment)
+E   AttributeError: 'HiveStore' object has no attribute 'report_snapshot'
+_______ test_publication_requires_matching_snapshot_binding[assignment] ________
+tests/test_hive_report_store.py:182: in test_publication_requires_matching_snapshot_binding
+    run, assignment, snapshot, report, gate = prepared(store)
+tests/test_hive_report_store.py:59: in prepared
+    snapshot = store.report_snapshot(run, "Objective", assignment=assignment)
+E   AttributeError: 'HiveStore' object has no attribute 'report_snapshot'
+_________ test_publication_requires_matching_snapshot_binding[unbound] _________
+tests/test_hive_report_store.py:182: in test_publication_requires_matching_snapshot_binding
+    run, assignment, snapshot, report, gate = prepared(store)
+tests/test_hive_report_store.py:59: in prepared
+    snapshot = store.report_snapshot(run, "Objective", assignment=assignment)
+E   AttributeError: 'HiveStore' object has no attribute 'report_snapshot'
+______________ test_unselected_fact_change_does_not_block_report _______________
+tests/test_hive_report_store.py:195: in test_unselected_fact_change_does_not_block_report
+    run, assignment, snapshot, report, gate = prepared(store)
+tests/test_hive_report_store.py:59: in prepared
+    snapshot = store.report_snapshot(run, "Objective", assignment=assignment)
+E   AttributeError: 'HiveStore' object has no attribute 'report_snapshot'
+___________________ test_stale_report_attempt_cannot_publish ___________________
+tests/test_hive_report_store.py:209: in test_stale_report_attempt_cannot_publish
+    run, old, snapshot, report, gate = prepared(store)
+tests/test_hive_report_store.py:59: in prepared
+    snapshot = store.report_snapshot(run, "Objective", assignment=assignment)
+E   AttributeError: 'HiveStore' object has no attribute 'report_snapshot'
+_______________ test_generic_publication_cannot_complete_writer ________________
+tests/test_hive_report_store.py:233: in test_generic_publication_cannot_complete_writer
+    with pytest.raises(TaskGraphError):
+E   Failed: DID NOT RAISE <class 'app.hive.store.TaskGraphError'>
+___________ test_verifier_publication_cannot_complete_writer[write] ____________
+tests/test_hive_report_store.py:243: in test_verifier_publication_cannot_complete_writer
+    with pytest.raises(TaskGraphError):
+E   Failed: DID NOT RAISE <class 'app.hive.store.TaskGraphError'>
+__________ test_verifier_publication_cannot_complete_writer[research] __________
+tests/test_hive_report_store.py:243: in test_verifier_publication_cannot_complete_writer
+    with pytest.raises(TaskGraphError):
+E   Failed: DID NOT RAISE <class 'app.hive.store.TaskGraphError'>
+____________ test_report_publication_rejects_nonwriter_task[verify] ____________
+tests/test_hive_report_store.py:254: in test_report_publication_rejects_nonwriter_task
+    snapshot = store.report_snapshot(run, "Objective", assignment=assignment)
+E   AttributeError: 'HiveStore' object has no attribute 'report_snapshot'
+___________ test_report_publication_rejects_nonwriter_task[research] ___________
+tests/test_hive_report_store.py:254: in test_report_publication_rejects_nonwriter_task
+    snapshot = store.report_snapshot(run, "Objective", assignment=assignment)
+E   AttributeError: 'HiveStore' object has no attribute 'report_snapshot'
+__________________ test_forged_report_body_is_rejected[body] ___________________
+tests/test_hive_report_store.py:263: in test_forged_report_body_is_rejected
+    run, assignment, snapshot, report, gate = prepared(store)
+tests/test_hive_report_store.py:59: in prepared
+    snapshot = store.report_snapshot(run, "Objective", assignment=assignment)
+E   AttributeError: 'HiveStore' object has no attribute 'report_snapshot'
+__________________ test_forged_report_body_is_rejected[gate] ___________________
+tests/test_hive_report_store.py:263: in test_forged_report_body_is_rejected
+    run, assignment, snapshot, report, gate = prepared(store)
+tests/test_hive_report_store.py:59: in prepared
+    snapshot = store.report_snapshot(run, "Objective", assignment=assignment)
+E   AttributeError: 'HiveStore' object has no attribute 'report_snapshot'
+________________ test_forged_report_body_is_rejected[selection] ________________
+tests/test_hive_report_store.py:263: in test_forged_report_body_is_rejected
+    run, assignment, snapshot, report, gate = prepared(store)
+tests/test_hive_report_store.py:59: in prepared
+    snapshot = store.report_snapshot(run, "Objective", assignment=assignment)
+E   AttributeError: 'HiveStore' object has no attribute 'report_snapshot'
+____________ test_forged_report_body_is_rejected[missing_selection] ____________
+tests/test_hive_report_store.py:263: in test_forged_report_body_is_rejected
+    run, assignment, snapshot, report, gate = prepared(store)
+tests/test_hive_report_store.py:59: in prepared
+    snapshot = store.report_snapshot(run, "Objective", assignment=assignment)
+E   AttributeError: 'HiveStore' object has no attribute 'report_snapshot'
+____________________ test_report_provenance_survives_reopen ____________________
+tests/test_hive_report_store.py:278: in test_report_provenance_survives_reopen
+    run, assignment, snapshot, report, gate = prepared(store)
+tests/test_hive_report_store.py:59: in prepared
+    snapshot = store.report_snapshot(run, "Objective", assignment=assignment)
+E   AttributeError: 'HiveStore' object has no attribute 'report_snapshot'
+_________ test_no_findings_publication_keeps_explicit_failure_metadata _________
+tests/test_hive_report_store.py:307: in test_no_findings_publication_keeps_explicit_failure_metadata
+    run, assignment, snapshot, _, _ = prepared(store)
+tests/test_hive_report_store.py:59: in prepared
+    snapshot = store.report_snapshot(run, "Objective", assignment=assignment)
+E   AttributeError: 'HiveStore' object has no attribute 'report_snapshot'
+=========================== short test summary info ============================
+FAILED tests/test_hive_report_store.py::test_snapshot_excludes_unaccepted_or_foreign_provenance
+FAILED tests/test_hive_report_store.py::test_candidate_window_is_stable - Att...
+FAILED tests/test_hive_report_store.py::test_snapshot_read_is_coherent - Attr...
+FAILED tests/test_hive_report_store.py::test_snapshot_releases_transaction_before_model_await
+FAILED tests/test_hive_report_store.py::test_changed_snapshot_publication_is_atomic[claim]
+FAILED tests/test_hive_report_store.py::test_changed_snapshot_publication_is_atomic[quote]
+FAILED tests/test_hive_report_store.py::test_changed_snapshot_publication_is_atomic[evidence_binding]
+FAILED tests/test_hive_report_store.py::test_changed_snapshot_publication_is_atomic[source_id]
+FAILED tests/test_hive_report_store.py::test_changed_snapshot_publication_is_atomic[text]
+FAILED tests/test_hive_report_store.py::test_changed_snapshot_publication_is_atomic[title]
+FAILED tests/test_hive_report_store.py::test_changed_snapshot_publication_is_atomic[url]
+FAILED tests/test_hive_report_store.py::test_changed_snapshot_publication_is_atomic[revoked]
+FAILED tests/test_hive_report_store.py::test_changed_snapshot_publication_is_atomic[removed_fact]
+FAILED tests/test_hive_report_store.py::test_changed_snapshot_publication_is_atomic[removed_source]
+FAILED tests/test_hive_report_store.py::test_changed_snapshot_publication_is_atomic[fact_run]
+FAILED tests/test_hive_report_store.py::test_changed_snapshot_publication_is_atomic[source_run]
+FAILED tests/test_hive_report_store.py::test_changed_snapshot_publication_is_atomic[malformed_claim]
+FAILED tests/test_hive_report_store.py::test_changed_snapshot_publication_is_atomic[malformed_source]
+FAILED tests/test_hive_report_store.py::test_publication_requires_matching_snapshot_binding[run]
+FAILED tests/test_hive_report_store.py::test_publication_requires_matching_snapshot_binding[assignment]
+FAILED tests/test_hive_report_store.py::test_publication_requires_matching_snapshot_binding[unbound]
+FAILED tests/test_hive_report_store.py::test_unselected_fact_change_does_not_block_report
+FAILED tests/test_hive_report_store.py::test_stale_report_attempt_cannot_publish
+FAILED tests/test_hive_report_store.py::test_generic_publication_cannot_complete_writer
+FAILED tests/test_hive_report_store.py::test_verifier_publication_cannot_complete_writer[write]
+FAILED tests/test_hive_report_store.py::test_verifier_publication_cannot_complete_writer[research]
+FAILED tests/test_hive_report_store.py::test_report_publication_rejects_nonwriter_task[verify]
+FAILED tests/test_hive_report_store.py::test_report_publication_rejects_nonwriter_task[research]
+FAILED tests/test_hive_report_store.py::test_forged_report_body_is_rejected[body]
+FAILED tests/test_hive_report_store.py::test_forged_report_body_is_rejected[gate]
+FAILED tests/test_hive_report_store.py::test_forged_report_body_is_rejected[selection]
+FAILED tests/test_hive_report_store.py::test_forged_report_body_is_rejected[missing_selection]
+FAILED tests/test_hive_report_store.py::test_report_provenance_survives_reopen
+FAILED tests/test_hive_report_store.py::test_no_findings_publication_keeps_explicit_failure_metadata
+============================== 34 failed in 3.60s ==============================

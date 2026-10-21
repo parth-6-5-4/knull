@@ -7,6 +7,9 @@ from typing import Optional
 
 from app.hive import agents
 from app.hive.store import HiveStore, EvidenceIntegrityError, TaskGraphError
+from app.hive.reporting import (
+    POLICY_VERSION, ReportInputError, ReportSelectionError, ReportSnapshotChanged, WriterAssignment,
+)
 from app.hive.watchdog import BudgetGovernor
 from app.llm import LLMError
 
@@ -103,8 +106,11 @@ async def run_hive(objective: str, store: Optional[HiveStore] = None, *, workers
                                                  {"verified": sum(s == "verified" for s, _ in updates.values()),
                                                   "rejected": sum(s == "rejected" for s, _ in updates.values())})
                 if task["kind"] == "write":
-                    report, gate = await agents.run_writer(store, run_id, objective, call)
-                    return store.publish(tid, name, att, fence, {"report": report, "gate": gate})
+                    assignment = WriterAssignment(tid, name, att, fence)
+                    snapshot = store.report_snapshot(run_id, objective, assignment=assignment)
+                    report, gate = await agents.run_writer(store, run_id, objective, call, snapshot=snapshot)
+                    guard()  # Cancellation-resistant calls cannot publish after a task deadline.
+                    return store.publish_report(tid, name, att, fence, snapshot, report, gate)
                 raise TaskGraphError("unknown task kind")
             finally:
                 agents.attempt_guard.reset(token)
@@ -149,9 +155,11 @@ async def run_hive(objective: str, store: Optional[HiveStore] = None, *, workers
             except LeaseLost:
                 store.event(run_id, "lease_lost", task=tid, worker=name, attempt=att, fence=fence)
             except Exception as exc:
-                code = ("task_timeout" if isinstance(exc, TimeoutError) else "evidence_integrity" if isinstance(exc, EvidenceIntegrityError)
+                report_error = isinstance(exc, (ReportInputError, ReportSelectionError, ReportSnapshotChanged))
+                code = (exc.code if report_error else "task_timeout" if isinstance(exc, TimeoutError)
+                        else "evidence_integrity" if isinstance(exc, EvidenceIntegrityError)
                         else "invalid_output" if isinstance(exc, ValueError) else "execution_error")
-                reason = f"{type(exc).__name__}: {exc}"[:300]
+                reason = code if report_error else f"{type(exc).__name__}: {exc}"[:300]
                 retryable = isinstance(exc, (LLMError, OSError, RuntimeError)) and not isinstance(exc, ValueError)
                 retryable = retryable and loop.time() < task_deadlines[tid]
                 store.event(run_id, "task_error", task=tid, worker=name, code=code, retryable=retryable, error=reason)
@@ -219,9 +227,20 @@ async def run_hive(objective: str, store: Optional[HiveStore] = None, *, workers
         write = next((t for t in tasks if t["kind"] == "write"), None)
         if gov.exhausted() and not (write and write["status"] == "done"):
             abort("stopped", "budget_exhausted", "token budget exhausted")
-        elif write and write["status"] == "done" and write["result"]["report"]:
-            status = "done" if write["result"]["gate"].get("passed") else "done_with_removals"
-            store.finish_run(run_id, status, write["result"]["report"], write["result"]["gate"])
+        elif write and write["status"] == "done":
+            artifact = write["result"]
+            report = artifact.get("report") if isinstance(artifact, dict) else None
+            gate = artifact.get("gate") if isinstance(artifact, dict) else None
+            count = gate.get("finding_count") if isinstance(gate, dict) else None
+            valid = (isinstance(gate, dict) and gate.get("policy_version") == POLICY_VERSION
+                     and type(count) is int and isinstance(report, str))
+            if valid and gate.get("passed") is True and count > 0 and report.strip():
+                store.finish_run(run_id, "done", report, gate)
+            elif (valid and gate.get("passed") is False and count == 0 and report == ""
+                  and gate.get("reason") in {"no_verified_facts", "no_selected_findings"}):
+                store.finish_run(run_id, "blocked", "", gate)
+            else:
+                store.finish_run(run_id, "blocked", "", {"reason": "report_artifact_invalid"})
         else:
             store.block_unsatisfied(run_id)
             store.finish_run(run_id, "blocked", "", {"reason": "no verified facts or required work incomplete",

@@ -1,0 +1,31 @@
+/opt/anaconda3/lib/python3.12/site-packages/pytest_asyncio/plugin.py:247: PytestDeprecationWarning: The configuration option "asyncio_default_fixture_loop_scope" is unset.
+The event loop scope for asynchronous fixtures will default to the fixture caching scope. Future versions of pytest-asyncio will default the loop scope for asynchronous fixtures to function scope. Set the default fixture loop scope explicitly in order to avoid unexpected behavior in the future. Valid fixture loop scopes are: "function", "class", "module", "package", "session"
+
+  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))
+============================= test session starts ==============================
+platform darwin -- Python 3.12.7, pytest-8.2.2, pluggy-1.6.0
+rootdir: /Users/parthsdambhare/hive-lite-v5
+configfile: pytest.ini
+plugins: mock-3.15.1, anyio-4.9.0, asyncio-1.3.0, cov-7.0.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 50 items / 47 deselected / 3 selected
+
+tests/test_hive_reports.py FF.                                           [100%]
+
+=================================== FAILURES ===================================
+______ test_malformed_bracketed_authority_is_inert[https://[::1]ignored/] ______
+tests/test_hive_reports.py:125: in test_malformed_bracketed_authority_is_inert
+    assert report.count("<a ") == 1
+E   assert 2 == 1
+E    +  where 2 = <built-in method count of str object at 0x128fd31c0>('<a ')
+E    +    where <built-in method count of str object at 0x128fd31c0> = '# Research report\n\n<p>Objective: <span class="hive-objective" style="white-space: pre-wrap; overflow-wrap: anywhere...le="white-space: pre-wrap; overflow-wrap: anywhere" href="https://[::1]ignored/">https://[::1]ignored/</a></li></ul>\n'.count
+_______ test_malformed_bracketed_authority_is_inert[https://[::1].evil/] _______
+tests/test_hive_reports.py:125: in test_malformed_bracketed_authority_is_inert
+    assert report.count("<a ") == 1
+E   assert 2 == 1
+E    +  where 2 = <built-in method count of str object at 0x128f12000>('<a ')
+E    +    where <built-in method count of str object at 0x128f12000> = '# Research report\n\n<p>Objective: <span class="hive-objective" style="white-space: pre-wrap; overflow-wrap: anywhere... style="white-space: pre-wrap; overflow-wrap: anywhere" href="https://[::1].evil/">https://[::1].evil/</a></li></ul>\n'.count
+=========================== short test summary info ============================
+FAILED tests/test_hive_reports.py::test_malformed_bracketed_authority_is_inert[https://[::1]ignored/]
+FAILED tests/test_hive_reports.py::test_malformed_bracketed_authority_is_inert[https://[::1].evil/]
+================== 2 failed, 1 passed, 47 deselected in 0.18s ==================

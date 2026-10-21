@@ -1,0 +1,172 @@
+/opt/anaconda3/lib/python3.12/site-packages/pytest_asyncio/plugin.py:247: PytestDeprecationWarning: The configuration option "asyncio_default_fixture_loop_scope" is unset.
+The event loop scope for asynchronous fixtures will default to the fixture caching scope. Future versions of pytest-asyncio will default the loop scope for asynchronous fixtures to function scope. Set the default fixture loop scope explicitly in order to avoid unexpected behavior in the future. Valid fixture loop scopes are: "function", "class", "module", "package", "session"
+
+  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))
+============================= test session starts ==============================
+platform darwin -- Python 3.12.7, pytest-8.2.2, pluggy-1.6.0
+rootdir: /Users/parthsdambhare/hive-lite-v5
+configfile: pytest.ini
+plugins: mock-3.15.1, anyio-4.9.0, asyncio-1.3.0, cov-7.0.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 23 items
+
+tests/test_hive_report_execution.py FFFFFFFF..FFFFFFFFFF.FF              [100%]
+
+=================================== FAILURES ===================================
+_______________________ test_empty_selection_blocks_run ________________________
+tests/test_hive_report_execution.py:79: in test_empty_selection_blocks_run
+    assert result.gate["finding_count"] == 0
+E   KeyError: 'finding_count'
+_______________________ test_no_candidates_skips_writer ________________________
+tests/test_hive_report_execution.py:90: in test_no_candidates_skips_writer
+    assert result.gate["reason"] == "no_verified_facts"
+E   AssertionError: assert 'no verified ...rk incomplete' == 'no_verified_facts'
+E     
+E     - no_verified_facts
+E     + no verified facts or required work incomplete
+__________ test_writer_prose_cannot_be_salvaged[unsupported-heading] ___________
+tests/test_hive_report_execution.py:110: in test_writer_prose_cannot_be_salvaged
+    assert writer["result"]["code"] == "report_selection_invalid"
+E   AssertionError: assert 'invalid_output' == 'report_selection_invalid'
+E     
+E     - report_selection_invalid
+E     + invalid_output
+_________ test_writer_prose_cannot_be_salvaged[entity-number-relation] _________
+tests/test_hive_report_execution.py:110: in test_writer_prose_cannot_be_salvaged
+    assert writer["result"]["code"] == "report_selection_invalid"
+E   AssertionError: assert 'invalid_output' == 'report_selection_invalid'
+E     
+E     - report_selection_invalid
+E     + invalid_output
+_____________ test_writer_prose_cannot_be_salvaged[citation-only] ______________
+tests/test_hive_report_execution.py:110: in test_writer_prose_cannot_be_salvaged
+    assert writer["result"]["code"] == "report_selection_invalid"
+E   AssertionError: assert 'invalid_output' == 'report_selection_invalid'
+E     
+E     - report_selection_invalid
+E     + invalid_output
+____________ test_writer_prose_cannot_be_salvaged[json-plus-prose] _____________
+tests/test_hive_report_execution.py:110: in test_writer_prose_cannot_be_salvaged
+    assert writer["result"]["code"] == "report_selection_invalid"
+E   AssertionError: assert 'invalid_output' == 'report_selection_invalid'
+E     
+E     - report_selection_invalid
+E     + invalid_output
+________________ test_valid_selection_finishes_with_exact_claim ________________
+tests/test_hive_report_execution.py:120: in test_valid_selection_finishes_with_exact_claim
+    assert result.status == "done" and result.gate["passed"] is True
+E   AssertionError: assert ('blocked' == 'done'
+E     
+E     - done
+E     + blocked)
+_ test_writer_error_classification_preserves_facts[malformed-1-report_selection_invalid] _
+tests/test_hive_report_execution.py:167: in test_writer_error_classification_preserves_facts
+    assert writer["status"] == "exhausted" and writer["result"]["code"] == code
+E   AssertionError: assert ('exhausted' == 'exhausted'
+E     
+E       exhausted and 'invalid_output' == 'report_selection_invalid'
+E     
+E     - report_selection_invalid
+E     + invalid_output)
+_ test_writer_error_classification_preserves_facts[late-output-1-task_timeout] _
+tests/test_hive_report_execution.py:167: in test_writer_error_classification_preserves_facts
+    assert writer["status"] == "exhausted" and writer["result"]["code"] == code
+E   AssertionError: assert ('exhausted' == 'exhausted'
+E     
+E       exhausted and 'invalid_output' == 'task_timeout'
+E     
+E     - task_timeout
+E     + invalid_output)
+________________ test_snapshot_change_retries_with_fresh_inputs ________________
+tests/test_hive_report_execution.py:185: in test_snapshot_change_retries_with_fresh_inputs
+    assert result.status == "done" and ">Updated accepted claim.</span>" in result.report
+E   AssertionError: assert ('blocked' == 'done'
+E     
+E     - done
+E     + blocked)
+_____________ test_invalid_committed_artifact_fails_closed[policy] _____________
+tests/test_hive_report_execution.py:219: in test_invalid_committed_artifact_fails_closed
+    assert result.gate["reason"] == "report_artifact_invalid"
+E   AssertionError: assert 'no verified ...rk incomplete' == 'report_artifact_invalid'
+E     
+E     - report_artifact_invalid
+E     + no verified facts or required work incomplete
+_____________ test_invalid_committed_artifact_fails_closed[passed] _____________
+tests/test_hive_report_execution.py:219: in test_invalid_committed_artifact_fails_closed
+    assert result.gate["reason"] == "report_artifact_invalid"
+E   AssertionError: assert 'no verified ...rk incomplete' == 'report_artifact_invalid'
+E     
+E     - report_artifact_invalid
+E     + no verified facts or required work incomplete
+_____________ test_invalid_committed_artifact_fails_closed[count] ______________
+tests/test_hive_report_execution.py:219: in test_invalid_committed_artifact_fails_closed
+    assert result.gate["reason"] == "report_artifact_invalid"
+E   AssertionError: assert 'no verified ...rk incomplete' == 'report_artifact_invalid'
+E     
+E     - report_artifact_invalid
+E     + no verified facts or required work incomplete
+_________ test_invalid_committed_artifact_fails_closed[boolean-count] __________
+tests/test_hive_report_execution.py:219: in test_invalid_committed_artifact_fails_closed
+    assert result.gate["reason"] == "report_artifact_invalid"
+E   AssertionError: assert 'no verified ...rk incomplete' == 'report_artifact_invalid'
+E     
+E     - report_artifact_invalid
+E     + no verified facts or required work incomplete
+_____________ test_invalid_committed_artifact_fails_closed[report] _____________
+tests/test_hive_report_execution.py:219: in test_invalid_committed_artifact_fails_closed
+    assert result.gate["reason"] == "report_artifact_invalid"
+E   AssertionError: assert 'no verified ...rk incomplete' == 'report_artifact_invalid'
+E     
+E     - report_artifact_invalid
+E     + no verified facts or required work incomplete
+___________ test_invalid_committed_artifact_fails_closed[empty-body] ___________
+tests/test_hive_report_execution.py:219: in test_invalid_committed_artifact_fails_closed
+    assert result.gate["reason"] == "report_artifact_invalid"
+E   AssertionError: assert 'no verified ...rk incomplete' == 'report_artifact_invalid'
+E     
+E     - report_artifact_invalid
+E     + no verified facts or required work incomplete
+__________ test_invalid_committed_artifact_fails_closed[empty-reason] __________
+tests/test_hive_report_execution.py:219: in test_invalid_committed_artifact_fails_closed
+    assert result.gate["reason"] == "report_artifact_invalid"
+E   AssertionError: assert 'no verified ...rk incomplete' == 'report_artifact_invalid'
+E     
+E     - report_artifact_invalid
+E     + no verified facts or required work incomplete
+__________ test_invalid_committed_artifact_fails_closed[empty-passed] __________
+tests/test_hive_report_execution.py:219: in test_invalid_committed_artifact_fails_closed
+    assert result.gate["reason"] == "report_artifact_invalid"
+E   AssertionError: assert 'no verified ...rk incomplete' == 'report_artifact_invalid'
+E     
+E     - report_artifact_invalid
+E     + no verified facts or required work incomplete
+_ test_direct_writer_rejects_mismatched_snapshot_before_dispatch[run_id-other-run] _
+tests/test_hive_report_execution.py:257: in test_direct_writer_rejects_mismatched_snapshot_before_dispatch
+    await agents.run_writer(store, rid, "objective", call, snapshot=snapshot)
+E   TypeError: run_writer() got an unexpected keyword argument 'snapshot'
+_ test_direct_writer_rejects_mismatched_snapshot_before_dispatch[objective-other-objective] _
+tests/test_hive_report_execution.py:257: in test_direct_writer_rejects_mismatched_snapshot_before_dispatch
+    await agents.run_writer(store, rid, "objective", call, snapshot=snapshot)
+E   TypeError: run_writer() got an unexpected keyword argument 'snapshot'
+=========================== short test summary info ============================
+FAILED tests/test_hive_report_execution.py::test_empty_selection_blocks_run
+FAILED tests/test_hive_report_execution.py::test_no_candidates_skips_writer
+FAILED tests/test_hive_report_execution.py::test_writer_prose_cannot_be_salvaged[unsupported-heading]
+FAILED tests/test_hive_report_execution.py::test_writer_prose_cannot_be_salvaged[entity-number-relation]
+FAILED tests/test_hive_report_execution.py::test_writer_prose_cannot_be_salvaged[citation-only]
+FAILED tests/test_hive_report_execution.py::test_writer_prose_cannot_be_salvaged[json-plus-prose]
+FAILED tests/test_hive_report_execution.py::test_valid_selection_finishes_with_exact_claim
+FAILED tests/test_hive_report_execution.py::test_writer_error_classification_preserves_facts[malformed-1-report_selection_invalid]
+FAILED tests/test_hive_report_execution.py::test_writer_error_classification_preserves_facts[late-output-1-task_timeout]
+FAILED tests/test_hive_report_execution.py::test_snapshot_change_retries_with_fresh_inputs
+FAILED tests/test_hive_report_execution.py::test_invalid_committed_artifact_fails_closed[policy]
+FAILED tests/test_hive_report_execution.py::test_invalid_committed_artifact_fails_closed[passed]
+FAILED tests/test_hive_report_execution.py::test_invalid_committed_artifact_fails_closed[count]
+FAILED tests/test_hive_report_execution.py::test_invalid_committed_artifact_fails_closed[boolean-count]
+FAILED tests/test_hive_report_execution.py::test_invalid_committed_artifact_fails_closed[report]
+FAILED tests/test_hive_report_execution.py::test_invalid_committed_artifact_fails_closed[empty-body]
+FAILED tests/test_hive_report_execution.py::test_invalid_committed_artifact_fails_closed[empty-reason]
+FAILED tests/test_hive_report_execution.py::test_invalid_committed_artifact_fails_closed[empty-passed]
+FAILED tests/test_hive_report_execution.py::test_direct_writer_rejects_mismatched_snapshot_before_dispatch[run_id-other-run]
+FAILED tests/test_hive_report_execution.py::test_direct_writer_rejects_mismatched_snapshot_before_dispatch[objective-other-objective]
+========================= 20 failed, 3 passed in 1.07s =========================

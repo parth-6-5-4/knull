@@ -1,0 +1,28 @@
+{
+  "checked_at_utc": "2026-10-20T14:21:07.362365+00:00",
+  "scope": "HIVE-003 plan authoring; documentation only",
+  "spec_revision": 1,
+  "spec_approval": "User: Approve revision 1; write the plan",
+  "plan_revision": 1,
+  "plan_status": "Plan review",
+  "plan_approval": "pending",
+  "execution_method": "not selected",
+  "product_acceptance_tests_executed": false,
+  "packages_installed": false,
+  "documents_checked": 7,
+  "local_links_checked": 96,
+  "requirements_mapped": 12,
+  "tasks": 5,
+  "unexecuted_checkboxes": 31,
+  "source_fingerprints_match": true,
+  "runtime_implementation_files_created": false,
+  "frontend_node_modules_present": false,
+  "source_sha256": {
+    "app/hive/agents.py": "bedbc170c871d55fa8c420b8ca1f62a6d6640f9a62fb06271eeada6bb36d9a66",
+    "app/hive/runner.py": "a6a98d15f3a4462d5c1c50edda468a5c0d34a2c3d2ef1348dbd4f25e99b8db95",
+    "app/hive/store.py": "f89eb914da1dd29187a7dd2b2824f0fb247cf0c63a9368a708f8b8da51565d45",
+    "tests/test_hive.py": "a9b7ee4461be45c435a4ae1036d947dcfbe223b085b8299a9abbb70296ba691d",
+    "web/src/components/ReportView.tsx": "e6c7a8c8657e77ef46f397894e0fb3cef6725028e27e0639e73dccdb2b90f8df"
+  },
+  "status": "planning checks passed; product behavior unchanged"
+}

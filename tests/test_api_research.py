@@ -254,8 +254,7 @@ class TestHiveAPI:
                                                "quote": "reduces redundant retrieval calls"}]})
             if "verifier" in sysm:
                 return json.dumps({"verdict": "supported", "note": ""})
-            fid, claim = re.findall(r"\[(F-[0-9a-f]{8})\] (.*)", user)[0]
-            return f"## Findings\n{claim} [{fid}]"
+            return json.dumps({"fact_ids": [fact["id"] for fact in json.loads(user)["candidates"]]})
         m = ModelSpec(provider="mock", model="m")
         set_router(LLMRouter(LLMConfig(default=m), mock_handler=handler))
         try:

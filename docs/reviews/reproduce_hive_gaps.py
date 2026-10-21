@@ -1,5 +1,8 @@
 """Offline audit probes. Run from project root; no provider keys or network used.
 
+Historical probe: targets the pre-HIVE-003 report interface. Pending Task 5
+adaptation; do not use this script as a current acceptance command.
+
 These probes report current defects, rather than assert desired future behavior.
 """
 import asyncio

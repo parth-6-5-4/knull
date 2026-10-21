@@ -13,8 +13,8 @@ def store(tmp_path):
     s.db.close()
 
 
-def claimed(store, run, key='research', now=1):
-    store.add_task(run,key,'research','Research',{})
+def claimed(store, run, key='research', now=1, kind='research'):
+    store.add_task(run,key,kind,'Research',{})
     return store.claim(run,'worker',lease_s=100,now=now)
 
 
@@ -119,14 +119,19 @@ async def test_writer_never_receives_missing_provenance_fact(tmp_path):
     s=migrated(tmp_path)
     seen=[]
     async def call(layer,agent,system,user,max_tokens):
+        assert (layer,agent,max_tokens)==('workers','writer',512)
         seen.append(user)
-        return '## Findings\nSupported [F-12345678].'
+        return '{"fact_ids":["F-good"]}'
     try:
-        await run_writer(s,'old','objective',call)
+        report,gate=await run_writer(s,'old','objective',call)
         assert len(seen)==1 and 'orphan' not in seen[0] and 'valid' in seen[0]
+        assert 'valid' in report and gate['selected_fact_ids']==['F-good']
+        assert gate['passed'] is True and gate['finding_count']==1
         s.db.execute("DELETE FROM evidence WHERE run_id='old'")
         report,gate=await run_writer(s,'old','objective',call)
-        assert report=='' and gate=={'passed':False,'reason':'no verified facts'}
+        assert report=='' and gate['passed'] is False and gate['reason']=='no_verified_facts'
+        assert gate['finding_count']==0 and gate['selected_fact_ids']==[]
+        assert gate['policy_version']=='accepted-claims-v1' and gate['provenance']==[]
         assert len(seen)==1 and s.get_run('old')['report']=='historical report'
     finally: s.db.close()
 
@@ -136,7 +141,7 @@ def test_verified_promotion_with_missing_evidence_rolls_back(tmp_path):
     s=migrated(tmp_path)
     try:
         s.db.execute("UPDATE facts SET status='proposed'")
-        task=claimed(s,'old','verify')
+        task=claimed(s,'old','verify',kind='verify')
         with pytest.raises(EvidenceIntegrityError):
             s.set_fact_status(task['id'],'worker',task['attempt'],task['fence'],
                               {'F-good':('verified','new'),'F-bad':('verified','new')},{},now=2)

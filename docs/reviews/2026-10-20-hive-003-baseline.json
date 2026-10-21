@@ -1,0 +1,100 @@
+{
+  "observed_at_utc": "2026-10-20T13:54:38.422390+00:00",
+  "head": "f4f541332b3f78a755bccc5f4890931b1b256d07",
+  "source_sha256": {
+    "app/hive/agents.py": "bedbc170c871d55fa8c420b8ca1f62a6d6640f9a62fb06271eeada6bb36d9a66",
+    "app/hive/runner.py": "a6a98d15f3a4462d5c1c50edda468a5c0d34a2c3d2ef1348dbd4f25e99b8db95",
+    "app/hive/store.py": "f89eb914da1dd29187a7dd2b2824f0fb247cf0c63a9368a708f8b8da51565d45",
+    "tests/test_hive.py": "a9b7ee4461be45c435a4ae1036d947dcfbe223b085b8299a9abbb70296ba691d",
+    "web/src/components/ReportView.tsx": "e6c7a8c8657e77ef46f397894e0fb3cef6725028e27e0639e73dccdb2b90f8df"
+  },
+  "python": "3.12.7",
+  "scope": "mock providers; in-memory SQLite; no network or application data",
+  "gate_probes": {
+    "reversed_number": {
+      "input": "## Findings\nCaching increases calls by 900% [F-aaaaaaaa].",
+      "retained_body": "## Findings\nCaching increases calls by 900% [F-aaaaaaaa].",
+      "gate": {
+        "sentences": 1,
+        "removed_uncited_or_unverified": [],
+        "passed": true
+      }
+    },
+    "unsupported_heading": {
+      "input": "## Caching increases calls by 900%",
+      "retained_body": "## Caching increases calls by 900%",
+      "gate": {
+        "sentences": 0,
+        "removed_uncited_or_unverified": [],
+        "passed": true
+      }
+    },
+    "empty_body": {
+      "input": "",
+      "retained_body": "",
+      "gate": {
+        "sentences": 0,
+        "removed_uncited_or_unverified": [],
+        "passed": true
+      }
+    },
+    "citation_only": {
+      "input": "[F-aaaaaaaa]",
+      "retained_body": "[F-aaaaaaaa]",
+      "gate": {
+        "sentences": 1,
+        "removed_uncited_or_unverified": [],
+        "passed": true
+      }
+    },
+    "multiple_valid_ids": {
+      "input": "Contradiction [F-aaaaaaaa] [F-bbbbbbbb].",
+      "retained_body": "Contradiction [F-aaaaaaaa] [F-bbbbbbbb].",
+      "gate": {
+        "sentences": 1,
+        "removed_uncited_or_unverified": [],
+        "passed": true
+      }
+    },
+    "html_heading": {
+      "input": "## <img src=x onerror=\"alert(1)\">",
+      "retained_body": "## <img src=x onerror=\"alert(1)\">",
+      "gate": {
+        "sentences": 0,
+        "removed_uncited_or_unverified": [],
+        "passed": true
+      }
+    }
+  },
+  "heading_only_run": {
+    "status": "done",
+    "verified_facts": 2,
+    "gate": {
+      "sentences": 0,
+      "removed_uncited_or_unverified": [],
+      "passed": true
+    },
+    "report": "# Report integrity probe\n\n## Caching increases calls by 900%\n\n## Sources\n- [F-ca4142fa] Attention is all you need - http://x/a1\n- [F-93f28012] Cache study - http://x/a2\n"
+  },
+  "empty_body_run": {
+    "status": "done",
+    "verified_facts": 2,
+    "gate": {
+      "sentences": 0,
+      "removed_uncited_or_unverified": [],
+      "passed": true
+    },
+    "report": "# Report integrity probe\n\n\n\n## Sources\n- [F-7f7b36b2] Attention is all you need - http://x/a1\n- [F-49e0e5fe] Cache study - http://x/a2\n"
+  },
+  "objective_html_run": {
+    "status": "done",
+    "verified_facts": 2,
+    "gate": {
+      "sentences": 0,
+      "removed_uncited_or_unverified": [],
+      "passed": true
+    },
+    "report": "# <img src=x onerror=\"alert(1)\">\n\n## Findings\n\n## Sources\n- [F-cbfe8a42] Attention is all you need - http://x/a1\n- [F-c102a77a] Cache study - http://x/a2\n"
+  },
+  "html_observation_boundary": "Raw HTML retention observed in report strings. ReportView passes marked output to dangerouslySetInnerHTML without sanitization by source inspection; browser execution not tested."
+}

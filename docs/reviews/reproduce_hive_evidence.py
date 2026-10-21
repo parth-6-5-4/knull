@@ -1,5 +1,8 @@
 """Read-only HIVE-001 diagnosis using disposable SQLite databases and mock models.
 
+Historical probe: targets the pre-HIVE-003 report interface. Pending Task 5
+adaptation; do not use this script as a current acceptance command.
+
 Run from project root: DEBUG=false python docs/reviews/reproduce_hive_evidence.py
 Records observed behavior, not desired acceptance behavior. Never opens app_data.
 """

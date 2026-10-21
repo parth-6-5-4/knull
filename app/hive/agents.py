@@ -1,4 +1,4 @@
-"""Knull (orchestrator), researcher / verifier / writer symbiotes, final gate."""
+"""Knull (orchestrator), researcher / verifier / writer symbiotes."""
 from __future__ import annotations
 
 import hashlib
@@ -8,6 +8,9 @@ from contextvars import ContextVar
 from typing import Awaitable, Callable, Optional
 
 from app.hive.store import HiveStore
+from app.hive.reporting import (
+    ReportInputError, ReportSnapshot, parse_selection, render_report, writer_messages,
+)
 from app.hive.watchdog import BudgetGovernor, is_looping
 from app.llm import LLMError, get_router
 from app.llm.parsing import parse_json  # re-exported for callers/tests
@@ -186,50 +189,18 @@ async def run_verifier(store: HiveStore, run_id: str, deps: list[str], call: Cal
     return updates
 
 
-# ------------------------------------------------------------------ writer + final gate
+# ------------------------------------------------------------------ writer
 
-WRITE_SYSTEM = """You are the writer symbiote of a research hive. Write a short report using ONLY the VERIFIED FACTS listed in the input.
-
-Rules:
-- Every factual sentence must end with the id of the fact it states, in brackets, e.g. [F-ab12cd34]. A factual sentence without a citation is deleted by the final gate.
-- Do not add, merge, or infer facts that are not listed. You may group, order and connect them.
-- Structure: a '## Findings' section with short grouped paragraphs. Keep it under 400 words.
-
-Reply with the report markdown only."""
-
-_CITE = re.compile(r"\[(F-[0-9a-f]{8})\]")
-
-
-def final_gate(report: str, verified_ids: set[str]) -> tuple[str, dict]:
-    """Drop findings sentences without a citation to a verified fact; report what was removed."""
-    kept_lines, removed, total = [], [], 0
-    for line in report.splitlines():
-        stripped = line.strip()
-        if not stripped or stripped.startswith("#"):
-            kept_lines.append(line); continue
-        parts = re.split(r"(?<=[.!?\]])\s+(?=[A-Z\-\*•])", stripped)
-        keep = []
-        for p in parts:
-            total += 1
-            ids = set(_CITE.findall(p))
-            if ids and ids <= verified_ids:
-                keep.append(p)
-            else:
-                removed.append(p)
-        if keep:
-            kept_lines.append(" ".join(keep))
-    return "\n".join(kept_lines), {"sentences": total, "removed_uncited_or_unverified": removed,
-                                   "passed": not removed}
-
-
-async def run_writer(store: HiveStore, run_id: str, objective: str, call: Caller) -> tuple[str, dict]:
-    facts = store.facts(run_id, "verified")
-    if not facts:
-        return "", {"passed": False, "reason": "no verified facts"}
-    ev = {e["id"]: e for e in store.evidence(run_id)}
-    listing = "\n".join(f"[{f['id']}] {f['claim']}" for f in facts)
-    text = await call("workers", "writer", WRITE_SYSTEM, f"OBJECTIVE: {objective}\n\nVERIFIED FACTS:\n{listing}", 2000)
-    body, gate = final_gate(text, {f["id"] for f in facts})
-    refs = "\n".join(f"- [{f['id']}] {ev[f['evidence_id']]['title']} - {ev[f['evidence_id']]['url']}"
-                     for f in facts if f["evidence_id"] in ev)
-    return f"# {objective}\n\n{body}\n\n## Sources\n{refs}\n", gate
+async def run_writer(store: HiveStore, run_id: str, objective: str, call: Caller, *,
+                     snapshot: ReportSnapshot | None = None) -> tuple[str, dict]:
+    """Select identities once; code renders accepted wording and source bindings."""
+    if snapshot is None:
+        snapshot = store.report_snapshot(run_id, objective)
+    if (not isinstance(snapshot, ReportSnapshot) or snapshot.run_id != run_id
+            or snapshot.objective != objective):
+        raise ReportInputError("report_snapshot_mismatch")
+    if not snapshot.candidates:
+        return render_report(snapshot, ())
+    system, user = writer_messages(snapshot)
+    text = await call("workers", "writer", system, user, 512)
+    return render_report(snapshot, parse_selection(text, snapshot))
