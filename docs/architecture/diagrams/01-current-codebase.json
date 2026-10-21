@@ -1,0 +1,296 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Current codebase | three distinct paths",
+    "output": ".archify/architecture-knull-guide-20261020-121808/01-current-codebase/01-current-codebase.html",
+    "quality_profile": "showcase",
+    "locale": "en",
+    "repository": {
+      "url": "https://github.com/parth-6-5-4/knull.git",
+      "revision": "f4f541332b3f78a755bccc5f4890931b1b256d07",
+      "link_mode": "web"
+    }
+  },
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Read the boundaries",
+      "items": [
+        "Lite hive and legacy graph are separate execution paths.",
+        "The CLI enters the lite runner directly."
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "MCP is an adapter",
+      "items": [
+        "Clients invoke existing hive API operations.",
+        "It does not launch Codex or Claude as swarm workers."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Known limits",
+      "items": [
+        "SQLite and fixed dispatch remain current.",
+        "Graphify is a developer source map, not runtime memory."
+      ]
+    }
+  ],
+  "components": [
+    {
+      "id": "console",
+      "type": "frontend",
+      "label": "React console",
+      "sublabel": "v1 API or demo data",
+      "pos": [
+        30,
+        30
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "web/src/App.tsx",
+          "line": 62,
+          "end_line": 68,
+          "label": "App.tsx"
+        }
+      ],
+      "tag": "CURRENT"
+    },
+    {
+      "id": "api",
+      "type": "backend",
+      "label": "HTTP API",
+      "sublabel": "hive + legacy endpoints",
+      "pos": [
+        390,
+        30
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "app/api/routes_hive.py",
+          "line": 39,
+          "end_line": 45,
+          "label": "routes_hive.py"
+        }
+      ]
+    },
+    {
+      "id": "hive",
+      "type": "backend",
+      "label": "Lite hive",
+      "sublabel": "fixed task graph",
+      "pos": [
+        750,
+        30
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "app/hive/runner.py",
+          "line": 29,
+          "end_line": 35,
+          "label": "runner.py"
+        }
+      ]
+    },
+    {
+      "id": "sqlite",
+      "type": "database",
+      "label": "Hive SQLite",
+      "sublabel": "tasks / evidence / facts",
+      "pos": [
+        750,
+        230
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "app/hive/store.py",
+          "line": 43,
+          "end_line": 49,
+          "label": "store.py"
+        }
+      ]
+    },
+    {
+      "id": "legacy",
+      "type": "backend",
+      "label": "Legacy research",
+      "sublabel": "separate LangGraph loop",
+      "pos": [
+        390,
+        230
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "app/agent/graph.py",
+          "line": 547,
+          "end_line": 553,
+          "label": "graph.py"
+        }
+      ]
+    },
+    {
+      "id": "legacydata",
+      "type": "database",
+      "label": "Legacy helpers",
+      "sublabel": "NetworkX + Chroma",
+      "pos": [
+        30,
+        230
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "app/agent/graph.py",
+          "line": 263,
+          "end_line": 269,
+          "label": "graph.py"
+        }
+      ]
+    },
+    {
+      "id": "models",
+      "type": "cloud",
+      "label": "Model adapters",
+      "sublabel": "configured providers",
+      "pos": [
+        750,
+        440
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "app/llm/router.py",
+          "line": 133,
+          "end_line": 139,
+          "label": "router.py"
+        }
+      ]
+    },
+    {
+      "id": "mcp",
+      "type": "backend",
+      "label": "MCP adapter",
+      "sublabel": "health / start / get",
+      "pos": [
+        30,
+        440
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "integrations/mcp/src/hive_mcp/server.py",
+          "line": 33,
+          "end_line": 39,
+          "label": "server.py"
+        }
+      ],
+      "tag": "LOCAL"
+    },
+    {
+      "id": "cli",
+      "type": "frontend",
+      "label": "Hive CLI",
+      "sublabel": "calls lite runner",
+      "pos": [
+        390,
+        440
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "app/hive/cli.py",
+          "line": 6,
+          "end_line": 12,
+          "label": "cli.py"
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "from": "console",
+      "to": "api",
+      "label": "poll"
+    },
+    {
+      "from": "api",
+      "to": "hive",
+      "label": "v1"
+    },
+    {
+      "from": "hive",
+      "to": "sqlite",
+      "label": "store"
+    },
+    {
+      "from": "api",
+      "to": "legacy",
+      "label": "research"
+    },
+    {
+      "from": "legacy",
+      "to": "legacydata",
+      "label": "read/write"
+    },
+    {
+      "from": "hive",
+      "to": "models",
+      "label": "calls"
+    },
+    {
+      "from": "cli",
+      "to": "hive",
+      "fromSide": "top",
+      "toSide": "left",
+      "label": "direct"
+    },
+    {
+      "from": "mcp",
+      "to": "api",
+      "fromSide": "top",
+      "toSide": "left",
+      "label": "HTTP"
+    },
+    {
+      "from": "legacy",
+      "to": "models",
+      "fromSide": "bottom",
+      "toSide": "left",
+      "label": "calls"
+    }
+  ]
+}

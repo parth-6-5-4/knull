@@ -4,6 +4,7 @@
 
 - Before changing behavior, architecture, interfaces, dependencies, or operational configuration, read [the development workflow](docs/DEVELOPMENT.md) and [the spec index](docs/superpowers/README.md). Resume the relevant spec's current stage.
 - For domain terms and relationships, read [CONTEXT.md](CONTEXT.md).
+- For a beginner overview, module ownership or an implementation handoff, read [ARCHITECTURE.md](ARCHITECTURE.md) and its [visual atlas](docs/architecture/index.html). These explain current code and proposed contracts; the spec index remains authoritative for delivery state.
 - When tracing existing code relationships, use [the knowledge graph guide](docs/knowledge-graph.md) and installed Graphify skill if available. Check snapshot freshness and verify graph-derived claims against current source; the code graph does not encode draft specifications.
 - For orchestration, persistence, verification, routing, hierarchy, or scaling work, read [the architecture review](docs/reviews/hive-modularization-review.md). Its findings are evidence and proposals; spec approval establishes the intended behavior.
 - When investigating problems, scoping fixes, or changing affected code, maintain [the problems/fixes register](docs/reports/problems-and-fixes.md) using the reporting rules in `docs/DEVELOPMENT.md`.

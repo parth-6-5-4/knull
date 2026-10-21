@@ -1,0 +1,264 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Roles and skills | eligibility before judgment",
+    "output": ".archify/architecture-knull-guide-20261020-121808/04-roles-skills-routing/04-roles-skills-routing.html",
+    "quality_profile": "showcase",
+    "locale": "en",
+    "repository": {
+      "url": "https://github.com/parth-6-5-4/knull.git",
+      "revision": "f4f541332b3f78a755bccc5f4890931b1b256d07",
+      "link_mode": "web"
+    }
+  },
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Selection rules",
+      "items": [
+        "No eligible choice means defer. One choice is deterministic.",
+        "Jev automatic promotion is off until thresholds are defined."
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "Skills are instructions",
+      "items": [
+        "Role handlers own execution; skills grant no permissions.",
+        "Repository bundles differ from host-installed developer skills."
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Isolation",
+      "items": [
+        "Verifier sees claim + evidence, not researcher conversation.",
+        "Pinned versions prevent edits changing an active run."
+      ]
+    }
+  ],
+  "components": [
+    {
+      "id": "task",
+      "type": "messagebus",
+      "label": "Task contract",
+      "sublabel": "kind + capability + inputs",
+      "pos": [
+        30,
+        40
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 23,
+          "end_line": 27,
+          "label": "2026-10-19-durable-runtime-design.md"
+        }
+      ],
+      "tag": "PROPOSED"
+    },
+    {
+      "id": "eligible",
+      "type": "security",
+      "label": "Eligibility policy",
+      "sublabel": "roles / grants / limits",
+      "pos": [
+        390,
+        40
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-role-hierarchy-design.md",
+          "line": 25,
+          "end_line": 39,
+          "label": "2026-10-19-role-hierarchy-design.md"
+        }
+      ]
+    },
+    {
+      "id": "jev",
+      "type": "backend",
+      "label": "Optional Jev",
+      "sublabel": "rank permitted choices",
+      "pos": [
+        750,
+        40
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-jev-decisions-design.md",
+          "line": 25,
+          "end_line": 29,
+          "label": "2026-10-19-jev-decisions-design.md"
+        }
+      ]
+    },
+    {
+      "id": "binding",
+      "type": "backend",
+      "label": "Pinned binding",
+      "sublabel": "role + generator policy",
+      "pos": [
+        750,
+        260
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-role-hierarchy-design.md",
+          "line": 25,
+          "end_line": 39,
+          "label": "2026-10-19-role-hierarchy-design.md"
+        }
+      ]
+    },
+    {
+      "id": "context",
+      "type": "backend",
+      "label": "Context builder",
+      "sublabel": "minimal role inputs",
+      "pos": [
+        390,
+        260
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-role-hierarchy-design.md",
+          "line": 25,
+          "end_line": 39,
+          "label": "2026-10-19-role-hierarchy-design.md"
+        }
+      ]
+    },
+    {
+      "id": "run",
+      "type": "backend",
+      "label": "Role handler",
+      "sublabel": "permitted tool calls",
+      "pos": [
+        30,
+        260
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-role-hierarchy-design.md",
+          "line": 25,
+          "end_line": 39,
+          "label": "2026-10-19-role-hierarchy-design.md"
+        }
+      ]
+    },
+    {
+      "id": "registry",
+      "type": "database",
+      "label": "Skill registry",
+      "sublabel": "metadata + bundle digest",
+      "pos": [
+        750,
+        480
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-skill-registry-design.md",
+          "line": 64,
+          "end_line": 78,
+          "label": "2026-10-19-skill-registry-design.md"
+        }
+      ]
+    },
+    {
+      "id": "snapshot",
+      "type": "database",
+      "label": "Skill snapshot",
+      "sublabel": "immutable accepted bytes",
+      "pos": [
+        390,
+        480
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-skill-registry-design.md",
+          "line": 64,
+          "end_line": 78,
+          "label": "2026-10-19-skill-registry-design.md"
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "from": "task",
+      "to": "eligible",
+      "label": "request"
+    },
+    {
+      "from": "eligible",
+      "to": "jev",
+      "label": "many"
+    },
+    {
+      "from": "jev",
+      "to": "binding",
+      "label": "validate"
+    },
+    {
+      "from": "binding",
+      "to": "context",
+      "label": "resolve"
+    },
+    {
+      "from": "context",
+      "to": "run",
+      "label": "invoke"
+    },
+    {
+      "from": "registry",
+      "to": "snapshot",
+      "label": "pin"
+    },
+    {
+      "from": "snapshot",
+      "to": "context",
+      "label": "load"
+    },
+    {
+      "from": "eligible",
+      "to": "binding",
+      "fromSide": "bottom",
+      "toSide": "left",
+      "label": "one choice"
+    }
+  ]
+}

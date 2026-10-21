@@ -1,0 +1,149 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "architecture",
+  "quality": "showcase",
+  "specification": {
+    "path": ".archify/architecture-knull-guide-20261020-121808/01-current-codebase/candidate.json",
+    "sha256": "6e5cfc625337b843e0197711fc6a622620fff59ba7926125c44228ec792b81e0",
+    "bytes": 5667
+  },
+  "artifact": {
+    "path": ".archify/architecture-knull-guide-20261020-121808/01-current-codebase/01-current-codebase.html",
+    "sha256": "8f0bd889f34ab960f11288e9398afe262e98198c012d559b3dc5e9bb3d2ca968",
+    "bytes": 763341
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "pass"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": ".archify/architecture-knull-guide-20261020-121808/01-current-codebase/review-3/01-current-codebase.finalize.json",
+    "summaryReceipt": ".archify/architecture-knull-guide-20261020-121808/01-current-codebase/review-3/01-current-codebase.finalize-summary.json",
+    "browserCheckReceipt": ".archify/architecture-knull-guide-20261020-121808/01-current-codebase/review-3/01-current-codebase.browser-check.json"
+  },
+  "update": {
+    "status": "update_available",
+    "installedVersion": "3.0.1",
+    "availableVersion": "3.2.0",
+    "releaseNotes": "https://github.com/tt-a1i/archify/releases/tag/v3.2.0",
+    "severity": "normal",
+    "checkedAt": "2026-10-20T06:58:40.719Z",
+    "source": "cache",
+    "noticeRequired": true,
+    "noticeText": "Archify update: 3.0.1 \u2192 3.2.0. A previous check at 2026-10-20T06:58:40.719Z found a newer release. Release notes: https://github.com/tt-a1i/archify/releases/tag/v3.2.0. The installed Skill has not changed; ask to snooze or ignore this reminder.",
+    "eventKey": "archify@sha256:70e210265c59f24dcbdf2a502ff671104b5454e7ee7d3554aecd86bad32384f5"
+  },
+  "visualReview": "not-requested",
+  "durationMs": 3361,
+  "visualReviewRecommendation": {
+    "action": "inspect-route-readability",
+    "signals": {
+      "resolvedCrossovers": 1,
+      "routesOverSuggestedBends": 4,
+      "routesOverSuggestedStretch": 1
+    },
+    "reason": "Automated gates passed, but crossings or detours still need perceptual review before claiming visual quality.",
+    "affectedRoutes": {
+      "crossings": [
+        {
+          "left": {
+            "from": "legacy",
+            "to": "legacydata",
+            "label": "read/write",
+            "collectionIndex": 4,
+            "artifactIndex": 5
+          },
+          "right": {
+            "from": "mcp",
+            "to": "api",
+            "label": "HTTP",
+            "collectionIndex": 7,
+            "artifactIndex": 8
+          },
+          "point": [
+            366,
+            269
+          ]
+        }
+      ],
+      "detours": [
+        {
+          "relationship": {
+            "from": "hive",
+            "to": "models",
+            "label": "calls",
+            "collectionIndex": 5,
+            "artifactIndex": 6
+          },
+          "bends": 4,
+          "stretch": 1.596,
+          "directCorridorBlockers": [
+            {
+              "id": "sqlite",
+              "label": "Hive SQLite",
+              "box": [
+                750,
+                230,
+                210,
+                78
+              ]
+            }
+          ]
+        },
+        {
+          "relationship": {
+            "from": "cli",
+            "to": "hive",
+            "label": "direct",
+            "collectionIndex": 6,
+            "artifactIndex": 7
+          },
+          "bends": 3,
+          "stretch": 1
+        },
+        {
+          "relationship": {
+            "from": "mcp",
+            "to": "api",
+            "label": "HTTP",
+            "collectionIndex": 7,
+            "artifactIndex": 8
+          },
+          "bends": 3,
+          "stretch": 1
+        },
+        {
+          "relationship": {
+            "from": "legacy",
+            "to": "models",
+            "label": "calls",
+            "collectionIndex": 8,
+            "artifactIndex": 9
+          },
+          "bends": 3,
+          "stretch": 1
+        }
+      ],
+      "truncated": false
+    },
+    "hints": [
+      "legacy \u2192 legacydata crosses mcp \u2192 api: move the node of whichever is a branch, return, or second entrance to the other side of the main path, so that relationship runs through an empty corridor.",
+      "cli \u2192 hive needs 3 bends: move node cli or hive so they share a row or column with matching centers, or sit diagonally with a clear corner.",
+      "mcp \u2192 api needs 3 bends: move node mcp or api so they share a row or column with matching centers, or sit diagonally with a clear corner.",
+      "legacy \u2192 models needs 3 bends: move node legacy or models so they share a row or column with matching centers, or sit diagonally with a clear corner."
+    ],
+    "repair": "Trace these relationships at the desktop viewport. For Architecture, use references/architecture-layout-repair.md: reflow a blocked main path or tangled connected scene, and repair an isolated defect locally only when the surrounding composition is accepted. Preserve all semantic content and user-fixed geometry. Rerun finalize once after the edit."
+  },
+  "publicationRedaction": "Personal absolute host paths sanitized; original receipt retained in ignored local scratch. Original artifact and candidate hashes unchanged."
+}

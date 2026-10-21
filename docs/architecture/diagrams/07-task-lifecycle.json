@@ -1,0 +1,271 @@
+{
+  "schema_version": 2,
+  "diagram_type": "lifecycle",
+  "meta": {
+    "title": "Proposed task lifecycle | explicit exits",
+    "output": ".archify/architecture-knull-guide-20261020-121808/07-task-lifecycle/07-task-lifecycle.html",
+    "quality_profile": "showcase",
+    "locale": "en",
+    "repository": {
+      "url": "https://github.com/parth-6-5-4/knull.git",
+      "revision": "f4f541332b3f78a755bccc5f4890931b1b256d07",
+      "link_mode": "web"
+    }
+  },
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Recovery",
+      "items": [
+        "Retry reuses the logical task with a new attempt/fence.",
+        "Acceptance requires current authority, not content alone."
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "Waiting",
+      "items": [
+        "A waiting coordinator consumes no worker lease.",
+        "Ready aggregation is distinct from branch success."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Scope of exits",
+      "items": [
+        "Blocked propagates to required descendants.",
+        "Run pause/cancel also governs tasks; terminal states do not reopen."
+      ]
+    }
+  ],
+  "lanes": [
+    {
+      "id": "main",
+      "label": "Task progress"
+    },
+    {
+      "id": "waiting",
+      "label": "Branch join"
+    },
+    {
+      "id": "recovery",
+      "label": "Bounded recovery"
+    },
+    {
+      "id": "terminal",
+      "label": "Terminal outcomes"
+    }
+  ],
+  "states": [
+    {
+      "id": "pending",
+      "label": "Pending",
+      "sublabel": "dependencies unfinished",
+      "lane": "main",
+      "col": 0,
+      "type": "start",
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 31,
+          "end_line": 37,
+          "label": "2026-10-19-durable-runtime-design.md"
+        }
+      ],
+      "width": 190
+    },
+    {
+      "id": "ready",
+      "label": "Ready",
+      "sublabel": "eligible for admission",
+      "lane": "main",
+      "col": 1,
+      "type": "active",
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 31,
+          "end_line": 37,
+          "label": "2026-10-19-durable-runtime-design.md"
+        }
+      ],
+      "width": 190
+    },
+    {
+      "id": "leased",
+      "label": "Leased",
+      "sublabel": "one active attempt",
+      "lane": "main",
+      "col": 2,
+      "type": "active",
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 31,
+          "end_line": 37,
+          "label": "2026-10-19-durable-runtime-design.md"
+        }
+      ],
+      "width": 190
+    },
+    {
+      "id": "succeeded",
+      "label": "Succeeded",
+      "sublabel": "guarded acceptance",
+      "lane": "main",
+      "col": 4,
+      "type": "success",
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 31,
+          "end_line": 37,
+          "label": "2026-10-19-durable-runtime-design.md"
+        }
+      ],
+      "width": 190
+    },
+    {
+      "id": "waiting",
+      "label": "Waiting children",
+      "sublabel": "coordinator lease released",
+      "lane": "waiting",
+      "col": 2,
+      "type": "waiting",
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 31,
+          "end_line": 37,
+          "label": "2026-10-19-durable-runtime-design.md"
+        }
+      ],
+      "width": 190
+    },
+    {
+      "id": "retry",
+      "label": "Retry decision",
+      "sublabel": "limits + expiry policy",
+      "lane": "recovery",
+      "col": 1,
+      "type": "decision",
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 31,
+          "end_line": 37,
+          "label": "2026-10-19-durable-runtime-design.md"
+        }
+      ],
+      "width": 190
+    },
+    {
+      "id": "blocked",
+      "label": "Blocked",
+      "sublabel": "required dependency fails",
+      "lane": "terminal",
+      "col": 0,
+      "type": "failure",
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 31,
+          "end_line": 37,
+          "label": "2026-10-19-durable-runtime-design.md"
+        }
+      ],
+      "width": 190
+    },
+    {
+      "id": "failed",
+      "label": "Failed",
+      "sublabel": "retry policy exhausted",
+      "lane": "terminal",
+      "col": 2,
+      "type": "failure",
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 31,
+          "end_line": 37,
+          "label": "2026-10-19-durable-runtime-design.md"
+        }
+      ],
+      "width": 190
+    },
+    {
+      "id": "cancelled",
+      "label": "Cancelled",
+      "sublabel": "attempt fenced",
+      "lane": "terminal",
+      "col": 4,
+      "type": "failure",
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 31,
+          "end_line": 37,
+          "label": "2026-10-19-durable-runtime-design.md"
+        }
+      ],
+      "width": 190
+    }
+  ],
+  "transitions": [
+    {
+      "from": "pending",
+      "to": "ready",
+      "label": "deps met"
+    },
+    {
+      "from": "ready",
+      "to": "leased",
+      "label": "admit"
+    },
+    {
+      "from": "leased",
+      "to": "succeeded",
+      "label": "accept"
+    },
+    {
+      "from": "leased",
+      "to": "waiting",
+      "label": "delegate"
+    },
+    {
+      "from": "waiting",
+      "to": "ready",
+      "label": "aggregate ready"
+    },
+    {
+      "from": "waiting",
+      "to": "succeeded",
+      "label": "criteria met"
+    },
+    {
+      "from": "leased",
+      "to": "retry",
+      "label": "lost / retryable"
+    },
+    {
+      "from": "retry",
+      "to": "ready",
+      "label": "allowed"
+    },
+    {
+      "from": "retry",
+      "to": "failed",
+      "label": "exhausted"
+    },
+    {
+      "from": "pending",
+      "to": "blocked",
+      "label": "required dep"
+    },
+    {
+      "from": "leased",
+      "to": "cancelled",
+      "label": "cancel"
+    }
+  ]
+}

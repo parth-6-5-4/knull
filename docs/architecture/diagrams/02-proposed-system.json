@@ -1,0 +1,291 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Proposed system | one modular application",
+    "output": ".archify/architecture-knull-guide-20261020-121808/02-proposed-system/02-proposed-system.html",
+    "quality_profile": "showcase",
+    "locale": "en",
+    "repository": {
+      "url": "https://github.com/parth-6-5-4/knull.git",
+      "revision": "f4f541332b3f78a755bccc5f4890931b1b256d07",
+      "link_mode": "web"
+    }
+  },
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Model and code",
+      "items": [
+        "Knull proposes; deterministic code validates and commits.",
+        "Jev may rank code-eligible choices after qualification."
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Durability",
+      "items": [
+        "State + events commit together.",
+        "Recovery does not replay completed paid calls."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Scope",
+      "items": [
+        "One application with deep module seams.",
+        "Future APIs and report gates require their own contracts."
+      ]
+    }
+  ],
+  "components": [
+    {
+      "id": "request",
+      "type": "frontend",
+      "label": "User / clients",
+      "sublabel": "objective + explicit limits",
+      "pos": [
+        30,
+        30
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 23,
+          "end_line": 27,
+          "label": "2026-10-19-durable-runtime-design.md"
+        }
+      ],
+      "tag": "PROPOSED"
+    },
+    {
+      "id": "knull",
+      "type": "backend",
+      "label": "Knull",
+      "sublabel": "proposes a task plan",
+      "pos": [
+        390,
+        30
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-role-hierarchy-design.md",
+          "line": 25,
+          "end_line": 39,
+          "label": "2026-10-19-role-hierarchy-design.md"
+        }
+      ]
+    },
+    {
+      "id": "gate",
+      "type": "security",
+      "label": "Plan validation",
+      "sublabel": "code checks authority",
+      "pos": [
+        750,
+        30
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-role-hierarchy-design.md",
+          "line": 25,
+          "end_line": 39,
+          "label": "2026-10-19-role-hierarchy-design.md"
+        }
+      ]
+    },
+    {
+      "id": "state",
+      "type": "database",
+      "label": "Durable state",
+      "sublabel": "PostgreSQL + events",
+      "pos": [
+        750,
+        240
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 43,
+          "end_line": 51,
+          "label": "2026-10-19-durable-runtime-design.md"
+        }
+      ]
+    },
+    {
+      "id": "schedule",
+      "type": "backend",
+      "label": "Scheduler",
+      "sublabel": "ready tasks + fairness",
+      "pos": [
+        390,
+        240
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 58,
+          "end_line": 62,
+          "label": "2026-10-19-durable-runtime-design.md"
+        }
+      ]
+    },
+    {
+      "id": "admission",
+      "type": "security",
+      "label": "Resource admission",
+      "sublabel": "permits + reservations",
+      "pos": [
+        30,
+        240
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-resource-governance-design.md",
+          "line": 23,
+          "end_line": 42,
+          "label": "2026-10-19-resource-governance-design.md"
+        }
+      ]
+    },
+    {
+      "id": "execute",
+      "type": "backend",
+      "label": "Role executor",
+      "sublabel": "pinned context + tools",
+      "pos": [
+        30,
+        450
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-role-hierarchy-design.md",
+          "line": 25,
+          "end_line": 39,
+          "label": "2026-10-19-role-hierarchy-design.md"
+        }
+      ]
+    },
+    {
+      "id": "verify",
+      "type": "security",
+      "label": "Evidence gates",
+      "sublabel": "assess + accept findings",
+      "pos": [
+        390,
+        450
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-evidence-isolation-design.md",
+          "line": 31,
+          "end_line": 45,
+          "label": "2026-10-19-evidence-isolation-design.md"
+        }
+      ]
+    },
+    {
+      "id": "commit",
+      "type": "backend",
+      "label": "Guarded commit",
+      "sublabel": "attempt + lease + fence",
+      "pos": [
+        750,
+        450
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-execution-integrity-design.md",
+          "line": 23,
+          "end_line": 38,
+          "label": "2026-10-19-execution-integrity-design.md"
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "from": "request",
+      "to": "knull",
+      "label": "objective"
+    },
+    {
+      "from": "knull",
+      "to": "gate",
+      "label": "proposal"
+    },
+    {
+      "from": "gate",
+      "to": "state",
+      "label": "accept"
+    },
+    {
+      "from": "state",
+      "to": "schedule",
+      "label": "ready"
+    },
+    {
+      "from": "schedule",
+      "to": "admission",
+      "label": "request"
+    },
+    {
+      "from": "admission",
+      "to": "execute",
+      "label": "allow"
+    },
+    {
+      "from": "execute",
+      "to": "verify",
+      "label": "candidate"
+    },
+    {
+      "from": "verify",
+      "to": "commit",
+      "label": "eligible"
+    },
+    {
+      "from": "commit",
+      "to": "state",
+      "fromSide": "top",
+      "toSide": "bottom",
+      "label": "atomic"
+    }
+  ]
+}

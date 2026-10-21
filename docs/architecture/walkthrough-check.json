@@ -1,0 +1,9 @@
+{
+  "evidenceKind": "script-level DOM harness; not browser click-through",
+  "file": "docs/architecture/knull.html",
+  "sha256": "3171f56baeee524901f7177750f647f2b6be046a5c25d58737c2d48203122f87",
+  "scenarioCount": 5,
+  "assertions": 108,
+  "status": "pass",
+  "browserObservation": "Chrome loaded initial page and embedded Archify viewer; native UI interaction unavailable"
+}
