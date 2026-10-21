@@ -375,7 +375,7 @@ For questions, issues, or contributions, please open an issue on [GitHub](https:
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+New releases use the custom [Knull Noncommercial Reciprocal License 1.0](LICENSE): noncommercial personal/development use is allowed; distributing or hosting modifications requires source sharing and upstream submission. Private unshared modifications may remain private. Commercial use requires separate permission. See [licensing notes](docs/LICENSING.md) for scope, prior MIT grants and third-party notices.
 
 ---
 

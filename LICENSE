@@ -1,21 +1,62 @@
-MIT License
+Knull Noncommercial Reciprocal License 1.0
+License identifier: LicenseRef-Knull-Noncommercial-Reciprocal-1.0
 
-Copyright (c) 2024 parth-6-5-4
+Copyright (c) 2024–2026 parth-6-5-4 and applicable contributors.
+Upstream project: https://github.com/parth-6-5-4/knull
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+1. Scope and permission
+Subject to these conditions, you may read, use, reproduce, modify and share
+this software and its modifications for noncommercial personal study,
+research, experimentation, education and development. No commercial rights
+are granted. This is a custom source-available license, not an OSI-approved
+open-source license and not a version of MIT, GPL or AGPL.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+2. Commercial use
+You may not use the software or a modified version to earn revenue, support
+a commercial product or service, perform paid client work, or conduct
+internal business operations for commercial advantage without separate
+written permission from the relevant copyright holders. Merely making a
+service free does not authorize its use to support a commercial business.
+Noncommercial development is permitted; development intended for commercial
+deployment requires separate permission.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+3. Notices and downstream terms
+Preserve copyright, attribution and license notices. Identify your changes.
+Share covered source and modifications under this same license, with no
+additional restrictions preventing recipients from exercising these rights.
+This requirement does not change the licenses of independent third-party
+dependencies or unrelated programs communicating through an API.
+
+4. Source and upstream contribution
+Before sharing a modified version with another person, or making its
+functionality available to others over a network, provide complete source
+for the covered modified software, including build and installation files,
+under this license. Submit the changes to the upstream project as a pull
+request or an issue containing an accessible patch/source link. If upstream
+submission is unavailable, publish the source in an accessible public fork
+and retain evidence of an attempted notice to the maintainer. Supply the
+same source access to recipients and network users. You need not disclose
+credentials, personal records, or unrelated confidential data.
+
+Private noncommercial modifications that are not shared or made available
+to others are exempt from section 4. No maintainer is required to accept,
+merge, support or publish a submitted change.
+
+5. Contributor rights
+Submitting changes does not transfer copyright ownership. Contributors
+must have permission to contribute their changes under these terms.
+
+6. Historical and third-party rights
+These terms apply prospectively to covered releases and new contributions
+offered under them. They do not revoke earlier MIT grants, remove required
+legacy notices, or relicense third-party material. Earlier versions and
+material available under an earlier license may continue to be used under
+that license. LICENSES/MIT-legacy.txt preserves the prior MIT notice. The last
+previously published commit was f4f541332b3f78a755bccc5f4890931b1b256d07. This notice is not a new MIT grant for later modifications.
+
+7. Compliance and disclaimer
+Rights under these terms end if you fail to comply. Separate written
+permission may provide different rights. Rights and exceptions that cannot
+legally be restricted are unaffected. To the extent permitted by law, the
+software is provided without warranties, and its authors and contributors
+are not liable for claims or losses arising from its use.
