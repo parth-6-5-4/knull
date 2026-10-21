@@ -13,3 +13,13 @@ __pycache__/
 .venv/
 node_modules/
 web/dist/
+
+# Architecture artifacts are authored explanations, not executable source.
+.archify/
+docs/architecture/
+
+# Private agent workspaces and publication scratch.
+.superpowers/
+.local-only/
+.codex/
+.agents/

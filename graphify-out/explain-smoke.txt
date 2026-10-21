@@ -1,34 +1,42 @@
 Node: HiveStore
   ID:        app_hive_store_hivestore
-  Source:    app/hive/store.py L43
+  Source:    app/hive/store.py L33
   Type:      code
-  Community: HiveStore
-  Degree:    44
+  Community: db/__init__.py
+  Degree:    76
 
-Connections (44):
+Connections (76):
+  <-- run_hive() [calls] [EXTRACTED] app/hive/runner.py:L58
+  <-- test_hive_execution.py [imports] [EXTRACTED] tests/test_hive_execution.py:L9
   <-- test_hive.py [imports] [EXTRACTED] tests/test_hive.py:L7
-  <-- agents.py [imports] [EXTRACTED] app/hive/agents.py:L9
+  <-- agents.py [imports] [EXTRACTED] app/hive/agents.py:L10
   <-- main() [calls] [EXTRACTED] docs/reviews/reproduce_hive_gaps.py:L25
-  <-- run_hive() [calls] [EXTRACTED] app/hive/runner.py:L33
+  <-- test_hive_migrations.py [imports] [EXTRACTED] tests/test_hive_migrations.py:L11
+  <-- test_api_research.py [imports] [EXTRACTED] tests/test_api_research.py:L36
+  <-- reproduce_hive_evidence.py [imports] [EXTRACTED] docs/reviews/reproduce_hive_evidence.py:L21
+  <-- store.py [contains] [EXTRACTED] app/hive/store.py:L33
+  <-- test_hive_evidence.py [imports] [EXTRACTED] tests/test_hive_evidence.py:L4
+  <-- main() [calls] [EXTRACTED] docs/reviews/reproduce_hive_evidence.py:L45
   <-- reproduce_hive_gaps.py [imports] [EXTRACTED] docs/reviews/reproduce_hive_gaps.py:L16
-  <-- runner.py [imports] [EXTRACTED] app/hive/runner.py:L11
+  <-- runner.py [imports] [EXTRACTED] app/hive/runner.py:L9
+  <-- fixture_hive.py [imports] [EXTRACTED] integrations/mcp/tests/fixture_hive.py:L15
   <-- routes_hive.py [imports] [EXTRACTED] app/api/routes_hive.py:L16
-  <-- store.py [contains] [EXTRACTED] app/hive/store.py:L43
-  <-- Caller [uses] [INFERRED] app/hive/agents.py:L24
-  <-- cli.py [imports] [EXTRACTED] app/hive/cli.py:L7
-  <-- run_verifier() [uses] [INFERRED] app/hive/agents.py:L157
-  <-- _result() [uses] [INFERRED] app/hive/runner.py:L119
-  <-- test_lease_fence_blocks_stale_worker() [calls] [EXTRACTED] tests/test_hive.py:L95
-  --> .claim() [method] [EXTRACTED] app/hive/store.py:L110
-  --> .publish() [method] [EXTRACTED] app/hive/store.py:L150
-  <-- test_expired_lease_cannot_publish_and_attempts_cap() [calls] [EXTRACTED] tests/test_hive.py:L112
-  <-- run_writer() [uses] [INFERRED] app/hive/agents.py:L215
-  --> .add_task() [method] [EXTRACTED] app/hive/store.py:L84
-  <-- test_dependencies_gate_claims() [calls] [EXTRACTED] tests/test_hive.py:L125
-  --> .expire_leases() [method] [EXTRACTED] app/hive/store.py:L207
-  ... and 24 more (--all lists all 44)
+  <-- test_hive_cli.py [imports] [EXTRACTED] tests/test_hive_cli.py:L7
+  --> .create_run() [method] [EXTRACTED] app/hive/store.py:L57
+  <-- Caller [uses] [INFERRED] app/hive/agents.py:L26
+  --> .evidence() [method] [EXTRACTED] app/hive/store.py:L337
+  --> .get_task() [method] [EXTRACTED] app/hive/store.py:L89
+  ... and 56 more (--all lists all 76)
   Grouped by file:
-    --> app/hive/store.py: 21 connections
+    --> app/hive/store.py: 28 connections
+    <-- tests/test_hive_migrations.py: 7 connections
+    <-- tests/test_hive.py: 4 connections
+    <-- app/hive/agents.py: 3 connections
+    <-- tests/test_api_research.py: 3 connections
+    <-- tests/test_hive_execution.py: 3 connections
+    <-- app/hive/cli.py: 2 connections
+    <-- tests/test_hive_evidence.py: 2 connections
     <-- app/api/routes_hive.py: 1 connection
-    <-- app/hive/agents.py: 1 connection
-    <-- app/hive/cli.py: 1 connection
+    <-- app/hive/runner.py: 1 connection
+    <-- integrations/mcp/tests/fixture_hive.py: 1 connection
+    <-- tests/test_hive_cli.py: 1 connection
