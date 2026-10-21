@@ -1,0 +1,72 @@
+{
+  "date": "2026-10-20",
+  "scope": "HIVE-013 local MCP adapter; document review pending",
+  "adapter": {
+    "command": "HIVE_APP_PYTHON=/opt/anaconda3/bin/python integrations/mcp/.venv/bin/python -m pytest -c integrations/mcp/pyproject.toml integrations/mcp/tests",
+    "result": "54 passed in 13.63s",
+    "real_transports": [
+      "stdio modern/legacy",
+      "authenticated loopback Streamable HTTP modern/legacy"
+    ],
+    "real_route_fixture": "existing lite Hive start/get routes, disposable SQLite, mock-only providers",
+    "paid_model_calls": 0,
+    "host_personal_configuration_changed": false
+  },
+  "focused_application": {
+    "command": "DEBUG=false PYTHONDONTWRITEBYTECODE=1 python -m pytest tests/test_hive.py tests/test_api_research.py tests/test_prompts.py -q",
+    "result": "36 passed in 2.27s"
+  },
+  "full_application": {
+    "command": "DEBUG=false PYTHONDONTWRITEBYTECODE=1 python -m pytest -q",
+    "result": "10 failed, 55 passed, 3 errors in 11.45s",
+    "failure_cases": [
+      "FAILED tests/test_semantic_cache.py::TestSemanticCache::test_set_and_get",
+      "FAILED tests/test_semantic_cache.py::TestSemanticCache::test_semantic_similarity_hit",
+      "FAILED tests/test_semantic_cache.py::TestSemanticCache::test_cache_miss",
+      "FAILED tests/test_semantic_cache.py::TestSemanticCache::test_context_key",
+      "FAILED tests/test_semantic_cache.py::TestSemanticCache::test_invalidate",
+      "FAILED tests/test_semantic_cache.py::TestSemanticCache::test_stats",
+      "FAILED tests/test_tools_vectordb.py::TestChromaDB::test_chroma_upsert",
+      "FAILED tests/test_tools_vectordb.py::TestChromaDB::test_chroma_query",
+      "FAILED tests/test_tools_vectordb.py::TestChromaDB::test_chroma_upsert_deduplication",
+      "FAILED tests/test_tools_vectordb.py::TestChromaDB::test_chroma_delete_source",
+      "ERROR tests/test_llm_sdk_wiring.py::test_sdk_roundtrip[openai-OPENAI_API_KEY-hi-openai-tokens0]",
+      "ERROR tests/test_llm_sdk_wiring.py::test_sdk_roundtrip[anthropic-ANTHROPIC_API_KEY-hi-anthropic-tokens1]",
+      "ERROR tests/test_llm_sdk_wiring.py::test_sdk_roundtrip[gemini-GEMINI_API_KEY-hi-gemini-tokens2]"
+    ],
+    "causes": [
+      "existing sentence_transformers import of removed huggingface_hub.HfFolder",
+      "sandbox denied three local fake-server socket fixtures"
+    ]
+  },
+  "provider_fixture_rerun": {
+    "result": "1 failed, 3 passed in 1.66s",
+    "failure_cases": [
+      "FAILED tests/test_llm_sdk_wiring.py::test_sdk_roundtrip[anthropic-ANTHROPIC_API_KEY-hi-anthropic-tokens1]"
+    ],
+    "cause": "Anthropic SDK absent from original app environment; local socket restriction removed for rerun"
+  },
+  "review": {
+    "fresh_reviewer": true,
+    "important_findings": 3,
+    "status": "All three repaired in one RED-GREEN pass; eight new regression cases; no second review claimed",
+    "report": "hive-mcp-review.md"
+  },
+  "packaging": {
+    "separate_environment": true,
+    "sdk": "mcp 2.3.0",
+    "lock": "integrations/mcp/uv.lock",
+    "installed_launcher": "integrations/mcp/.venv/bin/hive-mcp",
+    "examples": "JSON/TOML parsed; GPT example syntax checked only"
+  },
+  "original_application_files_sha256_unchanged": 85,
+  "source_graph": {
+    "nodes": 1107,
+    "edges": 2407,
+    "communities": 67,
+    "edge_confidence": {
+      "EXTRACTED": 2228,
+      "INFERRED": 179
+    }
+  }
+}

@@ -1,5 +1,7 @@
 """Contract tests: real SDK protocol, controlled upstream HTTP boundary."""
 import importlib.util
+import asyncio
+import gzip
 import json
 
 import httpx
@@ -136,3 +138,65 @@ async def test_invalid_read_payload_is_not_returned_as_success(payload):
     async with Client(make_server(lambda r: httpx.Response(200, content=payload))) as client:
         result = await client.call_tool("hive_health")
         assert result.is_error and "upstream_invalid_response" in text(result)
+
+
+@pytest.mark.parametrize("mutation", [False, True])
+async def test_total_deadline_stops_a_continuously_trickling_response(monkeypatch, mutation):
+    import hive_mcp.api as api
+    monkeypatch.setattr(api, "REQUEST_DEADLINE_SECONDS", 0.04, raising=False)
+    calls = []
+
+    class Trickle(httpx.AsyncByteStream):
+        async def __aiter__(self):
+            payload = (b'{"status":"running","run_id":"abcdef012345"}' if mutation
+                       else b'{"status":"healthy"}')
+            for piece in [payload[:5], payload[5:10], payload[10:]]:
+                await asyncio.sleep(0.025)
+                yield piece
+
+    def upstream(request):
+        calls.append(request)
+        return httpx.Response(202 if mutation else 200, stream=Trickle())
+
+    async with Client(make_server(upstream)) as client:
+        result = await client.call_tool("hive_start_run" if mutation else "hive_health",
+                                       {"objective": "valid request"} if mutation else {})
+        assert result.is_error
+        assert ("submission_outcome_unknown" if mutation else "upstream_unavailable") in text(result)
+    assert len(calls) == 1
+
+
+@pytest.mark.parametrize("mutation", [False, True])
+@pytest.mark.parametrize("depth", [64, 1200])
+async def test_deep_json_is_rejected_inside_safe_api_error_boundary(mutation, depth):
+    prefix = (b'{"status":"running","run_id":"abcdef012345","extra":' if mutation
+              else b'{"status":"healthy","extra":')
+    payload = prefix + b'[' * depth + b'0' + b']' * depth + b'}'
+    async with Client(make_server(lambda r: httpx.Response(202 if mutation else 200, content=payload))) as client:
+        result = await client.call_tool("hive_start_run" if mutation else "hive_health",
+                                       {"objective": "valid request"} if mutation else {})
+        assert result.is_error
+        assert ("submission_outcome_unknown" if mutation else "upstream_invalid_response") in text(result)
+
+
+@pytest.mark.parametrize("mutation", [False, True])
+async def test_encoded_response_is_rejected_before_decompression(mutation):
+    consumed = []
+    requests = []
+
+    class Compressed(httpx.AsyncByteStream):
+        async def __aiter__(self):
+            consumed.append(True)
+            yield gzip.compress(b'x' * (2 * 1024 * 1024))
+
+    def upstream(request):
+        requests.append(request)
+        return httpx.Response(202 if mutation else 200, headers={"content-encoding": "gzip"}, stream=Compressed())
+
+    async with Client(make_server(upstream)) as client:
+        result = await client.call_tool("hive_start_run" if mutation else "hive_health",
+                                       {"objective": "valid request"} if mutation else {})
+        assert result.is_error
+        assert ("submission_outcome_unknown" if mutation else "upstream_invalid_response") in text(result)
+    assert not consumed, "Compressed body must never be consumed/decompressed"
+    assert requests[0].headers["accept-encoding"] == "identity"

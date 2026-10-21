@@ -35,7 +35,7 @@ Default transport is stdio. Stdout carries MCP protocol only; diagnostics use st
 
 Example flow: call `hive_start_run` with `{"objective":"Compare graph memory approaches","workers":2,"subtasks":2,"budget_tokens":10000}`; take its returned ID and poll `hive_get_run`. Accepted is not completed. A run uses the Hive service's configured providers and may incur charges.
 
-Bounds: objective 5–10,000 characters; workers/subtasks 1–8; requested tokens 1,000–200,000. Defaults: 3 workers, 4 subtasks, 200,000 requested tokens. Run IDs use the current lite engine's 12-character lowercase hex format. Unknown arguments are rejected. Upstream requests time out after 10 seconds; responses are capped at 1 MiB. Large run projections fail explicitly rather than truncating facts/reports.
+Bounds: objective 5–10,000 characters; workers/subtasks 1–8; requested tokens 1,000–200,000. Defaults: 3 workers, 4 subtasks, 200,000 requested tokens. Run IDs use the current lite engine's 12-character lowercase hex format. Unknown arguments are rejected. Upstream requests have a 10-second total deadline; identity-encoded responses are capped at 1 MiB and JSON nesting at 32 levels. Compressed/non-finite/deep responses and large run projections fail explicitly rather than bypassing the resource bound or truncating facts/reports.
 
 Submission is **not idempotent**. No automatic retry. `submission_outcome_unknown` means Hive may already have accepted the run: inspect the local Hive database/run records before manually resubmitting. `run_not_found` is a missing run; other safe error codes include `upstream_rejected`, `upstream_redirect_refused`, `upstream_unavailable`, and `upstream_invalid_response`. Raw upstream errors/bodies are not echoed. Disconnecting/cancelling MCP cannot undo an accepted Hive run; no stop/resume tool exists.
 
@@ -46,7 +46,7 @@ Ready-to-edit examples:
 - [Codex stdio](examples/codex.stdio.toml), [Codex HTTP](examples/codex.http.toml)
 - [Claude Code stdio](examples/claude-code.stdio.json), [Claude Code HTTP](examples/claude-code.http.json)
 
-Examples use this checkout's absolute executable path. Replace it when moving the project. Choose one transport; merge the entry into the host's existing configuration instead of overwriting unrelated servers. No personal configuration was changed by this task.
+Examples use an absolute placeholder executable path. Replace it with your local checkout path. Choose one transport; merge the entry into the host's existing configuration instead of overwriting unrelated servers. Keep personal host configuration local. No personal configuration was changed by this task.
 
 Codex accepts stdio `command`/`args` or HTTP `url` with a bearer-token environment reference. [Official Codex configuration](https://learn.chatgpt.com/docs/extend/mcp?surface=cli).
 
@@ -78,6 +78,6 @@ HIVE_APP_PYTHON=/absolute/path/to/app/python \
 
 `HIVE_APP_PYTHON` selects the original application environment for the disposable real-route fixture. Without it, that one integration test skips; other adapter tests still run. Socket tests need permission to bind loopback. Fixtures use mock providers and temporary SQLite, never real app databases or paid requests. The official SDK client verifies stdio and authenticated HTTP, modern/legacy modes, exact tools, typed forwarding and safe failure cases. This is protocol/API evidence, not an actual Codex/Claude account login or live GPT call.
 
-Underlying lite-engine issues remain in the [problem register](../../docs/reports/problems-and-fixes.md): evidence reuse/provenance, exhausted dependency termination, concurrent budget overshoot and missing shared-caller isolation. Requested token budget is not a repaired hard-spend guarantee. Skill loading, hierarchy and Jev remain separate draft designs; this server does not advertise them as working tools. Adapter success does not establish research accuracy or production readiness.
+See the [problem register](../../docs/reports/problems-and-fixes.md) for lite-engine status. HIVE-001/002 repair run-scoped evidence provenance and exhausted-dependency termination; concurrent budget overshoot and missing shared-caller isolation remain open. Requested token budget is not a repaired hard-spend guarantee. Skill loading, hierarchy and Jev remain separate draft designs; this server does not advertise them as working tools. Adapter success does not establish research accuracy or production readiness.
 
 Rollback: stop the MCP process/remove its host entry. Already accepted Hive jobs remain under Hive's existing lifecycle; adapter shutdown does not cancel them. No storage migration is needed.
