@@ -82,7 +82,7 @@ async def main():
     store.expire_leases(rid, now=2)
     current = store.claim(rid, "current", lease_s=10, now=3)
     store.publish(tid, "current", current["attempt"], current["fence"], {"ok": True}, now=4)
-    store.mark_exhausted(tid, "late failure from old attempt")
+    store.mark_exhausted(tid, "late failure from old attempt", worker="old", attempt=old["attempt"], fence=old["fence"], now=4)
     findings["unfenced_exhaustion"] = {
         "old_fence": old["fence"], "current_fence": current["fence"],
         "status_after_success_then_stale_failure": store.get_task(tid)["status"],

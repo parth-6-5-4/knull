@@ -199,3 +199,33 @@ async def test_worker_crash_is_requeued_and_run_completes(router):
         return SRC
     r = await run_hive("x", workers=1, max_subtasks=1, search=flaky, tick_s=0.01)
     assert r.status == "done" and any(e["kind"] == "task_error" for e in r.events)
+
+
+@pytest.mark.parametrize('changed',[False,True],ids=['repeated-source','changed-source'])
+async def test_repeated_source_runs_share_file_store(tmp_path, changed):
+    store=HiveStore(str(tmp_path/'runs.db'))
+    verifier_inputs=[]; expected_marker=['snapshot one']
+    handler=make_handler()
+    def recording_handler(spec,messages):
+        if 'verifier' in messages[0]['content']:
+            verifier_inputs.append(messages[-1]['content'])
+            assert expected_marker[0] in messages[-1]['content']
+        return handler(spec,messages)
+    async def search(q,n):
+        return [{**s,'abstract':s['abstract']+' '+expected_marker[0]} for s in SRC]
+    set_router(LLMRouter(routed_config(),mock_handler=recording_handler))
+    try:
+        first=await run_hive('first objective',store,workers=2,max_subtasks=1,search=search,tick_s=.01)
+        expected_marker[0]='snapshot two' if changed else 'snapshot one'
+        second=await run_hive('second objective',store,workers=2,max_subtasks=1,search=search,tick_s=.01)
+        assert first.run_id!=second.run_id
+        assert first.status==second.status=='done'
+        assert first.facts_verified==second.facts_verified==2
+        assert '[F-' in first.report and '[F-' in second.report
+        assert len(store.evidence(first.run_id))==len(store.evidence(second.run_id))==2
+        assert len(verifier_inputs)==4
+        if changed:
+            assert all('snapshot two' not in e['text'] for e in store.evidence(first.run_id))
+            assert all('snapshot one' not in e['text'] for e in store.evidence(second.run_id))
+    finally:
+        set_router(None); store.db.close()

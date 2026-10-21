@@ -61,6 +61,7 @@ async def search_semantic_scholar(
     max_results: int = 10,
     year_from: Optional[int] = None,
     year_to: Optional[int] = None,
+    *, raise_on_error: bool = False,
 ) -> list[SemanticScholarSource]:
     """
     Search Semantic Scholar for papers.
@@ -99,6 +100,8 @@ async def search_semantic_scholar(
             
             if response.status_code == 429:
                 logger.warning("Semantic Scholar rate limit hit")
+                if raise_on_error:
+                    response.raise_for_status()
                 return []
             
             response.raise_for_status()
@@ -126,9 +129,13 @@ async def search_semantic_scholar(
         
     except httpx.HTTPStatusError as e:
         logger.error(f"Semantic Scholar API error: {e}")
+        if raise_on_error:
+            raise
         return []
     except Exception as e:
         logger.error(f"Semantic Scholar search failed: {e}")
+        if raise_on_error:
+            raise
         return []
 
 

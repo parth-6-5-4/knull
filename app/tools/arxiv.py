@@ -2,6 +2,7 @@
 arXiv API client for searching academic papers.
 """
 import arxiv
+import asyncio
 from dataclasses import dataclass
 from typing import Optional
 from datetime import datetime
@@ -24,7 +25,7 @@ class ArxivSource:
     published: datetime
     categories: list[str]
     source: str = "arxiv"
-    
+
     def to_dict(self) -> dict:
         return {
             "id": self.id,
@@ -45,53 +46,61 @@ async def search_arxiv(
     max_results: int = 10,
     sort_by: arxiv.SortCriterion = arxiv.SortCriterion.Relevance,
     sort_order: arxiv.SortOrder = arxiv.SortOrder.Descending,
+    *, raise_on_error: bool = False,
 ) -> list[ArxivSource]:
     """
     Search arXiv for papers matching query.
-    
+
     Args:
         query: Search query string
         max_results: Maximum number of results
         sort_by: Sort criterion (Relevance, LastUpdatedDate, SubmittedDate)
         sort_order: Sort order (Ascending, Descending)
-    
+
     Returns:
         List of ArxivSource objects
     """
     logger.info(f"Searching arXiv: '{query}' (max_results={max_results})")
-    
+
     try:
-        # Create search
-        search = arxiv.Search(
-            query=query,
-            max_results=max_results,
-            sort_by=sort_by,
-            sort_order=sort_order,
-        )
-        
-        # Fetch results (arxiv library is sync, but lightweight)
-        results = []
-        client = arxiv.Client()
-        
-        for paper in client.results(search):
-            source = ArxivSource(
-                id=paper.entry_id.split("/")[-1],
-                title=paper.title.replace("\n", " ").strip(),
-                authors=[a.name for a in paper.authors[:5]],  # Limit authors
-                abstract=paper.summary.replace("\n", " ").strip(),
-                url=paper.entry_id,
-                pdf_url=paper.pdf_url,
-                year=paper.published.year,
-                published=paper.published,
-                categories=paper.categories[:3],  # Limit categories
+        def fetch():
+            # Create search
+            search = arxiv.Search(
+                query=query,
+                max_results=max_results,
+                sort_by=sort_by,
+                sort_order=sort_order,
             )
-            results.append(source)
-        
+
+            # Fetch results (arxiv library is sync, but lightweight)
+            results = []
+            client = arxiv.Client()
+
+            for paper in client.results(search):
+                source = ArxivSource(
+                    id=paper.entry_id.split("/")[-1],
+                    title=paper.title.replace("\n", " ").strip(),
+                    authors=[a.name for a in paper.authors[:5]],  # Limit authors
+                    abstract=paper.summary.replace("\n", " ").strip(),
+                    url=paper.entry_id,
+                    pdf_url=paper.pdf_url,
+                    year=paper.published.year,
+                    published=paper.published,
+                    categories=paper.categories[:3],  # Limit categories
+                )
+                results.append(source)
+
+            return results
+
+        results = await asyncio.to_thread(fetch)
+
         logger.info(f"Found {len(results)} papers for '{query}'")
         return results
-        
+
     except Exception as e:
         logger.error(f"arXiv search failed: {e}")
+        if raise_on_error:
+            raise
         return []
 
 
@@ -99,18 +108,18 @@ def format_arxiv_for_context(sources: list[ArxivSource]) -> str:
     """Format sources as context for LLM."""
     if not sources:
         return "No sources found."
-    
+
     lines = []
     for i, s in enumerate(sources, 1):
         authors_str = ", ".join(s.authors[:3])
         if len(s.authors) > 3:
             authors_str += " et al."
-        
+
         lines.append(
             f"[{i}] {s.title} ({s.year})\n"
             f"    Authors: {authors_str}\n"
             f"    Abstract: {s.abstract[:300]}...\n"
             f"    URL: {s.url}\n"
         )
-    
+
     return "\n".join(lines)

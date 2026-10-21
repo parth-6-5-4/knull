@@ -1,0 +1,312 @@
+/opt/anaconda3/lib/python3.12/site-packages/pytest_asyncio/plugin.py:247: PytestDeprecationWarning: The configuration option "asyncio_default_fixture_loop_scope" is unset.
+The event loop scope for asynchronous fixtures will default to the fixture caching scope. Future versions of pytest-asyncio will default the loop scope for asynchronous fixtures to function scope. Set the default fixture loop scope explicitly in order to avoid unexpected behavior in the future. Valid fixture loop scopes are: "function", "class", "module", "package", "session"
+
+  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))
+============================= test session starts ==============================
+platform darwin -- Python 3.12.7, pytest-8.2.2, pluggy-1.6.0
+rootdir: /Users/parthsdambhare/hive-lite-v5
+configfile: pytest.ini
+plugins: mock-3.15.1, anyio-4.9.0, asyncio-1.3.0, cov-7.0.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 34 items
+
+tests/test_hive_execution.py ...............FFFFFFFFFFFFFFFFFFF          [100%]
+
+=================================== FAILURES ===================================
+___________ test_long_running_task_renews_without_duplicate_attempt ____________
+tests/test_hive_execution.py:148: in test_long_running_task_renews_without_duplicate_attempt
+    result=await asyncio.wait_for(run_hive('objective',store,search=search,max_subtasks=1,workers=1,
+E   TypeError: run_hive() got an unexpected keyword argument 'heartbeat_s'
+_________ test_task_deadline_stops_hung_search_and_blocks_descendants __________
+tests/test_hive_execution.py:160: in test_task_deadline_stops_hung_search_and_blocks_descendants
+    result=await asyncio.wait_for(run_hive('objective',store,search=search,max_subtasks=1,workers=1,
+E   TypeError: run_hive() got an unexpected keyword argument 'task_timeout_s'
+_____________ test_run_deadline_includes_planning_and_records_stop _____________
+tests/test_hive_execution.py:171: in test_run_deadline_includes_planning_and_records_stop
+    result=await asyncio.wait_for(run_hive('objective',store,run_timeout_s=.03),.5)
+E   TypeError: run_hive() got an unexpected keyword argument 'run_timeout_s'
+__________ test_cancellation_cleans_workers_watchdog_and_assignments ___________
+tests/test_hive_execution.py:186: in test_cancellation_cleans_workers_watchdog_and_assignments
+    assert not [t for t in asyncio.all_tasks()-before if not t.done()]
+E   AssertionError: assert not [<Task pending name='Task-19' coro=<run_hive.<locals>.watchdog() running at /Users/parthsdambhare/hive-lite-v5/app/hive/runner.py:98> wait_for=<Future pending cb=[Task.task_wakeup()]>>]
+_________________ test_watchdog_failure_supervises_all_workers _________________
+/opt/anaconda3/lib/python3.12/asyncio/tasks.py:520: in wait_for
+    return await fut
+app/hive/runner.py:101: in run_hive
+    await asyncio.gather(*(worker(f"symbiote-{i + 1}") for i in range(workers)))
+app/hive/runner.py:62: in worker
+    await asyncio.sleep(tick_s)
+/opt/anaconda3/lib/python3.12/asyncio/tasks.py:665: in sleep
+    return await future
+E   asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+tests/test_hive_execution.py:204: in test_watchdog_failure_supervises_all_workers
+    await asyncio.wait_for(run_hive('objective',store,search=search,max_subtasks=1,tick_s=.005),.5)
+/opt/anaconda3/lib/python3.12/asyncio/tasks.py:519: in wait_for
+    async with timeouts.timeout(timeout):
+/opt/anaconda3/lib/python3.12/asyncio/timeouts.py:115: in __aexit__
+    raise TimeoutError from exc_val
+E   TimeoutError
+__________ test_invalid_limits_rejected_before_run_creation[options0] __________
+tests/test_hive_execution.py:216: in test_invalid_limits_rejected_before_run_creation
+    with pytest.raises(ValueError):await asyncio.wait_for(run_hive('objective',store,**options),.2)
+E   Failed: DID NOT RAISE <class 'ValueError'>
+__________ test_invalid_limits_rejected_before_run_creation[options1] __________
+/opt/anaconda3/lib/python3.12/asyncio/tasks.py:520: in wait_for
+    return await fut
+app/hive/runner.py:101: in run_hive
+    await asyncio.gather(*(worker(f"symbiote-{i + 1}") for i in range(workers)))
+app/hive/runner.py:62: in worker
+    await asyncio.sleep(tick_s)
+/opt/anaconda3/lib/python3.12/asyncio/tasks.py:665: in sleep
+    return await future
+E   asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+tests/test_hive_execution.py:216: in test_invalid_limits_rejected_before_run_creation
+    with pytest.raises(ValueError):await asyncio.wait_for(run_hive('objective',store,**options),.2)
+/opt/anaconda3/lib/python3.12/asyncio/tasks.py:519: in wait_for
+    async with timeouts.timeout(timeout):
+/opt/anaconda3/lib/python3.12/asyncio/timeouts.py:115: in __aexit__
+    raise TimeoutError from exc_val
+E   TimeoutError
+------------------------------ Captured log call -------------------------------
+ERROR    asyncio:base_events.py:1820 Task exception was never retrieved
+future: <Task finished name='Task-26' coro=<run_hive.<locals>.watchdog() done, defined at /Users/parthsdambhare/hive-lite-v5/app/hive/runner.py:90> exception=RuntimeError('database unavailable')>
+Traceback (most recent call last):
+  File "/Users/parthsdambhare/hive-lite-v5/app/hive/runner.py", line 92, in watchdog
+    for act in store.expire_leases(run_id, max_attempts):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/parthsdambhare/hive-lite-v5/tests/test_hive_execution.py", line 200, in broken
+    def broken(*args,**kwargs):raise RuntimeError('database unavailable')
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: database unavailable
+ERROR    app.tools.arxiv:arxiv.py:94 arXiv search failed: HTTPSConnectionPool(host='export.arxiv.org', port=443): Max retries exceeded with url: /api/query?search_query=self+attention&id_list=&sortBy=relevance&sortOrder=descending&start=0&max_results=100 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x1189dc830>: Failed to resolve 'export.arxiv.org' ([Errno 8] nodename nor servname provided, or not known)"))
+__________ test_invalid_limits_rejected_before_run_creation[options2] __________
+/opt/anaconda3/lib/python3.12/asyncio/tasks.py:520: in wait_for
+    return await fut
+app/hive/runner.py:103: in run_hive
+    await wd
+app/hive/runner.py:98: in watchdog
+    await asyncio.sleep(tick_s)
+/opt/anaconda3/lib/python3.12/asyncio/tasks.py:665: in sleep
+    return await future
+E   asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+tests/test_hive_execution.py:216: in test_invalid_limits_rejected_before_run_creation
+    with pytest.raises(ValueError):await asyncio.wait_for(run_hive('objective',store,**options),.2)
+/opt/anaconda3/lib/python3.12/asyncio/tasks.py:519: in wait_for
+    async with timeouts.timeout(timeout):
+/opt/anaconda3/lib/python3.12/asyncio/timeouts.py:115: in __aexit__
+    raise TimeoutError from exc_val
+E   TimeoutError
+__________ test_invalid_limits_rejected_before_run_creation[options3] __________
+/opt/anaconda3/lib/python3.12/asyncio/tasks.py:520: in wait_for
+    return await fut
+app/hive/runner.py:101: in run_hive
+    await asyncio.gather(*(worker(f"symbiote-{i + 1}") for i in range(workers)))
+app/hive/runner.py:68: in worker
+    result, ev, facts = await agents.run_researcher(task, call, search)
+app/hive/agents.py:106: in run_researcher
+    sources = (await search(query, max_sources))[:max_sources * 2]
+app/hive/agents.py:52: in default_search
+    out += [r.to_dict() for r in await fn(query, max_results=n)]
+app/tools/semantic_scholar.py:79: in search_semantic_scholar
+    await _rate_limit()
+app/tools/semantic_scholar.py:55: in _rate_limit
+    await asyncio.sleep(_request_interval - elapsed)
+/opt/anaconda3/lib/python3.12/asyncio/tasks.py:665: in sleep
+    return await future
+E   asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+tests/test_hive_execution.py:216: in test_invalid_limits_rejected_before_run_creation
+    with pytest.raises(ValueError):await asyncio.wait_for(run_hive('objective',store,**options),.2)
+/opt/anaconda3/lib/python3.12/asyncio/tasks.py:519: in wait_for
+    async with timeouts.timeout(timeout):
+/opt/anaconda3/lib/python3.12/asyncio/timeouts.py:115: in __aexit__
+    raise TimeoutError from exc_val
+E   TimeoutError
+------------------------------ Captured log call -------------------------------
+ERROR    app.tools.arxiv:arxiv.py:94 arXiv search failed: HTTPSConnectionPool(host='export.arxiv.org', port=443): Max retries exceeded with url: /api/query?search_query=self+attention&id_list=&sortBy=relevance&sortOrder=descending&start=0&max_results=100 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x118cf4770>: Failed to resolve 'export.arxiv.org' ([Errno 8] nodename nor servname provided, or not known)"))
+__________ test_invalid_limits_rejected_before_run_creation[options4] __________
+/opt/anaconda3/lib/python3.12/asyncio/tasks.py:520: in wait_for
+    return await fut
+app/hive/runner.py:101: in run_hive
+    await asyncio.gather(*(worker(f"symbiote-{i + 1}") for i in range(workers)))
+app/hive/runner.py:68: in worker
+    result, ev, facts = await agents.run_researcher(task, call, search)
+app/hive/agents.py:106: in run_researcher
+    sources = (await search(query, max_sources))[:max_sources * 2]
+app/hive/agents.py:52: in default_search
+    out += [r.to_dict() for r in await fn(query, max_results=n)]
+app/tools/semantic_scholar.py:79: in search_semantic_scholar
+    await _rate_limit()
+app/tools/semantic_scholar.py:55: in _rate_limit
+    await asyncio.sleep(_request_interval - elapsed)
+/opt/anaconda3/lib/python3.12/asyncio/tasks.py:665: in sleep
+    return await future
+E   asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+tests/test_hive_execution.py:216: in test_invalid_limits_rejected_before_run_creation
+    with pytest.raises(ValueError):await asyncio.wait_for(run_hive('objective',store,**options),.2)
+/opt/anaconda3/lib/python3.12/asyncio/tasks.py:519: in wait_for
+    async with timeouts.timeout(timeout):
+/opt/anaconda3/lib/python3.12/asyncio/timeouts.py:115: in __aexit__
+    raise TimeoutError from exc_val
+E   TimeoutError
+------------------------------ Captured log call -------------------------------
+ERROR    app.tools.arxiv:arxiv.py:94 arXiv search failed: HTTPSConnectionPool(host='export.arxiv.org', port=443): Max retries exceeded with url: /api/query?search_query=self+attention&id_list=&sortBy=relevance&sortOrder=descending&start=0&max_results=100 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x118cf43b0>: Failed to resolve 'export.arxiv.org' ([Errno 8] nodename nor servname provided, or not known)"))
+__________ test_invalid_limits_rejected_before_run_creation[options5] __________
+/opt/anaconda3/lib/python3.12/asyncio/tasks.py:520: in wait_for
+    return await fut
+app/hive/runner.py:101: in run_hive
+    await asyncio.gather(*(worker(f"symbiote-{i + 1}") for i in range(workers)))
+app/hive/runner.py:68: in worker
+    result, ev, facts = await agents.run_researcher(task, call, search)
+app/hive/agents.py:106: in run_researcher
+    sources = (await search(query, max_sources))[:max_sources * 2]
+app/hive/agents.py:52: in default_search
+    out += [r.to_dict() for r in await fn(query, max_results=n)]
+app/tools/semantic_scholar.py:79: in search_semantic_scholar
+    await _rate_limit()
+app/tools/semantic_scholar.py:55: in _rate_limit
+    await asyncio.sleep(_request_interval - elapsed)
+/opt/anaconda3/lib/python3.12/asyncio/tasks.py:665: in sleep
+    return await future
+E   asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+tests/test_hive_execution.py:216: in test_invalid_limits_rejected_before_run_creation
+    with pytest.raises(ValueError):await asyncio.wait_for(run_hive('objective',store,**options),.2)
+/opt/anaconda3/lib/python3.12/asyncio/tasks.py:519: in wait_for
+    async with timeouts.timeout(timeout):
+/opt/anaconda3/lib/python3.12/asyncio/timeouts.py:115: in __aexit__
+    raise TimeoutError from exc_val
+E   TimeoutError
+------------------------------ Captured log call -------------------------------
+ERROR    app.tools.arxiv:arxiv.py:94 arXiv search failed: HTTPSConnectionPool(host='export.arxiv.org', port=443): Max retries exceeded with url: /api/query?search_query=self+attention&id_list=&sortBy=relevance&sortOrder=descending&start=0&max_results=100 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x118cf64b0>: Failed to resolve 'export.arxiv.org' ([Errno 8] nodename nor servname provided, or not known)"))
+__________ test_invalid_limits_rejected_before_run_creation[options6] __________
+/opt/anaconda3/lib/python3.12/asyncio/tasks.py:520: in wait_for
+    return await fut
+app/hive/runner.py:101: in run_hive
+    await asyncio.gather(*(worker(f"symbiote-{i + 1}") for i in range(workers)))
+app/hive/runner.py:68: in worker
+    result, ev, facts = await agents.run_researcher(task, call, search)
+app/hive/agents.py:106: in run_researcher
+    sources = (await search(query, max_sources))[:max_sources * 2]
+app/hive/agents.py:52: in default_search
+    out += [r.to_dict() for r in await fn(query, max_results=n)]
+app/tools/semantic_scholar.py:79: in search_semantic_scholar
+    await _rate_limit()
+app/tools/semantic_scholar.py:55: in _rate_limit
+    await asyncio.sleep(_request_interval - elapsed)
+/opt/anaconda3/lib/python3.12/asyncio/tasks.py:665: in sleep
+    return await future
+E   asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+tests/test_hive_execution.py:216: in test_invalid_limits_rejected_before_run_creation
+    with pytest.raises(ValueError):await asyncio.wait_for(run_hive('objective',store,**options),.2)
+/opt/anaconda3/lib/python3.12/asyncio/tasks.py:519: in wait_for
+    async with timeouts.timeout(timeout):
+/opt/anaconda3/lib/python3.12/asyncio/timeouts.py:115: in __aexit__
+    raise TimeoutError from exc_val
+E   TimeoutError
+------------------------------ Captured log call -------------------------------
+ERROR    app.tools.arxiv:arxiv.py:94 arXiv search failed: HTTPSConnectionPool(host='export.arxiv.org', port=443): Max retries exceeded with url: /api/query?search_query=self+attention&id_list=&sortBy=relevance&sortOrder=descending&start=0&max_results=100 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x118cf7aa0>: Failed to resolve 'export.arxiv.org' ([Errno 8] nodename nor servname provided, or not known)"))
+__________ test_invalid_limits_rejected_before_run_creation[options7] __________
+/opt/anaconda3/lib/python3.12/asyncio/tasks.py:520: in wait_for
+    return await fut
+app/hive/runner.py:101: in run_hive
+    await asyncio.gather(*(worker(f"symbiote-{i + 1}") for i in range(workers)))
+app/hive/runner.py:62: in worker
+    await asyncio.sleep(tick_s)
+/opt/anaconda3/lib/python3.12/asyncio/tasks.py:656: in sleep
+    await __sleep0()
+/opt/anaconda3/lib/python3.12/asyncio/tasks.py:650: in __sleep0
+    yield
+E   asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+tests/test_hive_execution.py:216: in test_invalid_limits_rejected_before_run_creation
+    with pytest.raises(ValueError):await asyncio.wait_for(run_hive('objective',store,**options),.2)
+/opt/anaconda3/lib/python3.12/asyncio/tasks.py:519: in wait_for
+    async with timeouts.timeout(timeout):
+/opt/anaconda3/lib/python3.12/asyncio/timeouts.py:115: in __aexit__
+    raise TimeoutError from exc_val
+E   TimeoutError
+------------------------------ Captured log call -------------------------------
+ERROR    app.tools.arxiv:arxiv.py:94 arXiv search failed: HTTPSConnectionPool(host='export.arxiv.org', port=443): Max retries exceeded with url: /api/query?search_query=self+attention&id_list=&sortBy=relevance&sortOrder=descending&start=0&max_results=100 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x118cc9a30>: Failed to resolve 'export.arxiv.org' ([Errno 8] nodename nor servname provided, or not known)"))
+__________ test_invalid_limits_rejected_before_run_creation[options8] __________
+tests/test_hive_execution.py:216: in test_invalid_limits_rejected_before_run_creation
+    with pytest.raises(ValueError):await asyncio.wait_for(run_hive('objective',store,**options),.2)
+E   TypeError: run_hive() got an unexpected keyword argument 'task_timeout_s'
+__________ test_invalid_limits_rejected_before_run_creation[options9] __________
+tests/test_hive_execution.py:216: in test_invalid_limits_rejected_before_run_creation
+    with pytest.raises(ValueError):await asyncio.wait_for(run_hive('objective',store,**options),.2)
+E   TypeError: run_hive() got an unexpected keyword argument 'run_timeout_s'
+_________ test_invalid_limits_rejected_before_run_creation[options10] __________
+tests/test_hive_execution.py:216: in test_invalid_limits_rejected_before_run_creation
+    with pytest.raises(ValueError):await asyncio.wait_for(run_hive('objective',store,**options),.2)
+E   TypeError: run_hive() got an unexpected keyword argument 'heartbeat_s'
+________ test_verifier_execution_failure_does_not_reject_facts[outage] _________
+/opt/anaconda3/lib/python3.12/asyncio/tasks.py:520: in wait_for
+    return await fut
+app/hive/runner.py:101: in run_hive
+    await asyncio.gather(*(worker(f"symbiote-{i + 1}") for i in range(workers)))
+app/hive/runner.py:71: in worker
+    updates = await agents.run_verifier(store, run_id, task["deps"], call)
+app/hive/agents.py:168: in run_verifier
+    text = await call("verifier", "verifier", VERIFY_SYSTEM,
+app/hive/agents.py:30: in __call__
+    r = await get_router().complete(
+app/llm/router.py:172: in complete
+    await asyncio.sleep(min(2 ** attempt, 8))
+/opt/anaconda3/lib/python3.12/asyncio/tasks.py:665: in sleep
+    return await future
+E   asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+tests/test_hive_execution.py:235: in test_verifier_execution_failure_does_not_reject_facts
+    result=await asyncio.wait_for(run_hive('objective',store,search=fake_search,max_subtasks=1,max_attempts=2,tick_s=.005),2)
+/opt/anaconda3/lib/python3.12/asyncio/tasks.py:519: in wait_for
+    async with timeouts.timeout(timeout):
+/opt/anaconda3/lib/python3.12/asyncio/timeouts.py:115: in __aexit__
+    raise TimeoutError from exc_val
+E   TimeoutError
+_______ test_verifier_execution_failure_does_not_reject_facts[malformed] _______
+tests/test_hive_execution.py:236: in test_verifier_execution_failure_does_not_reject_facts
+    assert result.status=='blocked' and result.facts_rejected==0
+E   AssertionError: assert ('blocked' == 'blocked'
+E     
+E       blocked and 2 == 0)
+E    +  where 2 = HiveResult(run_id='4d9ee9577fb0', status='blocked', report='', gate={'reason': 'no verified facts or write task incomp...30365, 'kind': 'claim', 'task': 'b9b47358e5', 'task_kind': 'write', 'worker': 'symbiote-1', 'attempt': 1, 'fence': 1}]).facts_rejected
+______________ test_caller_rechecks_lease_before_each_model_call _______________
+tests/test_hive_execution.py:256: in test_caller_rechecks_lease_before_each_model_call
+    call=Caller(store,run,BudgetGovernor(store,run,1000),before_call=guard)
+E   TypeError: Caller.__init__() got an unexpected keyword argument 'before_call'
+=========================== short test summary info ============================
+FAILED tests/test_hive_execution.py::test_long_running_task_renews_without_duplicate_attempt
+FAILED tests/test_hive_execution.py::test_task_deadline_stops_hung_search_and_blocks_descendants
+FAILED tests/test_hive_execution.py::test_run_deadline_includes_planning_and_records_stop
+FAILED tests/test_hive_execution.py::test_cancellation_cleans_workers_watchdog_and_assignments
+FAILED tests/test_hive_execution.py::test_watchdog_failure_supervises_all_workers
+FAILED tests/test_hive_execution.py::test_invalid_limits_rejected_before_run_creation[options0]
+FAILED tests/test_hive_execution.py::test_invalid_limits_rejected_before_run_creation[options1]
+FAILED tests/test_hive_execution.py::test_invalid_limits_rejected_before_run_creation[options2]
+FAILED tests/test_hive_execution.py::test_invalid_limits_rejected_before_run_creation[options3]
+FAILED tests/test_hive_execution.py::test_invalid_limits_rejected_before_run_creation[options4]
+FAILED tests/test_hive_execution.py::test_invalid_limits_rejected_before_run_creation[options5]
+FAILED tests/test_hive_execution.py::test_invalid_limits_rejected_before_run_creation[options6]
+FAILED tests/test_hive_execution.py::test_invalid_limits_rejected_before_run_creation[options7]
+FAILED tests/test_hive_execution.py::test_invalid_limits_rejected_before_run_creation[options8]
+FAILED tests/test_hive_execution.py::test_invalid_limits_rejected_before_run_creation[options9]
+FAILED tests/test_hive_execution.py::test_invalid_limits_rejected_before_run_creation[options10]
+FAILED tests/test_hive_execution.py::test_verifier_execution_failure_does_not_reject_facts[outage]
+FAILED tests/test_hive_execution.py::test_verifier_execution_failure_does_not_reject_facts[malformed]
+FAILED tests/test_hive_execution.py::test_caller_rechecks_lease_before_each_model_call
+======================== 19 failed, 15 passed in 5.14s =========================

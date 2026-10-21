@@ -1,0 +1,85 @@
+/opt/anaconda3/lib/python3.12/site-packages/pytest_asyncio/plugin.py:247: PytestDeprecationWarning: The configuration option "asyncio_default_fixture_loop_scope" is unset.
+The event loop scope for asynchronous fixtures will default to the fixture caching scope. Future versions of pytest-asyncio will default the loop scope for asynchronous fixtures to function scope. Set the default fixture loop scope explicitly in order to avoid unexpected behavior in the future. Valid fixture loop scopes are: "function", "class", "module", "package", "session"
+
+  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))
+============================= test session starts ==============================
+platform darwin -- Python 3.12.7, pytest-8.2.2, pluggy-1.6.0
+rootdir: /Users/parthsdambhare/hive-lite-v5
+configfile: pytest.ini
+plugins: mock-3.15.1, anyio-4.9.0, asyncio-1.3.0, cov-7.0.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 17 items
+
+tests/test_hive_evidence.py ...FFFFFFFFF..FFF                            [100%]
+
+=================================== FAILURES ===================================
+______________ test_same_run_conflict_rolls_back_batch[source_id] ______________
+tests/test_hive_evidence.py:51: in test_same_run_conflict_rolls_back_batch
+    from app.hive.store import EvidenceIntegrityError
+E   ImportError: cannot import name 'EvidenceIntegrityError' from 'app.hive.store' (/Users/parthsdambhare/hive-lite-v5/app/hive/store.py)
+________________ test_same_run_conflict_rolls_back_batch[title] ________________
+tests/test_hive_evidence.py:51: in test_same_run_conflict_rolls_back_batch
+    from app.hive.store import EvidenceIntegrityError
+E   ImportError: cannot import name 'EvidenceIntegrityError' from 'app.hive.store' (/Users/parthsdambhare/hive-lite-v5/app/hive/store.py)
+_________________ test_same_run_conflict_rolls_back_batch[url] _________________
+tests/test_hive_evidence.py:51: in test_same_run_conflict_rolls_back_batch
+    from app.hive.store import EvidenceIntegrityError
+E   ImportError: cannot import name 'EvidenceIntegrityError' from 'app.hive.store' (/Users/parthsdambhare/hive-lite-v5/app/hive/store.py)
+________________ test_same_run_conflict_rolls_back_batch[text] _________________
+tests/test_hive_evidence.py:51: in test_same_run_conflict_rolls_back_batch
+    from app.hive.store import EvidenceIntegrityError
+E   ImportError: cannot import name 'EvidenceIntegrityError' from 'app.hive.store' (/Users/parthsdambhare/hive-lite-v5/app/hive/store.py)
+_____________ test_same_run_conflict_rolls_back_batch[same_batch] ______________
+tests/test_hive_evidence.py:51: in test_same_run_conflict_rolls_back_batch
+    from app.hive.store import EvidenceIntegrityError
+E   ImportError: cannot import name 'EvidenceIntegrityError' from 'app.hive.store' (/Users/parthsdambhare/hive-lite-v5/app/hive/store.py)
+______ test_missing_or_foreign_fact_evidence_rolls_back_batch[E-missing] _______
+tests/test_hive_evidence.py:66: in test_missing_or_foreign_fact_evidence_rolls_back_batch
+    from app.hive.store import EvidenceIntegrityError
+E   ImportError: cannot import name 'EvidenceIntegrityError' from 'app.hive.store' (/Users/parthsdambhare/hive-lite-v5/app/hive/store.py)
+_________ test_missing_or_foreign_fact_evidence_rolls_back_batch[None] _________
+tests/test_hive_evidence.py:66: in test_missing_or_foreign_fact_evidence_rolls_back_batch
+    from app.hive.store import EvidenceIntegrityError
+E   ImportError: cannot import name 'EvidenceIntegrityError' from 'app.hive.store' (/Users/parthsdambhare/hive-lite-v5/app/hive/store.py)
+___________ test_missing_or_foreign_fact_evidence_rolls_back_batch[] ___________
+tests/test_hive_evidence.py:66: in test_missing_or_foreign_fact_evidence_rolls_back_batch
+    from app.hive.store import EvidenceIntegrityError
+E   ImportError: cannot import name 'EvidenceIntegrityError' from 'app.hive.store' (/Users/parthsdambhare/hive-lite-v5/app/hive/store.py)
+______ test_missing_or_foreign_fact_evidence_rolls_back_batch[E-foreign] _______
+tests/test_hive_evidence.py:66: in test_missing_or_foreign_fact_evidence_rolls_back_batch
+    from app.hive.store import EvidenceIntegrityError
+E   ImportError: cannot import name 'EvidenceIntegrityError' from 'app.hive.store' (/Users/parthsdambhare/hive-lite-v5/app/hive/store.py)
+___________ test_legacy_verified_fact_without_evidence_is_ineligible ___________
+tests/test_hive_evidence.py:111: in test_legacy_verified_fact_without_evidence_is_ineligible
+    assert [f['id'] for f in s.facts('old','verified')]==['F-good']
+E   AssertionError: assert ['F-good', 'F-bad'] == ['F-good']
+E     
+E     Left contains one more item: 'F-bad'
+E     Use -v to get more diff
+______________ test_writer_never_receives_missing_provenance_fact ______________
+tests/test_hive_evidence.py:126: in test_writer_never_receives_missing_provenance_fact
+    assert len(seen)==1 and 'orphan' not in seen[0] and 'valid' in seen[0]
+E   AssertionError: assert (1 == 1 and 'orphan' not in 'OBJECTIVE: ...-bad] orphan'
+E    +  where 1 = len(['OBJECTIVE: objective\n\nVERIFIED FACTS:\n[F-good] valid\n[F-bad] orphan'])
+E     
+E     'orphan' is contained here:
+E       id
+E       [F-bad] orphan)
+___________ test_verified_promotion_with_missing_evidence_rolls_back ___________
+tests/test_hive_evidence.py:135: in test_verified_promotion_with_missing_evidence_rolls_back
+    from app.hive.store import EvidenceIntegrityError
+E   ImportError: cannot import name 'EvidenceIntegrityError' from 'app.hive.store' (/Users/parthsdambhare/hive-lite-v5/app/hive/store.py)
+=========================== short test summary info ============================
+FAILED tests/test_hive_evidence.py::test_same_run_conflict_rolls_back_batch[source_id]
+FAILED tests/test_hive_evidence.py::test_same_run_conflict_rolls_back_batch[title]
+FAILED tests/test_hive_evidence.py::test_same_run_conflict_rolls_back_batch[url]
+FAILED tests/test_hive_evidence.py::test_same_run_conflict_rolls_back_batch[text]
+FAILED tests/test_hive_evidence.py::test_same_run_conflict_rolls_back_batch[same_batch]
+FAILED tests/test_hive_evidence.py::test_missing_or_foreign_fact_evidence_rolls_back_batch[E-missing]
+FAILED tests/test_hive_evidence.py::test_missing_or_foreign_fact_evidence_rolls_back_batch[None]
+FAILED tests/test_hive_evidence.py::test_missing_or_foreign_fact_evidence_rolls_back_batch[]
+FAILED tests/test_hive_evidence.py::test_missing_or_foreign_fact_evidence_rolls_back_batch[E-foreign]
+FAILED tests/test_hive_evidence.py::test_legacy_verified_fact_without_evidence_is_ineligible
+FAILED tests/test_hive_evidence.py::test_writer_never_receives_missing_provenance_fact
+FAILED tests/test_hive_evidence.py::test_verified_promotion_with_missing_evidence_rolls_back
+========================= 12 failed, 5 passed in 0.26s =========================

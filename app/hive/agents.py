@@ -4,6 +4,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+from contextvars import ContextVar
 from typing import Awaitable, Callable, Optional
 
 from app.hive.store import HiveStore
@@ -12,6 +13,7 @@ from app.llm import LLMError, get_router
 from app.llm.parsing import parse_json  # re-exported for callers/tests
 
 SearchFn = Callable[[str, int], Awaitable[list[dict]]]
+attempt_guard: ContextVar[Optional[Callable[[], None]]] = ContextVar("hive_attempt_guard", default=None)
 
 
 class BudgetExceeded(Exception):
@@ -21,15 +23,19 @@ class BudgetExceeded(Exception):
 class Caller:
     """Routes every LLM call through the configured (layer, agent) and books usage in the ledger."""
 
-    def __init__(self, store: HiveStore, run_id: str, governor: BudgetGovernor):
+    def __init__(self, store: HiveStore, run_id: str, governor: BudgetGovernor,
+                 before_call: Optional[Callable[[], None]] = None):
         self.store, self.run_id, self.gov = store, run_id, governor
+        self.before_call = before_call
 
     async def __call__(self, layer: str, agent: str, system: str, user: str, max_tokens: int = 1500) -> str:
+        if self.before_call:
+            self.before_call()
         if self.gov.exhausted():
             raise BudgetExceeded(f"token cap {self.gov.cap} reached")
         r = await get_router().complete(
             [{"role": "system", "content": system}, {"role": "user", "content": user}],
-            layer=layer, agent=agent, max_tokens=max_tokens)
+            layer=layer, agent=agent, max_tokens=max_tokens, retries=0)
         self.store.record_usage(self.run_id, layer, agent, r.provider, r.model, r.input_tokens, r.output_tokens)
         return r.text
 
@@ -47,11 +53,17 @@ async def default_search(query: str, max_results: int) -> list[dict]:
     """Reuse the original retrieval tools (arXiv, Semantic Scholar, Wikipedia)."""
     from app.tools import search_arxiv, search_semantic_scholar, search_wikipedia
     out: list[dict] = []
+    failures = []
     for fn, n in ((search_arxiv, max_results), (search_semantic_scholar, max_results), (search_wikipedia, 1)):
+        guard = attempt_guard.get()
+        if guard:
+            guard()
         try:
-            out += [r.to_dict() for r in await fn(query, max_results=n)]
+            out += [r.to_dict() for r in await fn(query, max_results=n, raise_on_error=True)]
         except Exception:
-            continue
+            failures.append(fn.__name__)
+    if not out and failures:
+        raise OSError("retrieval unavailable: " + ", ".join(failures))
     return out
 
 
@@ -164,14 +176,12 @@ async def run_verifier(store: HiveStore, run_id: str, deps: list[str], call: Cal
         if not ev or _norm(f["quote"] or "") not in _norm(ev[0]["text"]):
             updates[f["id"]] = ("rejected", "quote not found in evidence")  # mechanical check, no LLM
             continue
-        try:
-            text = await call("verifier", "verifier", VERIFY_SYSTEM,
-                              f"CLAIM: {f['claim']}\n\nEVIDENCE:\n{ev[0]['text'][:2000]}", 400)
-        except LLMError as e:
-            updates[f["id"]] = ("rejected", f"verifier unavailable: {e}")
-            continue
-        data = parse_json(text) or {}
-        ok = str(data.get("verdict", "")).lower() == "supported"
+        text = await call("verifier", "verifier", VERIFY_SYSTEM,
+                          f"CLAIM: {f['claim']}\n\nEVIDENCE:\n{ev[0]['text'][:2000]}", 400)
+        data = parse_json(text)
+        if not isinstance(data, dict) or data.get("verdict") not in ("supported", "unsupported"):
+            raise ValueError("invalid verifier assessment output")
+        ok = data["verdict"] == "supported"
         updates[f["id"]] = ("verified" if ok else "rejected", str(data.get("note", ""))[:300])
     return updates
 

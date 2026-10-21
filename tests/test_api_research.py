@@ -26,9 +26,31 @@ def stub_pipeline(monkeypatch):
 
 
 @pytest.fixture
-def client():
-    """Create test client."""
-    return TestClient(app)
+def client(tmp_path, monkeypatch):
+    """Isolate both stores even when settings were imported before this module."""
+    from sqlalchemy import create_engine
+    from sqlalchemy.orm import sessionmaker
+    from app.db.models import Base
+    from app.db.sqlite import get_db
+    from app.api import routes_hive
+    from app.hive.store import HiveStore
+    engine = create_engine(f"sqlite:///{tmp_path / 'legacy.db'}", connect_args={"check_same_thread": False})
+    Base.metadata.create_all(engine)
+    sessions = sessionmaker(bind=engine)
+    def db_override():
+        with sessions() as session:
+            yield session
+    previous = app.dependency_overrides.get(get_db)
+    app.dependency_overrides[get_db] = db_override
+    store = HiveStore(str(tmp_path / 'hive.db'))
+    monkeypatch.setattr(routes_hive, '_store', store)
+    try:
+        yield TestClient(app)
+    finally:
+        if previous is None: app.dependency_overrides.pop(get_db, None)
+        else: app.dependency_overrides[get_db] = previous
+        store.db.close()
+        engine.dispose()
 
 
 class TestHealthEndpoints:
@@ -247,3 +269,50 @@ class TestHiveAPI:
 
     def test_hive_not_found(self, client):
         assert client.get("/v1/hive/runs/nope").status_code == 404
+
+
+class TestHiveEvidenceCompatibility:
+    def test_repeated_source_runs_preserve_contract(self,client,monkeypatch,tmp_path):
+        from app.api import routes_hive
+        from app.hive import agents
+        from app.hive.store import HiveStore
+        from app.llm import LLMRouter,set_router
+        from tests.test_hive import routed_config,make_handler,fake_search
+        store=HiveStore(str(tmp_path/'api-hive.db'))
+        monkeypatch.setattr(routes_hive,'_store',store)
+        monkeypatch.setattr(agents,'default_search',fake_search)
+        set_router(LLMRouter(routed_config(),mock_handler=make_handler()))
+        ids=[]
+        try:
+            for _ in range(2):
+                response=client.post('/v1/hive/runs',json={'objective':'Repeated public source research','subtasks':1})
+                assert response.status_code==202 and response.json()['status']=='running'
+                run_id=response.json()['run_id'];ids.append(run_id)
+                body=client.get('/v1/hive/runs/'+run_id).json()
+                assert body['status']=='done' and '[F-' in body['report']
+                assert sum(f['status']=='verified' for f in body['facts'])==2
+                assert {'run_id','objective','status','report','spent_tokens','budget_tokens','tasks','facts','usage_by_route','events'} <= body.keys()
+            assert ids[0]!=ids[1]
+        finally:
+            set_router(None);store.db.close()
+
+
+@pytest.mark.parametrize('field',['task_timeout_s','run_timeout_s'])
+def test_hive_deadline_validation_before_submission(client,monkeypatch,field):
+    from app.api import routes_hive
+    called=[]
+    async def no_execution(*args,**kwargs):called.append(kwargs)
+    monkeypatch.setattr(routes_hive,'run_hive',no_execution)
+    response=client.post('/v1/hive/runs',json={'objective':'Deadline validation',field:0})
+    assert response.status_code==422
+    assert called==[] and routes_hive.get_store().db.execute('SELECT COUNT(*) FROM runs').fetchone()[0]==0
+
+
+def test_hive_deadlines_forwarded_to_runner(client,monkeypatch):
+    from app.api import routes_hive
+    called=[]
+    async def execute(*args,**kwargs):called.append(kwargs)
+    monkeypatch.setattr(routes_hive,'run_hive',execute)
+    response=client.post('/v1/hive/runs',json={'objective':'Deadline forwarding','task_timeout_s':12,'run_timeout_s':34})
+    assert response.status_code==202
+    assert called[0]['task_timeout_s']==12 and called[0]['run_timeout_s']==34
