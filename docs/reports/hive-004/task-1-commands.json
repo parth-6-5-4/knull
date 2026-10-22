@@ -1,0 +1,459 @@
+[
+  {
+    "argv": [
+      "/opt/anaconda3/bin/python",
+      "-m",
+      "pytest",
+      "tests/test_hive_resource_migrations.py",
+      "tests/test_hive_migrations.py",
+      "-q"
+    ],
+    "env": {
+      "DEBUG": "false"
+    },
+    "cwd": ".",
+    "exit_code": 1,
+    "duration_s": 1.516,
+    "log": "docs/reports/hive-004/task-1-migrations-red.log"
+  },
+  {
+    "argv": [
+      "/opt/anaconda3/bin/python",
+      "-m",
+      "pytest",
+      "tests/test_hive_resource_migrations.py",
+      "tests/test_hive_migrations.py",
+      "tests/test_hive_report_store.py",
+      "-q"
+    ],
+    "env": {
+      "DEBUG": "false"
+    },
+    "cwd": ".",
+    "exit_code": 1,
+    "duration_s": 4.343,
+    "log": "docs/reports/hive-004/task-1-migrations-green.log"
+  },
+  {
+    "argv": [
+      "/opt/anaconda3/bin/python",
+      "-m",
+      "pytest",
+      "tests/test_hive_resource_types.py",
+      "tests/test_hive_transactions.py",
+      "-q"
+    ],
+    "env": {
+      "DEBUG": "false"
+    },
+    "cwd": ".",
+    "exit_code": 1,
+    "duration_s": 0.902,
+    "log": "docs/reports/hive-004/task-1-foundation-red.log"
+  },
+  {
+    "argv": [
+      "/opt/anaconda3/bin/python",
+      "-m",
+      "pytest",
+      "tests/test_hive_resource_types.py",
+      "tests/test_hive_transactions.py",
+      "-q"
+    ],
+    "env": {
+      "DEBUG": "false"
+    },
+    "cwd": ".",
+    "exit_code": 0,
+    "duration_s": 0.888,
+    "log": "docs/reports/hive-004/task-1-foundation-green.log"
+  },
+  {
+    "argv": [
+      "/opt/anaconda3/bin/python",
+      "-m",
+      "pytest",
+      "tests/test_hive_resource_types.py",
+      "tests/test_hive_transactions.py",
+      "tests/test_hive_resource_migrations.py",
+      "-q"
+    ],
+    "env": {
+      "DEBUG": "false"
+    },
+    "cwd": ".",
+    "exit_code": 1,
+    "duration_s": 1.221,
+    "log": "docs/reports/hive-004/task-1-edge-red.log"
+  },
+  {
+    "argv": [
+      "/opt/anaconda3/bin/python",
+      "-m",
+      "pytest",
+      "tests/test_hive_resource_types.py",
+      "tests/test_hive_transactions.py",
+      "tests/test_hive_resource_migrations.py",
+      "tests/test_hive_migrations.py",
+      "tests/test_hive_report_store.py",
+      "-q"
+    ],
+    "env": {
+      "DEBUG": "false"
+    },
+    "cwd": ".",
+    "exit_code": 0,
+    "duration_s": 4.609,
+    "log": "docs/reports/hive-004/task-1-edge-green.log"
+  },
+  {
+    "argv": [
+      "/opt/anaconda3/bin/python",
+      "-m",
+      "pytest",
+      "tests/test_hive_transactions.py",
+      "tests/test_hive_resource_types.py",
+      "tests/test_hive_resource_migrations.py",
+      "-q"
+    ],
+    "env": {
+      "DEBUG": "false"
+    },
+    "cwd": ".",
+    "exit_code": 1,
+    "duration_s": 1.525,
+    "log": "docs/reports/hive-004/task-1-final-fault-red.log"
+  },
+  {
+    "argv": [
+      "/opt/anaconda3/bin/python",
+      "-m",
+      "pytest",
+      "tests/test_hive_resource_types.py",
+      "tests/test_hive_transactions.py",
+      "tests/test_hive_resource_migrations.py",
+      "tests/test_hive_migrations.py",
+      "tests/test_hive_report_store.py",
+      "-q"
+    ],
+    "env": {
+      "DEBUG": "false"
+    },
+    "cwd": ".",
+    "exit_code": 0,
+    "duration_s": 4.981,
+    "log": "docs/reports/hive-004/task-1-final-focused.log"
+  },
+  {
+    "argv": [
+      "/opt/anaconda3/bin/python",
+      "-m",
+      "pytest",
+      "tests/test_hive_transactions.py::test_executor_preserves_callback_timeout_errors",
+      "tests/test_hive_resource_types.py::test_request_custom_lease_retains_runner_derived_heartbeat_default",
+      "-q"
+    ],
+    "env": {
+      "DEBUG": "false"
+    },
+    "cwd": ".",
+    "exit_code": 1,
+    "duration_s": 0.683,
+    "log": "docs/reports/hive-004/task-1-self-review-red.log"
+  },
+  {
+    "argv": [
+      "/opt/anaconda3/bin/python",
+      "-m",
+      "pytest",
+      "tests/test_hive_transactions.py",
+      "tests/test_hive_resource_types.py",
+      "-q"
+    ],
+    "env": {
+      "DEBUG": "false"
+    },
+    "cwd": ".",
+    "exit_code": 0,
+    "duration_s": 0.916,
+    "log": "docs/reports/hive-004/task-1-self-review-green.log"
+  },
+  {
+    "argv": [
+      "/opt/anaconda3/bin/python",
+      "-m",
+      "pytest",
+      "tests/test_hive_resource_migrations.py::test_exact_shape_preserves_check_literal_case_and_spaces",
+      "tests/test_hive_resource_types.py::test_inspection_requires_measured_counts_even_when_headroom_unknown",
+      "-q"
+    ],
+    "env": {
+      "DEBUG": "false"
+    },
+    "cwd": ".",
+    "exit_code": 1,
+    "duration_s": 0.683,
+    "log": "docs/reports/hive-004/task-1-shape-literal-red.log"
+  },
+  {
+    "argv": [
+      "/opt/anaconda3/bin/python",
+      "-m",
+      "pytest",
+      "tests/test_hive_resource_migrations.py",
+      "tests/test_hive_migrations.py",
+      "tests/test_hive_resource_types.py",
+      "tests/test_hive_transactions.py",
+      "tests/test_hive_report_store.py",
+      "-q"
+    ],
+    "env": {
+      "DEBUG": "false"
+    },
+    "cwd": ".",
+    "exit_code": 0,
+    "duration_s": 4.707,
+    "log": "docs/reports/hive-004/task-1-shape-literal-green.log"
+  },
+  {
+    "argv": [
+      "/opt/anaconda3/bin/python",
+      "-m",
+      "pytest",
+      "tests/test_hive_resource_migrations.py::test_process_death_v2_upgrade_is_atomic",
+      "-q",
+      "-s"
+    ],
+    "env": {
+      "DEBUG": "false"
+    },
+    "cwd": ".",
+    "exit_code": 0,
+    "duration_s": 0.597,
+    "log": "docs/reports/hive-004/task-1-migration-reconciliation.log"
+  },
+  {
+    "argv": [
+      "/opt/anaconda3/bin/python",
+      "-m",
+      "pytest",
+      "-q"
+    ],
+    "env": {
+      "DEBUG": "false"
+    },
+    "cwd": ".",
+    "exit_code": 1,
+    "duration_s": 21.304,
+    "log": "docs/reports/hive-004/task-1-full.log"
+  },
+  {
+    "argv": [
+      "/opt/anaconda3/bin/python",
+      "-m",
+      "pytest",
+      "tests/test_hive_resource_migrations.py::test_v2_orphaned_resource_rows_are_refused_on_reopen",
+      "-q"
+    ],
+    "env": {
+      "DEBUG": "false"
+    },
+    "cwd": ".",
+    "exit_code": 1,
+    "duration_s": 0.659,
+    "log": "docs/reports/hive-004/task-1-orphan-red.log"
+  },
+  {
+    "argv": [
+      "/opt/anaconda3/bin/python",
+      "-m",
+      "pytest",
+      "tests/test_hive_resource_types.py",
+      "tests/test_hive_transactions.py",
+      "tests/test_hive_resource_migrations.py",
+      "tests/test_hive_migrations.py",
+      "tests/test_hive_report_store.py",
+      "-q"
+    ],
+    "env": {
+      "DEBUG": "false"
+    },
+    "cwd": ".",
+    "exit_code": 0,
+    "duration_s": 4.748,
+    "log": "docs/reports/hive-004/task-1-final-green.log"
+  },
+  {
+    "argv": [
+      "/opt/anaconda3/bin/python",
+      "-m",
+      "pytest",
+      "-q"
+    ],
+    "env": {
+      "DEBUG": "false",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PLAYWRIGHT_BROWSERS_PATH": "/tmp/hive-003-browsers"
+    },
+    "cwd": ".",
+    "exit_code": 1,
+    "duration_s": 22.738,
+    "log": "docs/reports/hive-004/task-1-full-permitted.log"
+  },
+  {
+    "argv": [
+      "/opt/anaconda3/bin/python",
+      "-m",
+      "pytest",
+      "tests/test_hive_transactions.py::test_detached_sqlite_busy_is_not_silently_treated_as_success",
+      "-q"
+    ],
+    "env": {
+      "DEBUG": "false"
+    },
+    "cwd": ".",
+    "exit_code": 1,
+    "duration_s": 0.62,
+    "log": "docs/reports/hive-004/task-1-detached-busy-red.log"
+  },
+  {
+    "argv": [
+      "/opt/anaconda3/bin/python",
+      "-m",
+      "pytest",
+      "tests/test_hive_resource_types.py",
+      "tests/test_hive_transactions.py",
+      "tests/test_hive_resource_migrations.py",
+      "tests/test_hive_migrations.py",
+      "tests/test_hive_report_store.py",
+      "-q"
+    ],
+    "env": {
+      "DEBUG": "false"
+    },
+    "cwd": ".",
+    "exit_code": 0,
+    "duration_s": 4.913,
+    "log": "docs/reports/hive-004/task-1-handoff-focused.log"
+  },
+  {
+    "argv": [
+      "/opt/anaconda3/bin/python",
+      "-m",
+      "pytest",
+      "-q"
+    ],
+    "env": {
+      "DEBUG": "false",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PLAYWRIGHT_BROWSERS_PATH": "/tmp/hive-003-browsers"
+    },
+    "cwd": ".",
+    "exit_code": 1,
+    "duration_s": 23.321,
+    "log": "docs/reports/hive-004/task-1-handoff-full-permitted.log"
+  },
+  {
+    "argv": [
+      "git",
+      "diff",
+      "--check",
+      "--",
+      "app/hive/schema.py",
+      "app/hive/migrate.py",
+      "app/hive/store.py",
+      "tests/test_hive_migrations.py",
+      "tests/test_hive_report_store.py"
+    ],
+    "env": {},
+    "cwd": ".",
+    "exit_code": 0,
+    "duration_s": 0.108,
+    "log": "docs/reports/hive-004/task-1-static.log",
+    "additional_checks": "AST frozen v1 equality; HIVE-003 byte preservation; single authorized report-store version assertion"
+  },
+  {
+    "argv": [
+      "/opt/anaconda3/bin/python",
+      "-m",
+      "pytest",
+      "tests/test_hive_resource_migrations.py::test_v2_all_objects_are_part_of_exact_shape",
+      "-q"
+    ],
+    "env": {
+      "DEBUG": "false"
+    },
+    "cwd": ".",
+    "exit_code": 1,
+    "duration_s": 0.747,
+    "log": "docs/reports/hive-004/task-1-expression-index-red.log"
+  },
+  {
+    "argv": [
+      "/opt/anaconda3/bin/python",
+      "-m",
+      "pytest",
+      "tests/test_hive_resource_types.py",
+      "tests/test_hive_transactions.py",
+      "tests/test_hive_resource_migrations.py",
+      "tests/test_hive_migrations.py",
+      "tests/test_hive_report_store.py",
+      "-q"
+    ],
+    "env": {
+      "DEBUG": "false"
+    },
+    "cwd": ".",
+    "exit_code": 0,
+    "duration_s": 4.698,
+    "log": "docs/reports/hive-004/task-1-frozen-focused.log"
+  },
+  {
+    "argv": [
+      "/opt/anaconda3/bin/python",
+      "-m",
+      "pytest",
+      "-q"
+    ],
+    "env": {
+      "DEBUG": "false",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PLAYWRIGHT_BROWSERS_PATH": "/tmp/hive-003-browsers"
+    },
+    "cwd": ".",
+    "exit_code": 1,
+    "duration_s": 23.411,
+    "log": "docs/reports/hive-004/task-1-frozen-full-permitted.log"
+  },
+  {
+    "argv": [
+      "git",
+      "diff",
+      "--check",
+      "--",
+      "app/hive/schema.py",
+      "app/hive/migrate.py",
+      "app/hive/store.py",
+      "tests/test_hive_migrations.py",
+      "tests/test_hive_report_store.py"
+    ],
+    "env": {},
+    "cwd": ".",
+    "exit_code": 0,
+    "duration_s": 0.029,
+    "log": "docs/reports/hive-004/task-1-static.log",
+    "additional_checks": "AST frozen v1 equality; HIVE-003 byte preservation; single authorized report-store version assertion"
+  },
+  {
+    "argv": [
+      "/opt/anaconda3/bin/python",
+      "-c",
+      "from pathlib import Path; import re; b=Path('docs/reports/hive-004/execution-baseline.log').read_text(); f=Path('docs/reports/hive-004/task-1-frozen-full-permitted.log').read_text(); names=lambda text:{line.split(' - ')[0] for line in text.splitlines() if line.startswith('FAILED ')}; assert names(b)==names(f) and len(names(f))==11; assert '11 failed, 452 passed' in f; assert '130 passed' in Path('docs/reports/hive-004/task-1-frozen-focused.log').read_text(); print('Frozen focused: 130 passed. Frozen full: 452 passed, 11 identical baseline failures. Source frozen; no staging/commit/push.')"
+    ],
+    "env": {},
+    "cwd": ".",
+    "exit_code": 0,
+    "duration_s": 0.028,
+    "log": "docs/reports/hive-004/task-1-closure.log"
+  }
+]

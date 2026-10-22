@@ -1,0 +1,4 @@
+
+Frozen v1 DDL equals original and literal test fixture.
+Pre-existing HIVE-003 store implementation after helpers is byte-identical.
+Report-store test differs only by authorized schema version assertion.

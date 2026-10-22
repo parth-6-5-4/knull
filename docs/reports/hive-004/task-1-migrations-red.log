@@ -1,0 +1,73 @@
+/opt/anaconda3/lib/python3.12/site-packages/pytest_asyncio/plugin.py:247: PytestDeprecationWarning: The configuration option "asyncio_default_fixture_loop_scope" is unset.
+The event loop scope for asynchronous fixtures will default to the fixture caching scope. Future versions of pytest-asyncio will default the loop scope for asynchronous fixtures to function scope. Set the default fixture loop scope explicitly in order to avoid unexpected behavior in the future. Valid fixture loop scopes are: "function", "class", "module", "package", "session"
+
+  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))
+============================= test session starts ==============================
+platform darwin -- Python 3.12.7, pytest-8.2.2, pluggy-1.6.0
+rootdir: <repo>
+configfile: pytest.ini
+plugins: mock-3.15.1, anyio-4.9.0, asyncio-1.3.0, cov-7.0.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 39 items
+
+tests/test_hive_resource_migrations.py FFFFFFFFFFF                       [ 28%]
+tests/test_hive_migrations.py ............................               [100%]
+
+=================================== FAILURES ===================================
+___________________________ test_new_database_is_v2 ____________________________
+tests/test_hive_resource_migrations.py:13: in test_new_database_is_v2
+    assert inspect_hive_schema(store.db)['schema_version']==2
+E   assert 1 == 2
+____________________ test_v1_requires_explicit_maintenance _____________________
+tests/test_hive_resource_migrations.py:19: in test_v1_requires_explicit_maintenance
+    with pytest.raises(HiveMigrationRequired): HiveStore(str(path))
+E   Failed: DID NOT RAISE <class 'app.hive.schema.HiveMigrationRequired'>
+__________________ test_v1_to_v2_preserves_historical_tables ___________________
+tests/test_hive_resource_migrations.py:26: in test_v1_to_v2_preserves_historical_tables
+    assert result['schema_version']==2 and result['migrated']
+E   assert (1 == 2)
+________________ test_interrupted_v2_upgrade_rolls_back[table] _________________
+tests/test_hive_resource_migrations.py:51: in test_interrupted_v2_upgrade_rolls_back
+    with pytest.raises(KeyboardInterrupt): upgrade_hive_database(str(path),str(tmp_path/'backup.db'))
+E   Failed: DID NOT RAISE <class 'KeyboardInterrupt'>
+________________ test_interrupted_v2_upgrade_rolls_back[index] _________________
+tests/test_hive_resource_migrations.py:51: in test_interrupted_v2_upgrade_rolls_back
+    with pytest.raises(KeyboardInterrupt): upgrade_hive_database(str(path),str(tmp_path/'backup.db'))
+E   Failed: DID NOT RAISE <class 'KeyboardInterrupt'>
+_______________ test_interrupted_v2_upgrade_rolls_back[version] ________________
+tests/test_hive_resource_migrations.py:51: in test_interrupted_v2_upgrade_rolls_back
+    with pytest.raises(KeyboardInterrupt): upgrade_hive_database(str(path),str(tmp_path/'backup.db'))
+E   Failed: DID NOT RAISE <class 'KeyboardInterrupt'>
+________________ test_interrupted_v2_upgrade_rolls_back[commit] ________________
+tests/test_hive_resource_migrations.py:51: in test_interrupted_v2_upgrade_rolls_back
+    with pytest.raises(KeyboardInterrupt): upgrade_hive_database(str(path),str(tmp_path/'backup.db'))
+E   Failed: DID NOT RAISE <class 'KeyboardInterrupt'>
+__________________ test_v0_to_requested_target_is_explicit[1] __________________
+tests/test_hive_resource_migrations.py:60: in test_v0_to_requested_target_is_explicit
+    result=upgrade_hive_database(str(path),str(tmp_path/'backup.db'),target_version=target)
+E   TypeError: upgrade_hive_database() got an unexpected keyword argument 'target_version'
+__________________ test_v0_to_requested_target_is_explicit[2] __________________
+tests/test_hive_resource_migrations.py:60: in test_v0_to_requested_target_is_explicit
+    result=upgrade_hive_database(str(path),str(tmp_path/'backup.db'),target_version=target)
+E   TypeError: upgrade_hive_database() got an unexpected keyword argument 'target_version'
+_________________ test_unknown_shape_and_old_writer_refuse_v2 __________________
+tests/test_hive_resource_migrations.py:71: in test_unknown_shape_and_old_writer_refuse_v2
+    with pytest.raises(old['HiveSchemaError']): old['inspect_hive_schema'](db)
+E   Failed: DID NOT RAISE <class '<run_path>.HiveSchemaError'>
+_________________ test_v1_existing_backup_is_never_overwritten _________________
+tests/test_hive_resource_migrations.py:77: in test_v1_existing_backup_is_never_overwritten
+    with pytest.raises(FileExistsError):upgrade_hive_database(str(path),str(backup))
+E   Failed: DID NOT RAISE <class 'FileExistsError'>
+=========================== short test summary info ============================
+FAILED tests/test_hive_resource_migrations.py::test_new_database_is_v2 - asse...
+FAILED tests/test_hive_resource_migrations.py::test_v1_requires_explicit_maintenance
+FAILED tests/test_hive_resource_migrations.py::test_v1_to_v2_preserves_historical_tables
+FAILED tests/test_hive_resource_migrations.py::test_interrupted_v2_upgrade_rolls_back[table]
+FAILED tests/test_hive_resource_migrations.py::test_interrupted_v2_upgrade_rolls_back[index]
+FAILED tests/test_hive_resource_migrations.py::test_interrupted_v2_upgrade_rolls_back[version]
+FAILED tests/test_hive_resource_migrations.py::test_interrupted_v2_upgrade_rolls_back[commit]
+FAILED tests/test_hive_resource_migrations.py::test_v0_to_requested_target_is_explicit[1]
+FAILED tests/test_hive_resource_migrations.py::test_v0_to_requested_target_is_explicit[2]
+FAILED tests/test_hive_resource_migrations.py::test_unknown_shape_and_old_writer_refuse_v2
+FAILED tests/test_hive_resource_migrations.py::test_v1_existing_backup_is_never_overwritten
+======================== 11 failed, 28 passed in 1.01s =========================

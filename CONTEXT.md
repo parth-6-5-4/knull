@@ -50,3 +50,18 @@ One permitted option supplied for a model to assess or select.
 
 **Jev decision**:
 A typed probabilistic judgment returned by TypeSafe AI's Jev model for a focused question about supplied state.
+
+**Resource allocation**:
+A bounded share of a run's spending authority. A child allocation divides its parent's authority rather than creating more.
+
+**Call reservation**:
+Allowance held for one external call attempt before dispatch. A hold is distinct from measured usage.
+
+**Unknown usage**:
+An external call outcome whose actual resource consumption is unresolved. Its reserved allowance remains charged until an authoritative receipt resolves it.
+
+**Run admission**:
+Acceptance of a run into a bounded waiting or active execution slot. Acceptance is distinct from the run having started work.
+
+**Call permit**:
+Capacity assigned to one provider attempt under the hive's shared limits. It is distinct from the token allowance reserved for that attempt.

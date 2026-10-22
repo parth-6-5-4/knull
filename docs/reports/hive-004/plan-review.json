@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-22",
+  "spec_revision": 2,
+  "spec_status": "Spec approved",
+  "approval": "Approve revision 2; write the plan",
+  "plan": "docs/superpowers/plans/2026-10-21-resource-admission.md",
+  "plan_status": "Plan review",
+  "execution_method": "Preserved subagent-driven: fresh implementer and reviewer per task",
+  "tasks": 8,
+  "requirements": 31,
+  "requirement_coverage": "all IDs map to existing task sections and named test oracles",
+  "unchecked_steps": 59,
+  "broken_links": [],
+  "private_link_targets": [],
+  "local_links_checked": 84,
+  "source_hashes_checked": 121,
+  "source_hash_drift": [],
+  "product_checks": "not run; implementation is not started",
+  "self_review_corrections": [
+    "Exact clock/transaction composition contracts",
+    "Separate complete totals, partial lower bounds and held charges",
+    "Named orphan/cancellation/clock/fact-preservation cases",
+    "F3-J normal-retry versus cancelled-cleanup outcomes",
+    "Explicit estimated provider load distinct from hard-token acceptance"
+  ],
+  "files_sha256": {
+    "docs/superpowers/specs/2026-10-21-resource-ledger-design.md": "1132fbaad930ed2cd1d910dcd473326382447275d762b1630ed743187f8b2bb4",
+    "docs/superpowers/plans/2026-10-21-resource-admission.md": "2cff0b0bcfc1960ab40575b31927696dcadc7e141aba70c06a4269e949f1f594",
+    "docs/superpowers/specs/2026-10-19-resource-governance-design.md": "d021cbf4bb4b97de3de94884b9a193fbd9ab1809702ab301dc20941ffb4b26fd",
+    "docs/superpowers/README.md": "e9d6ee594488842d99528f4f439a4966e425b3ead823a7f981a77288e2a93295",
+    "docs/reports/hive-004/scoping.md": "aaa4da01ec9b10cc0f52382a142a434508ee315b6da93718fb07d64cacd45692",
+    "docs/reports/problems-and-fixes.md": "24c10ab06709fcd0ec6e7dd276143ac0e2e49fc2421285601d96ff1e4f0da999"
+  },
+  "snapshot_stage": "Plan self-review before user approval; hashes identify that check",
+  "approval_record": {
+    "date": "2026-10-22",
+    "quote": "Approve plan; start Task 1",
+    "current_stage": "In progress",
+    "execution_ledger": "docs/reports/hive-004/execution-ledger.md"
+  }
+}

@@ -58,3 +58,5 @@ After refresh, update provenance hashes/counts and captured queries; inspect the
 Publication metadata uses portable home-relative tool locations; personal absolute host paths were removed without changing graph structure or source hashes.
 
 This refresh used local code-only extraction and deterministic labeling: zero LLM input/output tokens. The generated report template sometimes calls INFERRED edges model-reasoned; this snapshot uses static heuristics, as its report preface and provenance clarify. Graph health retains two known extractor self-loops, with no missing/dangling endpoints or duplicate edges.
+
+HIVE-004-A execution started 2026-10-22. This dated graph still binds the HIVE-003 source snapshot; evolving resource/schema code is not included until Task 8 refresh. Verify current source when following those paths.
