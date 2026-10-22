@@ -271,6 +271,73 @@ class TestHiveAPI:
 
 
 class TestHiveEvidenceCompatibility:
+    def test_historical_report_read_is_unchanged(self,client):
+        from app.api import routes_hive
+        store=routes_hive.get_store()
+        historical_report='# Legacy report\r\n\r\n**Original** café [F-old].\n\n## Sources\n- <raw historical markup>\n'
+        historical_gate={'passed':True,'sentences':1,'removed_uncited_or_unverified':[]}
+        run_id=store.create_run('Historical report',1000)
+        store.finish_run(run_id,'done_with_removals',historical_report,historical_gate)
+        response=client.get('/v1/hive/runs/'+run_id)
+        assert response.status_code==200
+        body=response.json()
+        assert body['report']==historical_report
+        assert body['status']=='done_with_removals'
+        assert 'gate' not in body
+        import json
+        assert json.loads(store.get_run(run_id)['gate'])==historical_gate
+
+    @pytest.mark.parametrize('empty_selection',[False,True],ids=['accepted-findings','no-findings'])
+    def test_generated_report_preserves_surface_and_stored_provenance(self,client,monkeypatch,empty_selection):
+        import hashlib
+        import json
+        from app.api import routes_hive
+        from app.hive import agents
+        from app.llm import LLMRouter,set_router
+        from tests.test_hive import routed_config,make_handler,fake_search
+        base=make_handler()
+        def handler(spec,messages):
+            if empty_selection and 'writer symbiote' in messages[0]['content']:
+                return '{"fact_ids":[]}'
+            return base(spec,messages)
+        monkeypatch.setattr(agents,'default_search',fake_search)
+        set_router(LLMRouter(routed_config(),mock_handler=handler))
+        try:
+            created=client.post('/v1/hive/runs',json={'objective':'Supported report compatibility','subtasks':1,'workers':1})
+            assert created.status_code==202
+            assert set(created.json())=={'run_id','status'}
+            run_id=created.json()['run_id']
+            response=client.get('/v1/hive/runs/'+run_id)
+            assert response.status_code==200
+            body=response.json()
+            assert set(body)=={'run_id','objective','status','report','spent_tokens','budget_tokens','tasks','facts','usage_by_route','events'}
+            store=routes_hive.get_store()
+            gate=json.loads(store.get_run(run_id)['gate'])
+            writer=next(t for t in store.tasks(run_id) if t['kind']=='write')
+            assert writer['result']=={'report':body['report'],'gate':gate}
+            assert gate['policy_version']=='accepted-claims-v1'
+            assert sum(f['status']=='verified' for f in body['facts'])==2
+            assert all(f['status']!='rejected' for f in body['facts'])
+            if empty_selection:
+                assert body['status']=='blocked' and body['report']==''
+                assert gate['passed'] is False and gate['finding_count']==0
+                assert gate['reason']=='no_selected_findings'
+                assert gate['selected_fact_ids']==gate['provenance']==[]
+            else:
+                assert body['status']=='done' and gate['passed'] is True
+                assert gate['finding_count']==gate['sentences']==2
+                assert gate['removed_uncited_or_unverified']==[]
+                assert gate['selected_fact_ids']==[p['fact_id'] for p in gate['provenance']]
+                for p in gate['provenance']:
+                    fact=next(f for f in body['facts'] if f['id']==p['fact_id'])
+                    evidence=store.evidence(run_id,p['evidence_id'])[0]
+                    assert p['claim']==fact['claim']
+                    assert p['source_id']==evidence['source_id']
+                    assert p['claim_sha256']==hashlib.sha256(fact['claim'].encode()).hexdigest()
+                    assert p['evidence_sha256']==hashlib.sha256(evidence['text'].encode()).hexdigest()
+                    assert f'[{fact["id"]}]' in body['report'] and evidence['url'] in body['report']
+        finally:set_router(None)
+
     def test_repeated_source_runs_preserve_contract(self,client,monkeypatch,tmp_path):
         from app.api import routes_hive
         from app.hive import agents

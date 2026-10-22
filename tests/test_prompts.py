@@ -46,7 +46,7 @@ def test_synthesizer_grounds_claims():
     assert "## Gaps & Open Questions" in s and "## References" in s  # finalizer expects these
 
 
-def test_hive_prompts_keep_output_contracts():
+async def test_hive_prompts_keep_output_contracts():
     for tmpl, key in ((hive.PLAN_SYSTEM, "subtasks"), (hive.RESEARCH_SYSTEM, "claims"),
                       (hive.VERIFY_SYSTEM, "verdict")):
         assert f'"{key}"' in tmpl
@@ -54,7 +54,27 @@ def test_hive_prompts_keep_output_contracts():
     assert "untrusted data" in hive.RESEARCH_SYSTEM
     assert "untrusted data" in hive.VERIFY_SYSTEM
     assert "verbatim" in hive.RESEARCH_SYSTEM     # the quote rule the hive enforces mechanically
-    assert "[F-" in hive.WRITE_SYSTEM             # citation rule the final gate enforces
+    # Exercise the current writer prompt boundary: candidate data goes in and
+    # structured selection preserves accepted wording in the resulting report.
+    from app.hive.store import HiveStore
+    from tests.test_hive_report_store import seed
+    store = HiveStore()
+    run_id = store.create_run("Writer contract objective", 1000)
+    seed(store, run_id)
+
+    async def writer_call(layer, agent, system, user, max_tokens):
+        data = json.loads(user)
+        assert data == {"objective": "Writer contract objective",
+                        "candidates": [{"id": "F-one", "claim": "Accepted F-one"}]}
+        return '{"fact_ids":["F-one"]}'
+
+    try:
+        report, gate = await hive.run_writer(store, run_id, "Writer contract objective", writer_call)
+        assert "Accepted F-one" in report and "[F-one]" in report
+        assert gate["policy_version"] == "accepted-claims-v1"
+        assert gate["passed"] is True and gate["selected_fact_ids"] == ["F-one"]
+    finally:
+        store.db.close()
 
 
 def test_parse_json_tolerates_wrappers():

@@ -1,9 +1,6 @@
 """Offline audit probes. Run from project root; no provider keys or network used.
 
-Historical probe: targets the pre-HIVE-003 report interface. Pending Task 5
-adaptation; do not use this script as a current acceptance command.
-
-These probes report current defects, rather than assert desired future behavior.
+These probes record current behavior, rather than assert desired future behavior.
 """
 import asyncio
 import json
@@ -15,11 +12,12 @@ os.environ["DEBUG"] = "false"
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from app.hive import run_hive
-from app.hive.agents import Caller, final_gate
+from app.hive.agents import Caller
 from app.hive.store import HiveStore
 from app.hive.watchdog import BudgetGovernor
 from app.llm import LLMConfig, LLMRouter, ModelSpec, set_router
 from tests.test_hive import fake_search, make_handler, routed_config
+from docs.reviews.reproduce_hive_reports import probe_writer
 
 
 async def main():
@@ -35,6 +33,7 @@ async def main():
         "second_evidence_rows": len(store.evidence(second.run_id)),
     }
 
+    store.db.close()
     store = HiveStore()
     rid = store.create_run("Permanent failure", 200000)
 
@@ -59,10 +58,11 @@ async def main():
                   for t in store.tasks(rid)],
     }
 
-    body, gate = final_gate("## Findings\nCaching increases calls by 900% [F-aaaaaaaa].",
-                            {"F-aaaaaaaa"})
+    store.db.close()
     findings["citation_laundering"] = {
-        "known_fact": "Caching reduces calls by 40%.", "retained": body, "gate": gate,
+        "known_fact": "Caching reduces calls by 40%.",
+        "unsafe_prose": await probe_writer("## Findings\nCaching increases calls by 900% [F-aaaaaaaa]."),
+        "supported_selection": await probe_writer('{"fact_ids":["F-aaaaaaaa"]}'),
     }
 
     async def expensive_response(spec, messages):
@@ -78,6 +78,7 @@ async def main():
                            for _ in range(2)))
     findings["concurrent_budget_overshoot"] = {"cap": 100, "spent": store.spent(rid)}
 
+    store.db.close()
     store = HiveStore()
     rid = store.create_run("Stale failure", 1000)
     tid = store.add_task(rid, "r", "research", "t", {})
@@ -90,6 +91,7 @@ async def main():
         "old_fence": old["fence"], "current_fence": current["fence"],
         "status_after_success_then_stale_failure": store.get_task(tid)["status"],
     }
+    store.db.close()
     set_router(None)
     print(json.dumps(findings, indent=2))
 

@@ -1,14 +1,12 @@
 """Read-only HIVE-001 diagnosis using disposable SQLite databases and mock models.
 
-Historical probe: targets the pre-HIVE-003 report interface. Pending Task 5
-adaptation; do not use this script as a current acceptance command.
-
 Run from project root: DEBUG=false python docs/reviews/reproduce_hive_evidence.py
 Records observed behavior, not desired acceptance behavior. Never opens app_data.
 """
 from __future__ import annotations
 
 import asyncio
+from datetime import datetime, timezone
 import json
 import os
 from pathlib import Path
@@ -39,7 +37,7 @@ def publish(store, task, evidence, facts=()):
 
 
 async def main():
-    result = {"date": "2026-10-20", "python": sys.version.split()[0],
+    result = {"observed_at_utc": datetime.now(timezone.utc).isoformat(), "python": sys.version.split()[0],
               "sqlite": sqlite3.sqlite_version, "providers": "mock only",
               "database_scope": "disposable TemporaryDirectory; no application data"}
     set_router(LLMRouter(routed_config(), mock_handler=make_handler()))
@@ -93,7 +91,7 @@ async def main():
                     "referenced_evidence_found": bool(store.evidence(second, ev["id"]))}
 
                 async def writer_call(layer, agent, system, user, max_tokens):
-                    return "## Findings\nClaim with foreign-only evidence. [F-aaaaaaaa]"
+                    return json.dumps({"fact_ids": [fact["id"] for fact in json.loads(user)["candidates"]]})
 
                 # Historical corruption enters only through a frozen legacy fixture and explicit upgrade.
                 from tests.hive_testkit import legacy_database
@@ -111,6 +109,7 @@ async def main():
                 result["missing_provenance_marked_verified"] = {
                     "eligible_verified_facts": eligible,
                     "writer_report_nonempty": bool(report), "writer_gate_passed": gate["passed"],
+                    "policy_version": gate["policy_version"], "reason": gate.get("reason"),
                     "source_reference_present": "http://fixture/paper-a" in report}
             finally:
                 store.db.close()
