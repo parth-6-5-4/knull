@@ -7,7 +7,7 @@
 **Owner:** Hive maintainer
 **Approval:** User approved revision 1 on 2026-10-20: “Approve revision 1; write the plan.”
 **Depends on:** HIVE-001 provenance; HIVE-002 fenced publication and terminal failure handling
-**Plan:** [Revision 1 implementation plan](../plans/2026-10-20-supported-reports.md), pending plan review and execution-method selection under [the development workflow](../../DEVELOPMENT.md)
+**Plan:** [Revision 1 implementation plan](../plans/2026-10-20-supported-reports.md), approved 2026-10-20 for subagent-driven execution under [the development workflow](../../DEVELOPMENT.md)
 
 ## Intent
 
@@ -17,9 +17,9 @@ The proposed contract gives the model editorial selection and ordering, while de
 
 “Supported” here means preserved from a run-owned, verifier-accepted claim with its evidence snapshot. It does not mean universally true. A mistaken original verification remains possible; semantic verifier evaluation and high-impact independent assessment remain separate work.
 
-## Current behavior and evidence
+## Historical baseline behavior and evidence
 
-Current source was inspected on 2026-10-20; source hashes and observed results are in [the baseline JSON](../../reviews/2026-10-20-hive-003-baseline.json). Reproduce with [the offline probe](../../reviews/reproduce_hive_reports.py):
+Current source was inspected on 2026-10-20; source hashes and observed results are in [the baseline JSON](../../reviews/2026-10-20-hive-003-baseline.json). The dated JSON preserves the pre-change result. [The offline probe](../../reviews/reproduce_hive_reports.py) is being adapted to diagnose the current reporting contract:
 
 ```bash
 DEBUG=false /opt/anaconda3/bin/python docs/reviews/reproduce_hive_reports.py
@@ -179,7 +179,7 @@ Write meaningful failing regressions before runtime changes, then record RED/GRE
 
 ## Open decisions
 
-No unresolved technical choice blocks planning. User approved the extractive ID-selection policy, strict whole-selection rejection and initial explicit bounds in revision 1. Those bounds are policy limits, not a measured capacity or quality claim. Implementation-plan review and execution-method selection remain pending.
+No unresolved technical choice blocks planning. User approved the extractive ID-selection policy, strict whole-selection rejection and initial explicit bounds in revision 1. Those bounds are policy limits, not a measured capacity or quality claim. Implementation-plan review and execution-method selection were pending at spec authoring; subsequent approval and delivery are recorded below.
 
 ## Review record
 
@@ -188,3 +188,6 @@ No unresolved technical choice blocks planning. User approved the extractive ID-
 - 2026-10-20 user review: “Approve revision 1; write the plan.” Revision 1 approved. Approval covers this design; it does not approve the subsequently written implementation plan.
 - Linked implementation plan created and self-reviewed. Next stage: user plan review and execution-method selection. Application behavior remains unchanged by this documentation work.
 - Planning clarification: corrected the description of existing HTTP/MCP gate projection after tracing the routes. No requirement or approved reporting policy changed; public surface compatibility remains REP-11.
+
+
+Execution update, 2026-10-21: user approved the linked plan and subagent-driven method on 2026-10-20. All five tasks and final repair reviews completed; delivery Verified. See [final acceptance evidence](../../reports/hive-003/summary.md). Statements above about unchanged runtime or unexecuted checks describe the original design/plan stage. Current delivery status and observed evidence live in the plan and spec index; this clarification does not change revision 1 requirements.

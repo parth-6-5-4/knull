@@ -49,3 +49,7 @@ User approved revision 1 on 2026-10-20: “Approve revision 1; write the plan.�
 Mock runs prove the present gate/finalization defect. They do not measure verifier accuracy, provider quality, production capacity, browser exploitability or the proposed fix. Planned tests are listed in the design; no RED/GREEN implementation evidence exists for HIVE-003 yet. HIVE-001/002 acceptance results remain separate.
 
 Document verification: five documents checked for local-link targets, 12 unique requirement declarations checked, probe Python syntax parsed, and the diagnosis repeated successfully with matching runtime-source fingerprints. [Check counts and limitations](hive-003-scoping-verification.json). The repeated run confirms the defects remain reproducible; it is not evidence that they are fixed.
+
+## Delivery resolution — 2026-10-21
+
+The approved lite reporting contract is now Verified. [Final evidence](hive-003/summary.md) retains defect baselines, requirement mapping, reviews, deadline repairs and residual scope. Historical arbitrary Markdown remains HIVE-005; broader lifecycle SQLite contention is F3-J under HIVE-004 integration/HIVE-006.

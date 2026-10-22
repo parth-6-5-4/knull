@@ -1,0 +1,202 @@
+{
+  "observed_at_utc": "2026-10-21T07:48:56.179008+00:00",
+  "head": "e36f7e0116516855e4fee3c0fc41dd1d01ce7444",
+  "source_sha256": {
+    "app/hive/agents.py": "af88da8269a7857e6f8dc7d22c6815fc6fbb44498ac0513e47dec292a3afd235",
+    "app/hive/reporting.py": "5db1e1e7df6ff0d5c667be68e0b052cd4808d4da764ad7ad80e1d2456ed8b05c",
+    "app/hive/runner.py": "3d1045d4d8d3cdb5e4a0e59d97da27bfcd537e003f38594ca82c3a07eb961186",
+    "app/hive/store.py": "c92c500b2ec4aa2ef89ae6344a0edc3dc6cbb45a4855e53414681f5e07107efb",
+    "tests/test_hive.py": "b7c4884ea0e414c48e0c13e8ec9b43dcb332a981cc2da6c0f0977f42906af3ba",
+    "web/src/components/ReportView.tsx": "e6c7a8c8657e77ef46f397894e0fb3cef6725028e27e0639e73dccdb2b90f8df"
+  },
+  "python": "3.12.7",
+  "scope": "mock providers; in-memory SQLite; no network or application data",
+  "writer_probes": {
+    "reversed_number": {
+      "input": "## Findings\nCaching increases calls by 900% [F-aaaaaaaa].",
+      "outcome": "rejected",
+      "error_code": "report_selection_invalid",
+      "reason": "selection_json_invalid",
+      "report": "",
+      "facts_unchanged": true
+    },
+    "unsupported_heading": {
+      "input": "## Caching increases calls by 900%",
+      "outcome": "rejected",
+      "error_code": "report_selection_invalid",
+      "reason": "selection_json_invalid",
+      "report": "",
+      "facts_unchanged": true
+    },
+    "empty_body": {
+      "input": "",
+      "outcome": "rejected",
+      "error_code": "report_selection_invalid",
+      "reason": "selection_json_invalid",
+      "report": "",
+      "facts_unchanged": true
+    },
+    "citation_only": {
+      "input": "[F-aaaaaaaa]",
+      "outcome": "rejected",
+      "error_code": "report_selection_invalid",
+      "reason": "selection_json_invalid",
+      "report": "",
+      "facts_unchanged": true
+    },
+    "multiple_valid_ids": {
+      "input": "Contradiction [F-aaaaaaaa] [F-bbbbbbbb].",
+      "outcome": "rejected",
+      "error_code": "report_selection_invalid",
+      "reason": "selection_json_invalid",
+      "report": "",
+      "facts_unchanged": true
+    },
+    "html_heading": {
+      "input": "## <img src=x onerror=\"alert(1)\">",
+      "outcome": "rejected",
+      "error_code": "report_selection_invalid",
+      "reason": "selection_json_invalid",
+      "report": "",
+      "facts_unchanged": true
+    },
+    "valid_selection": {
+      "input": "{\"fact_ids\":[\"F-aaaaaaaa\"]}",
+      "outcome": "rendered",
+      "report": "# Research report\n\n<p>Objective: <span class=\"hive-objective\" style=\"white-space: pre-wrap; overflow-wrap: anywhere\">Report integrity probe</span></p>\n\n## Findings\n\n<ul><li><span class=\"hive-claim\" style=\"white-space: pre-wrap; overflow-wrap: anywhere\">Caching reduces calls by 40%.</span> <a href=\"#hive-source-1\" style=\"white-space: pre-wrap; overflow-wrap: anywhere\">[F-aaaaaaaa]</a></li></ul>\n\n## Sources\n\n<ul><li id=\"hive-source-1\"><span class=\"hive-citation\" style=\"white-space: pre-wrap; overflow-wrap: anywhere\">[F-aaaaaaaa]</span> <span class=\"hive-source-title\" style=\"white-space: pre-wrap; overflow-wrap: anywhere\">Cache study</span> <a class=\"hive-source-url\" style=\"white-space: pre-wrap; overflow-wrap: anywhere\" href=\"https://fixture.example/cache\">https://fixture.example/cache</a></li></ul>\n",
+      "gate": {
+        "policy_version": "accepted-claims-v1",
+        "passed": true,
+        "finding_count": 1,
+        "selected_fact_ids": [
+          "F-aaaaaaaa"
+        ],
+        "candidate_count": 2,
+        "eligible_count": 2,
+        "omitted_count": 0,
+        "warnings": [],
+        "provenance": [
+          {
+            "fact_id": "F-aaaaaaaa",
+            "claim": "Caching reduces calls by 40%.",
+            "evidence_id": "E-aaaaaaaa",
+            "source_id": "cache-study",
+            "title": "Cache study",
+            "url": "https://fixture.example/cache",
+            "claim_sha256": "6de68e31ae96758738b5b29ab1728efd6f42299c6670f9b839721371adea1973",
+            "quote_sha256": "5bb48f29c235f5b59cf9a4ede8711630bef76d2b757c36ac2be405508f853756",
+            "evidence_sha256": "5bb48f29c235f5b59cf9a4ede8711630bef76d2b757c36ac2be405508f853756",
+            "binding_sha256": "20b1e8dfd7205ac1bd0b15ebe32e9f76767a50f04e73d7c32056530aaaa5fd14"
+          }
+        ],
+        "writer_assignment": null,
+        "sentences": 1,
+        "removed_uncited_or_unverified": []
+      },
+      "facts_unchanged": true
+    },
+    "empty_selection": {
+      "input": "{\"fact_ids\":[]}",
+      "outcome": "no_findings",
+      "report": "",
+      "gate": {
+        "policy_version": "accepted-claims-v1",
+        "passed": false,
+        "finding_count": 0,
+        "selected_fact_ids": [],
+        "candidate_count": 2,
+        "eligible_count": 2,
+        "omitted_count": 0,
+        "warnings": [],
+        "provenance": [],
+        "writer_assignment": null,
+        "sentences": 0,
+        "removed_uncited_or_unverified": [],
+        "reason": "no_selected_findings"
+      },
+      "facts_unchanged": true
+    },
+    "forged_selection": {
+      "input": "{\"fact_ids\":[\"F-aaaaaaaa\",\"F-forged\"]}",
+      "outcome": "rejected",
+      "error_code": "report_selection_invalid",
+      "reason": "selection_id_invalid",
+      "report": "",
+      "facts_unchanged": true
+    }
+  },
+  "heading_only_run": {
+    "status": "blocked",
+    "verified_facts": 2,
+    "gate": {
+      "reason": "no verified facts or required work incomplete",
+      "tasks": [
+        "research:done",
+        "verify:done",
+        "write:exhausted"
+      ]
+    },
+    "report": ""
+  },
+  "empty_body_run": {
+    "status": "blocked",
+    "verified_facts": 2,
+    "gate": {
+      "reason": "no verified facts or required work incomplete",
+      "tasks": [
+        "research:done",
+        "verify:done",
+        "write:exhausted"
+      ]
+    },
+    "report": ""
+  },
+  "objective_html_writer": {
+    "outcome": "rendered",
+    "report": "# Research report\n\n<p>Objective: <span class=\"hive-objective\" style=\"white-space: pre-wrap; overflow-wrap: anywhere\">&lt;img src=x onerror=&quot;alert(1)&quot;&gt;</span></p>\n\n## Findings\n\n<ul><li><span class=\"hive-claim\" style=\"white-space: pre-wrap; overflow-wrap: anywhere\">Caching reduces calls by 40%.</span> <a href=\"#hive-source-1\" style=\"white-space: pre-wrap; overflow-wrap: anywhere\">[F-aaaaaaaa]</a></li><li><span class=\"hive-claim\" style=\"white-space: pre-wrap; overflow-wrap: anywhere\">The study measured model calls.</span> <a href=\"#hive-source-2\" style=\"white-space: pre-wrap; overflow-wrap: anywhere\">[F-bbbbbbbb]</a></li></ul>\n\n## Sources\n\n<ul><li id=\"hive-source-1\"><span class=\"hive-citation\" style=\"white-space: pre-wrap; overflow-wrap: anywhere\">[F-aaaaaaaa]</span> <span class=\"hive-source-title\" style=\"white-space: pre-wrap; overflow-wrap: anywhere\">Cache study</span> <a class=\"hive-source-url\" style=\"white-space: pre-wrap; overflow-wrap: anywhere\" href=\"https://fixture.example/cache\">https://fixture.example/cache</a></li><li id=\"hive-source-2\"><span class=\"hive-citation\" style=\"white-space: pre-wrap; overflow-wrap: anywhere\">[F-bbbbbbbb]</span> <span class=\"hive-source-title\" style=\"white-space: pre-wrap; overflow-wrap: anywhere\">Cache study</span> <a class=\"hive-source-url\" style=\"white-space: pre-wrap; overflow-wrap: anywhere\" href=\"https://fixture.example/cache\">https://fixture.example/cache</a></li></ul>\n",
+    "gate": {
+      "policy_version": "accepted-claims-v1",
+      "passed": true,
+      "finding_count": 2,
+      "selected_fact_ids": [
+        "F-aaaaaaaa",
+        "F-bbbbbbbb"
+      ],
+      "candidate_count": 2,
+      "eligible_count": 2,
+      "omitted_count": 0,
+      "warnings": [],
+      "provenance": [
+        {
+          "fact_id": "F-aaaaaaaa",
+          "claim": "Caching reduces calls by 40%.",
+          "evidence_id": "E-aaaaaaaa",
+          "source_id": "cache-study",
+          "title": "Cache study",
+          "url": "https://fixture.example/cache",
+          "claim_sha256": "6de68e31ae96758738b5b29ab1728efd6f42299c6670f9b839721371adea1973",
+          "quote_sha256": "5bb48f29c235f5b59cf9a4ede8711630bef76d2b757c36ac2be405508f853756",
+          "evidence_sha256": "5bb48f29c235f5b59cf9a4ede8711630bef76d2b757c36ac2be405508f853756",
+          "binding_sha256": "1532c7bca373a756db49921502834abfbca6c7f5e1b3c47ca9329e0ba357c14d"
+        },
+        {
+          "fact_id": "F-bbbbbbbb",
+          "claim": "The study measured model calls.",
+          "evidence_id": "E-aaaaaaaa",
+          "source_id": "cache-study",
+          "title": "Cache study",
+          "url": "https://fixture.example/cache",
+          "claim_sha256": "535d258158144f4deae98de39fa1e105118f9ae4e172e5d2b0cb2f3dbfc36640",
+          "quote_sha256": "5bb48f29c235f5b59cf9a4ede8711630bef76d2b757c36ac2be405508f853756",
+          "evidence_sha256": "5bb48f29c235f5b59cf9a4ede8711630bef76d2b757c36ac2be405508f853756",
+          "binding_sha256": "cf7c40e3fd460d1e49e37f4218193253936e980b460504b44394c19d56737f07"
+        }
+      ],
+      "writer_assignment": null,
+      "sentences": 2,
+      "removed_uncited_or_unverified": []
+    },
+    "facts_unchanged": true
+  },
+  "html_observation_boundary": "New reports encode untrusted objective/claim/source data as literal text inside code-owned HTML. This offline observation does not test arbitrary historical-report sanitization or browser execution."
+}

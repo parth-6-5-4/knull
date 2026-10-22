@@ -1,0 +1,13 @@
+[graphify extract] incremental scan of /Users/parthsdambhare/hive-lite-v5
+[graphify extract] re-queuing 4 manifest-stamped code file(s) with no nodes in graph.json (prior failed extraction, #2543)
+[graphify extract] --code-only: skipping 37 non-code file(s) (37 docs, 0 papers, 0 images) — no LLM extraction
+[graphify extract] 26 code, 0 docs, 0 papers, 0 images changed; 99 unchanged; 0 deleted
+[graphify extract] 10 file(s) not classified (no supported extension or shebang), skipped: .gitignore, .graphifyignore, LICENSE, Makefile, codex.http.toml, codex.stdio.toml (+4 more)
+[graphify extract] AST extraction on 26 code files...
+[graphify] Replaced 204 node(s) from re-extracted source file(s).
+[graphify] Removed 2 source-less node(s) left with no edges by re-extraction.
+[graphify] backed up curated graph (5 files) -> 2026-10-21/
+[graphify extract] wrote /Users/parthsdambhare/hive-lite-v5/graphify-out/graph.json: 1440 nodes, 3538 edges, 76 communities
+[graphify extract] wrote /Users/parthsdambhare/hive-lite-v5/graphify-out/.graphify_analysis.json
+[graphify extract] incremental summary: 99 files cached/unchanged, 26 re-extracted, 0 deleted
+[graphify extract] next: run `graphify cluster-only /Users/parthsdambhare/hive-lite-v5` to generate GRAPH_REPORT.md and name communities

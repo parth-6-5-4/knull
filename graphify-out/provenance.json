@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-20",
+  "date": "2026-10-21",
   "tool": {
     "package": "graphifyy",
     "version": "0.9.92",
@@ -8,10 +8,12 @@
     "installed_skill": "~/.codex/skills/graphify/SKILL.md"
   },
   "mode": "local code-only; undirected; deterministic hub labels; no LLM",
-  "source_file_count": 110,
-  "detected_code_count": 110,
-  "graph_source_file_count": 105,
+  "source_file_count": 121,
+  "detected_code_count": 121,
+  "graph_source_file_count": 115,
   "source_sha256": {
+    ".githooks/pre-commit": "1f689448b40a744a9b50a14e60e8d410470ac5fafe487ee8911e8d6a51911297",
+    ".githooks/pre-push": "1f689448b40a744a9b50a14e60e8d410470ac5fafe487ee8911e8d6a51911297",
     "app/__init__.py": "fce543c86233ef6c3f89838e774b24e8c6a0b88aa71e8ca5c07a076141fdd527",
     "app/agent/__init__.py": "ed1acd4ab852d57fb98f25e15fa4c3553350e0f5204c340ecb9a07d69d45089b",
     "app/agent/graph.py": "3758e21d980e6365ca9769b123200bb19906e74654ad7777fb6d01078b5b5eb5",
@@ -35,12 +37,13 @@
     "app/export/__init__.py": "939b2f7f255a7e7d5799b671e53a688a6aa7d598704113bfc3d5e646a6e51bdb",
     "app/export/formats.py": "fcaaab37bc7e2a259388e69ecf1203fd511f5bb1be546d47ba0ced62cf9481ef",
     "app/hive/__init__.py": "028d15ccc699b8f322e16beeebd0c52d8432bbb4debede9b9286f1d2cf639bb2",
-    "app/hive/agents.py": "bedbc170c871d55fa8c420b8ca1f62a6d6640f9a62fb06271eeada6bb36d9a66",
+    "app/hive/agents.py": "af88da8269a7857e6f8dc7d22c6815fc6fbb44498ac0513e47dec292a3afd235",
     "app/hive/cli.py": "8b7bab1d1c6e1380cded0e2972e55dee2b8d73e94417fdd04810fda7dc008b9a",
     "app/hive/migrate.py": "d17855a7890503b86d9b435bc5b64a402c045bba85b3111cfb154de0b2d77864",
-    "app/hive/runner.py": "a6a98d15f3a4462d5c1c50edda468a5c0d34a2c3d2ef1348dbd4f25e99b8db95",
+    "app/hive/reporting.py": "5db1e1e7df6ff0d5c667be68e0b052cd4808d4da764ad7ad80e1d2456ed8b05c",
+    "app/hive/runner.py": "d6dd8a334674552794bd7b74f1ef0e45f2d9a986b68cd350ac5b71a4a33f2cf4",
     "app/hive/schema.py": "8a027184bc27db2834f525b3386a53cda0b5e1874112ae5a092b9e946afdfa04",
-    "app/hive/store.py": "f89eb914da1dd29187a7dd2b2824f0fb247cf0c63a9368a708f8b8da51565d45",
+    "app/hive/store.py": "0ff7bb79a8641059c5cc13c506368023d6eba4d78bedcf247ab80223ee6e4af5",
     "app/hive/watchdog.py": "e019dccd463fbe98bbf45eef942f9bddd741a707aeaffc20b501be028f94d9ab",
     "app/intelligence/__init__.py": "afc4dcabbd12a6edcf61e22d6a27df826974dfb1bdcf09e369ed568b921d8adc",
     "app/intelligence/knowledge_graph.py": "d3d1ec2a64a34e63a1809cda83c9224b7f69d3986da35168d056fd3ad100f910",
@@ -65,12 +68,14 @@
     "app/traces/tracer.py": "d2009ac131a746c93c9dc39236a9194d2e14c695e480741dfba33459efbbac10",
     "docs/reviews/2026-10-19-hive-001-baseline.json": "89ff83985b7318ca5b98ed5fc0c48a4bc22aa326b44448979055cb41e9129b13",
     "docs/reviews/2026-10-20-hive-001-post-fix.json": "a76d0e19d1bdb5a50294b9cef2973b97b4d2771d0287b80fbc88aaf703c4ed52",
-    "docs/reviews/reproduce_hive_evidence.py": "4fdde9d6f771da16273cba97a74f2d4ae3ec74e1c6c34bcbd801cf8660b195c7",
-    "docs/reviews/reproduce_hive_gaps.py": "3395895f5b3fa0acc63de42c59908c3f47135a111e7a2d92b8472af53aae019e",
+    "docs/reviews/2026-10-20-hive-003-baseline.json": "474aca0f952dc3d3c460e5caf48a7ee01187e4338793448397c84b6ce09ba8d7",
+    "docs/reviews/reproduce_hive_evidence.py": "2e9de1c6e6412a121d96fc2586bfd82140db1d449a81f59b16a0030f48d60450",
+    "docs/reviews/reproduce_hive_gaps.py": "f805d2451bc8882decf60d03785f0f589a0e831d2d1d44c203d16d385f02aa7a",
+    "docs/reviews/reproduce_hive_reports.py": "997475b141e0233b8c0ee9071d479b96f9e281559af980b055b01add87856e7c",
     "eval/golden.json": "1874c4a5ff25271547ad0de8995cf260655a3b6ff7118c02627a0dbe5c64a2fc",
     "eval/run_eval.py": "799dc510f92aee93ee7eb952dd242d8ffd508f09da2c39e9f9562fe22111d2bd",
     "integrations/mcp/examples/claude-code.http.json": "4b8ea559242aa53ce48245eaf5c7ab7c4852686caa3940b98f9d26d8795515d1",
-    "integrations/mcp/examples/claude-code.stdio.json": "2d125da3ca0536aea2e1d3866829fcb7efa38f90d3f4369045f035063b99a43b",
+    "integrations/mcp/examples/claude-code.stdio.json": "13b419ace12c13ca0b0d3d58be79bf32b358769671cd1d3830e96f115d938763",
     "integrations/mcp/examples/gpt_responses.py": "b5fca524db63b0d814ecbe43b3dfcb5d5d48ca9d15475a410f74ee1cfbeff82e",
     "integrations/mcp/pyproject.toml": "bc56252a9f9afd09723ba08e63acb2d14a5adfbd0e2c900d9abb40a286e40c80",
     "integrations/mcp/src/hive_mcp/__init__.py": "9c8de10d661a7258ccb9b19b0fb92ade3096500c1bac5f7598caf28fc75cacc1",
@@ -81,22 +86,28 @@
     "integrations/mcp/tests/test_hive_integration.py": "c42b82aa89a1b299477e61a546e9061163856831d10b34d8b7c5b920a94524eb",
     "integrations/mcp/tests/test_server.py": "7bbd9ececc871a7be08ffa43bb28a0ded12f8f1a92a28456c64c5f9f6ac44e71",
     "integrations/mcp/tests/test_transport.py": "acb9857afba9543641caba461e8bbad15e832b244cef405c0c0ba82666c24820",
+    "scripts/check_publication.py": "a8926b6494e23927218606f095d9e45d89a0794b988cf8e18b7363914d262a98",
     "tests/__init__.py": "dff6a8a402d2199613525b00bc0fb353d029435835c5b2f2cb6b9dee8e9c6233",
     "tests/hive_testkit.py": "60812f4288f7069ec9a62d2f5f813e26c37f5a05bda0efba2a4a3af737c74e17",
-    "tests/test_api_research.py": "1c26a41daefc22c5abb737642573a8b3fc7b33d7d8f7a1addf9c196da3c8bd93",
-    "tests/test_hive.py": "a9b7ee4461be45c435a4ae1036d947dcfbe223b085b8299a9abbb70296ba691d",
-    "tests/test_hive_cli.py": "f053604e55db80e72bc5636fe8345d1701cced79dee3f835c6896b0efccfce8b",
-    "tests/test_hive_evidence.py": "af350bd73609fa35e8bbbe95a31516dd7beaea4b3eef4ebfbb28f6d28a346e1e",
+    "tests/test_api_research.py": "4ac0ec9c40ca8b88d43aee7fe370df6679c243dbc7633147541ffa992adb63d6",
+    "tests/test_hive.py": "b7c4884ea0e414c48e0c13e8ec9b43dcb332a981cc2da6c0f0977f42906af3ba",
+    "tests/test_hive_cli.py": "81fb7eebbb13ff29459e6eb1098f1e12266f3f78329639e8375dba1ad9025788",
+    "tests/test_hive_evidence.py": "26b566dd028f551855f87970f25b987655c7e32a0022dc1eb9d90aac5494c7c8",
     "tests/test_hive_execution.py": "9984ea3efccac7ca6ed184b6650ba8b315eda23ec56a014e955d01937e405e5e",
     "tests/test_hive_migrations.py": "31d3a30f5a9807badc18a128f3cbe6721d5ea05201fef4b274b722c66940aaee",
+    "tests/test_hive_report_contracts.py": "01a1cebf7cea01056bfaa495c488098c5e63333d839057af27f6033885fd1972",
+    "tests/test_hive_report_execution.py": "86322c76d9dbef0ed588eca7953a1ab3e79dd849ffe7335413c04c0f5333f8d9",
+    "tests/test_hive_report_store.py": "da150722d238eaa98eae61ecf2bfc6bca865226b446e08e7d79e739bafa5cd63",
+    "tests/test_hive_reports.py": "87ece853fb7a3274dfca49547426fb63d039a6ed18cb5bdb582d6ec763664b41",
     "tests/test_knowledge_graph.py": "143991af6977cc8639ac32dc48514896bcfb92b83e5e5f0f4d489f3a821d5df5",
     "tests/test_llm_sdk_wiring.py": "c92a13c57f7078a8a635bd8a782e157355f28dd9bccf50d4823ebaa22e644a21",
-    "tests/test_prompts.py": "825aefd22ca8b7fd1b9911e432e3fdf460c14b36c3dd284360d4abd50f5365ca",
+    "tests/test_prompts.py": "f58a2bd21933c032d02b9861cbbc33e91169a2e22c5037bcf4d49f8dbcc5b0db",
     "tests/test_semantic_cache.py": "a490ab28e8eaddb47e654cd9fa3f2b9e44303a47147648fe84c75a56ca5882fc",
     "tests/test_tools_arxiv.py": "36183e5c68056cb482d20c3326cbe12b160c783bb9965b8619abe20eaaf7bee1",
     "tests/test_tools_vectordb.py": "cab7d78ccb85f3bbca18cbcde6596816d601b68e59d573a0990fce524767751f",
     "web/components.json": "87ebcb2f0eaca8cd3b266e4067c72ff07a762c3058c98441d6b1e0444dc9a24f",
     "web/package.json": "fae7bea4789223c675f8a397294dc0bae000cc8401b7ef8f1e051e116a577be9",
+    "web/scripts/check-hive-report.mjs": "0c1faffcd1567d346161eea68bbaf2ed2485464ff03220ac47831b28e36a33b1",
     "web/src/App.tsx": "33ca010ba09fb7663b3c5ee5dc0ee3cb7d28552ef498efe6cd8fc5508f715fc7",
     "web/src/components/BudgetGauge.tsx": "0d4e15c583a9fe573dccf046b4c5834f48d579574e9213b06d05d91ef5da35cd",
     "web/src/components/DagView.tsx": "59ee345bf54112dd0974236d5cb99621cd2f55558a52ac1eb8628eb0f77005d0",
@@ -123,19 +134,16 @@
     "web/tsconfig.node.json": "d366cc0827139db39c61815f22491bbfda56c654354a42ad7795143d314e45e8",
     "web/vite.config.ts": "0eac01ba1eb89bea361e3895ef3ca617cf8c2022aec3ce8657527c3cbb285abe"
   },
-  "skipped_document_count": 31,
+  "skipped_document_count": 37,
   "unclassified_skipped_count": 10,
   "incremental_extraction": {
-    "reason": "HIVE-001/002 implementation and review repairs",
-    "mode": "code-only; cluster-only --no-label; no LLM",
-    "logs": [
-      "docs/reports/hive-integrity/graph-final-refresh.txt",
-      "docs/reports/hive-integrity/graph-final-cluster.txt"
-    ]
+    "output": "docs/reports/hive-003/final-fix-2-graph-extract.log",
+    "note": "Incremental CLI cached-entry count is not a full code-file count; current detector and source hashes define coverage."
   },
   "not_represented": [
     "docs/reviews/2026-10-19-hive-001-baseline.json",
     "docs/reviews/2026-10-20-hive-001-post-fix.json",
+    "docs/reviews/2026-10-20-hive-003-baseline.json",
     "eval/golden.json",
     "integrations/mcp/examples/claude-code.http.json",
     "integrations/mcp/examples/claude-code.stdio.json"
@@ -145,35 +153,43 @@
     "output_tokens": 0
   },
   "graph_counts": {
-    "nodes": 1271,
-    "edges": 2890,
-    "communities": 75
+    "nodes": 1459,
+    "edges": 3598,
+    "communities": 72,
+    "EXTRACTED": 3146,
+    "INFERRED": 452
   },
   "git": {
     "root": ".",
-    "head": "f4f541332b3f78a755bccc5f4890931b1b256d07",
+    "head": "e36f7e0116516855e4fee3c0fc41dd1d01ce7444",
     "branch": "hive-001-002-integrity",
-    "note": "Uncommitted implementation; source SHA256 hashes identify actual graph snapshot."
+    "note": "Working tree includes uncommitted HIVE-003 implementation/compatibility changes; source hashes bind actual snapshot."
   },
   "visual_review": {
-    "status": "page_load_observed",
-    "note": "Chrome accessible tree showed current node/edge/community counts and community labels; no screenshot/search review claimed."
+    "status": "technical browser smoke passed",
+    "evidence": "docs/reports/hive-003/final-fix-2-graph-browser.json",
+    "page_errors": 0,
+    "failed_requests": 0,
+    "quality_review": false
   },
   "limitations": [
-    "Static extraction, not runtime tracing; undirected relationships",
-    "343 INFERRED static heuristic edges are navigation, not execution proof",
-    "31 documents skipped; no semantic specification extraction",
-    "One extractor self-loop in the migration test wrapper: super().execute resolved to the wrapper; source confirms delegation, not actual recursion",
-    "Post-build integrity cannot prove producer-edge completeness",
-    "HTML loads vis-network 9.1.6 from unpkg.com if uncached"
+    "Static code-only AST/config extraction; undirected relationships",
+    "INFERRED labels are static heuristic navigation, not model entailment or execution proof",
+    "37 documents and 10 unsupported files skipped; no semantic specification map",
+    "Six detected JSON files have no represented nodes; see not_represented",
+    "Two static super() resolution self-loops: migration execute wrapper and offset event-loop time wrapper; source delegates to super, not recursion",
+    "Post-build health cannot prove producer-edge completeness",
+    "HTML loads pinned vis-network@9.1.6 from unpkg if uncached"
   ],
   "artifact_sha256": {
-    "graph.json": "6b355457930a721730cdcdebc2c46ce25b1a76fc894bc6825c52556d85e853b3",
-    "graph.html": "44977fd176e506d694dd966b843d38392cbddc01411e867785105ea5b18680e2",
-    "GRAPH_REPORT.md": "00569337f5b254d993f603fd136cc94cff9b4bdf713782792ba21ece37585336",
-    "health.json": "7d8914cbc5786833d9633ecf223e17040903f10523d449e4560ed8cbc0d9c7da",
-    "query-smoke.txt": "dcdecc05187172ed480806755728c16ab713ceeec9984a2b46dce7efd2135069",
-    "explain-smoke.txt": "3dbb368884bc584850d213e28e4de2245871faf6e0982279c2d221c5f469f001"
+    "graph.json": "c5eb996f1ef0ac632b143b38a2f73b894fd761666a0ebde44882d42ea10c14aa",
+    "graph.html": "b67de87f5b80042c53afd025f77ce38e243313fe7fa8779b25200bb96ae9a4d1",
+    "GRAPH_REPORT.md": "f011eed399961e31be32282e09c66a7d35b148e85fc14ab52682f11724c1baf4",
+    "health.json": "1a55c3b3029ad1726c31c3d3e65f1099fca4e4fd2d95129656ae1b6c7189d1c3",
+    "detection.json": "facbea90a3801e47a97d0cff6ab297882749a1130ad6440ad7c2e3d08e333c21",
+    "manifest.json": "81d11d5ea1d19126891874f61e2b508abaffafc83827ce574d108f31b5ec6f39",
+    "query-smoke.txt": "3a09734fc733444dd1d738f830abdb5520947ba27093a8325e2a178a6084071d",
+    "explain-smoke.txt": "127995b773b2289d99b6536c1124ec74817a032a34f4ec27487dd74fb4bbc9f3"
   },
-  "publication_metadata": "Personal absolute host paths removed: project paths are repository-relative, installed tools use ~. Original local metadata retained outside Git. Graph structure and source hashes unchanged; artifact digests updated for sanitized metadata."
+  "publication_metadata": "Project paths relative; installed tools use ~. Raw local metadata retained outside Git."
 }

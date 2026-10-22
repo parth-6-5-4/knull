@@ -19,4 +19,4 @@ Before using an existing old hive database, follow the [operator maintenance pro
 
 ## Reporting checkpoint — 21 October 2026
 
-HIVE-003 adds strict fact-ID selection, literal accepted-claim rendering and fenced report publication in the working implementation. Tasks 1–3 passed their reviews. Task 4 review and Task 5 remain pending; this is not verified delivery. [Checkpoint evidence](../reports/hive-003/execution-ledger.md): 351 focused tests and 54 MCP tests passed. The diagrams and source graph remain pinned to their stated earlier snapshots.
+HIVE-003 now delivers strict fact-ID selection, literal accepted-claim rendering and fenced report publication. All five tasks and final repairs reviewed; [acceptance evidence](../reports/hive-003/summary.md): 370 focused + 54 MCP passed. Full-suite dependency failures, pre-existing lifecycle contention and historical arbitrary Markdown remain separately tracked. Architecture diagrams retain their stated earlier source pins; the code-only graph has a refreshed 2026-10-21 source-hash snapshot.

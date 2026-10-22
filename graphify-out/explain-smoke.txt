@@ -1,42 +1,21 @@
-Node: HiveStore
-  ID:        app_hive_store_hivestore
-  Source:    app/hive/store.py L33
+Node: .report_snapshot()
+  ID:        app_hive_store_hivestore_report_snapshot
+  Source:    app/hive/store.py L251
   Type:      code
-  Community: db/__init__.py
-  Degree:    76
+  Community: SemanticCache
+  Degree:    13
 
-Connections (76):
-  <-- run_hive() [calls] [EXTRACTED] app/hive/runner.py:L58
-  <-- test_hive_execution.py [imports] [EXTRACTED] tests/test_hive_execution.py:L9
-  <-- test_hive.py [imports] [EXTRACTED] tests/test_hive.py:L7
-  <-- agents.py [imports] [EXTRACTED] app/hive/agents.py:L10
-  <-- main() [calls] [EXTRACTED] docs/reviews/reproduce_hive_gaps.py:L25
-  <-- test_hive_migrations.py [imports] [EXTRACTED] tests/test_hive_migrations.py:L11
-  <-- test_api_research.py [imports] [EXTRACTED] tests/test_api_research.py:L36
-  <-- reproduce_hive_evidence.py [imports] [EXTRACTED] docs/reviews/reproduce_hive_evidence.py:L21
-  <-- store.py [contains] [EXTRACTED] app/hive/store.py:L33
-  <-- test_hive_evidence.py [imports] [EXTRACTED] tests/test_hive_evidence.py:L4
-  <-- main() [calls] [EXTRACTED] docs/reviews/reproduce_hive_evidence.py:L45
-  <-- reproduce_hive_gaps.py [imports] [EXTRACTED] docs/reviews/reproduce_hive_gaps.py:L16
-  <-- runner.py [imports] [EXTRACTED] app/hive/runner.py:L9
-  <-- fixture_hive.py [imports] [EXTRACTED] integrations/mcp/tests/fixture_hive.py:L15
-  <-- routes_hive.py [imports] [EXTRACTED] app/api/routes_hive.py:L16
-  <-- test_hive_cli.py [imports] [EXTRACTED] tests/test_hive_cli.py:L7
-  --> .create_run() [method] [EXTRACTED] app/hive/store.py:L57
-  <-- Caller [uses] [INFERRED] app/hive/agents.py:L26
-  --> .evidence() [method] [EXTRACTED] app/hive/store.py:L337
-  --> .get_task() [method] [EXTRACTED] app/hive/store.py:L89
-  ... and 56 more (--all lists all 76)
-  Grouped by file:
-    --> app/hive/store.py: 28 connections
-    <-- tests/test_hive_migrations.py: 7 connections
-    <-- tests/test_hive.py: 4 connections
-    <-- app/hive/agents.py: 3 connections
-    <-- tests/test_api_research.py: 3 connections
-    <-- tests/test_hive_execution.py: 3 connections
-    <-- app/hive/cli.py: 2 connections
-    <-- tests/test_hive_evidence.py: 2 connections
-    <-- app/api/routes_hive.py: 1 connection
-    <-- app/hive/runner.py: 1 connection
-    <-- integrations/mcp/tests/fixture_hive.py: 1 connection
-    <-- tests/test_hive_cli.py: 1 connection
+Connections (13):
+  <-- HiveStore [method] [EXTRACTED] app/hive/store.py:L251
+  <-- run_writer() [calls] [INFERRED] app/hive/agents.py:L198
+  --> snapshot_from_rows() [calls] [EXTRACTED] app/hive/store.py:L264
+  --> WriterAssignment [references] [EXTRACTED] app/hive/store.py:L251
+  <-- test_stale_report_attempt_cannot_publish() [calls] [INFERRED] tests/test_hive_report_store.py:L223
+  <-- test_report_publication_rejects_nonwriter_task() [calls] [INFERRED] tests/test_hive_report_store.py:L330
+  --> ReportSnapshot [references] [EXTRACTED] app/hive/store.py:L251
+  <-- test_snapshot_read_is_coherent() [calls] [INFERRED] tests/test_hive_report_store.py:L119
+  <-- test_direct_writer_rejects_mismatched_snapshot_before_dispatch() [calls] [INFERRED] tests/test_hive_report_execution.py:L386
+  <-- test_candidate_window_is_stable() [calls] [INFERRED] tests/test_hive_report_store.py:L86
+  <-- test_snapshot_releases_transaction_before_model_await() [calls] [INFERRED] tests/test_hive_report_store.py:L134
+  <-- test_snapshot_excludes_unaccepted_or_foreign_provenance() [calls] [INFERRED] tests/test_hive_report_store.py:L76
+  <-- Capture count and candidate sources in one short SQLite read snapshot. [rationale_for] [EXTRACTED] app/hive/store.py:L253

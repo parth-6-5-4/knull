@@ -1,0 +1,189 @@
+{
+  "green": {
+    "argv": [
+      "/opt/anaconda3/bin/python",
+      "-m",
+      "pytest",
+      "tests/test_hive_report_execution.py",
+      "-k",
+      "cannot_publish_after_deadline",
+      "-q"
+    ],
+    "env_overrides": {
+      "DEBUG": "false",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "cwd": "/Users/parthsdambhare/hive-lite-v5",
+    "log": "docs/reports/hive-003/final-fix-1-green-focused.log",
+    "exit_code": 0,
+    "receipt_kind": "observed prior exec_command result"
+  },
+  "red": {
+    "argv": [
+      "/opt/anaconda3/bin/python",
+      "-m",
+      "pytest",
+      "tests/test_hive_report_execution.py",
+      "-k",
+      "cannot_publish_after_deadline",
+      "-q"
+    ],
+    "env_overrides": {
+      "DEBUG": "false",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "cwd": "/Users/parthsdambhare/hive-lite-v5",
+    "log": "docs/reports/hive-003/final-fix-1-red.log",
+    "exit_code": 1,
+    "receipt_kind": "observed prior exec_command result"
+  },
+  "runner_store": {
+    "argv": [
+      "/opt/anaconda3/bin/python",
+      "-m",
+      "pytest",
+      "tests/test_hive_report_execution.py",
+      "tests/test_hive_report_store.py",
+      "tests/test_hive_execution.py",
+      "-q"
+    ],
+    "env_overrides": {
+      "DEBUG": "false",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "cwd": "/Users/parthsdambhare/hive-lite-v5",
+    "log": "docs/reports/hive-003/final-fix-1-runner-store.log",
+    "started_utc": "2026-10-21T08:54:57.306144+00:00",
+    "finished_utc": "2026-10-21T08:55:04.105668+00:00",
+    "exit_code": 0,
+    "receipt_kind": "subprocess completed"
+  },
+  "focused": {
+    "argv": [
+      "/opt/anaconda3/bin/python",
+      "-m",
+      "pytest",
+      "tests/test_hive.py",
+      "tests/test_hive_migrations.py",
+      "tests/test_hive_evidence.py",
+      "tests/test_hive_execution.py",
+      "tests/test_hive_cli.py",
+      "tests/test_hive_report_contracts.py",
+      "tests/test_hive_reports.py",
+      "tests/test_hive_report_store.py",
+      "tests/test_hive_report_execution.py",
+      "tests/test_api_research.py",
+      "-q"
+    ],
+    "env_overrides": {
+      "DEBUG": "false",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PLAYWRIGHT_BROWSERS_PATH": "/tmp/hive-003-browsers"
+    },
+    "cwd": "/Users/parthsdambhare/hive-lite-v5",
+    "log": "docs/reports/hive-003/final-fix-1-focused.log",
+    "started_utc": "2026-10-21T08:55:09.796754+00:00",
+    "finished_utc": "2026-10-21T08:55:21.182405+00:00",
+    "exit_code": 0,
+    "receipt_kind": "subprocess completed"
+  },
+  "mcp_pre_clock_fix": {
+    "argv": [
+      "integrations/mcp/.venv/bin/python",
+      "-m",
+      "pytest",
+      "-c",
+      "integrations/mcp/pyproject.toml",
+      "integrations/mcp/tests",
+      "-q"
+    ],
+    "env_overrides": {
+      "HIVE_APP_PYTHON": "/opt/anaconda3/bin/python",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "cwd": "/Users/parthsdambhare/hive-lite-v5",
+    "log": "docs/reports/hive-003/final-fix-1-mcp-pre-clock-fix.log",
+    "started_utc": "2026-10-21T08:51:24.532578+00:00",
+    "finished_utc": "2026-10-21T08:51:34.929636+00:00",
+    "exit_code": 1,
+    "receipt_kind": "subprocess completed"
+  },
+  "mcp": {
+    "argv": [
+      "integrations/mcp/.venv/bin/python",
+      "-m",
+      "pytest",
+      "-c",
+      "integrations/mcp/pyproject.toml",
+      "integrations/mcp/tests",
+      "-q"
+    ],
+    "env_overrides": {
+      "HIVE_APP_PYTHON": "/opt/anaconda3/bin/python",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "cwd": "/Users/parthsdambhare/hive-lite-v5",
+    "log": "docs/reports/hive-003/final-fix-1-mcp.log",
+    "started_utc": "2026-10-21T08:53:11.832138+00:00",
+    "finished_utc": "2026-10-21T08:53:19.991349+00:00",
+    "exit_code": 0,
+    "receipt_kind": "subprocess completed"
+  },
+  "offset_red": {
+    "argv": [
+      "/opt/anaconda3/bin/python",
+      "-m",
+      "pytest",
+      "tests/test_hive_report_execution.py",
+      "-k",
+      "different_origin",
+      "-q"
+    ],
+    "env_overrides": {
+      "DEBUG": "false",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "cwd": "/Users/parthsdambhare/hive-lite-v5",
+    "log": "docs/reports/hive-003/final-fix-1-offset-red.log",
+    "exit_code": 1,
+    "receipt_kind": "observed prior exec_command result"
+  },
+  "offset_green": {
+    "argv": [
+      "/opt/anaconda3/bin/python",
+      "-m",
+      "pytest",
+      "tests/test_hive_report_execution.py",
+      "-k",
+      "different_origin",
+      "-q"
+    ],
+    "env_overrides": {
+      "DEBUG": "false",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "cwd": "/Users/parthsdambhare/hive-lite-v5",
+    "log": "docs/reports/hive-003/final-fix-1-offset-green.log",
+    "exit_code": 0,
+    "receipt_kind": "observed prior exec_command result"
+  },
+  "full": {
+    "argv": [
+      "/opt/anaconda3/bin/python",
+      "-m",
+      "pytest",
+      "-q"
+    ],
+    "env_overrides": {
+      "DEBUG": "false",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PLAYWRIGHT_BROWSERS_PATH": "/tmp/hive-003-browsers"
+    },
+    "cwd": "/Users/parthsdambhare/hive-lite-v5",
+    "log": "docs/reports/hive-003/final-fix-1-full.log",
+    "started_utc": "2026-10-21T08:55:28.164680+00:00",
+    "finished_utc": "2026-10-21T08:55:51.311318+00:00",
+    "exit_code": 1,
+    "receipt_kind": "subprocess completed"
+  }
+}

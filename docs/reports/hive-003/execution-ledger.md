@@ -68,3 +68,11 @@ Fresh publication checks (2026-10-21):
 - Publication signature scan: 265 text files, no matching provider/GitHub/AWS/private-key signatures. Path guards separately exclude ignored local state. This is not a general secret-detection guarantee.
 
 These are checkpoint checks. They do not complete Task 4 review or Task 5 acceptance.
+
+## Resumed delivery closure — 2026-10-21
+
+Task 4 fresh review approved; Task 5 compatibility, diagnostic adapters and prompt-consumer repair approved. Whole-change I1 required deadline guards plus distinct clock domains, then EXCLUSIVE acquisition for deadline-bound publication after the first re-review exposed reader-blocked COMMIT. Final scoped re-review closed I1 with no new Critical/Important breakage.
+
+Final source-frozen runs: 122 affected, 370 focused and 54 MCP passed; full suite 397 passed/11 dependency failures. [Exact receipts](final-fix-2-commands.json), [final review](final-fix-2-rereview.md), [requirement coverage](requirements.md), [delivery summary](summary.md). Frontend lint/build passed earlier; no subsequent frontend changes. Graph refresh and technical browser smoke completed; source/artifact hashes checked during closure. F3-J lifecycle reader contention remains separately Scoped.
+
+This supersedes the earlier checkpoint's pending delivery state without rewriting its dated observations. HIVE-003 Verified; current resumed changes uncommitted, no new push. Private recovery workspaces retained under local-only rules.
