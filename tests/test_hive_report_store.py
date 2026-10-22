@@ -373,7 +373,7 @@ def test_report_provenance_survives_reopen(store):
             assert len(provenance[0][field]) == 64
         serialized = json.dumps(result)
         assert "raw source secret" not in serialized and "raw quote secret" not in serialized
-        assert reopened.db.execute("PRAGMA user_version").fetchone()[0] == schema_version == 1
+        assert reopened.db.execute("PRAGMA user_version").fetchone()[0] == schema_version == 2
         assert reopened.get_run(run)["report"] is None
     finally:
         reopened.db.close()

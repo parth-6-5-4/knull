@@ -18,6 +18,8 @@ import uuid
 from typing import Optional
 
 from app.hive.schema import SCHEMA, initialize_hive_schema
+from app.hive.transactions import SQLiteTransactions, DatabaseIO
+from app.hive.resource_types import SystemClock
 from app.hive.reporting import (
     MAX_CANDIDATES, ReportInputError, ReportSelectionError, ReportSnapshot,
     ReportSnapshotChanged, WriterAssignment, render_report, snapshot_from_rows,
@@ -50,16 +52,30 @@ class ReportPublicationBusy(RuntimeError):
 
 
 class HiveStore:
-    def __init__(self, path: str = ":memory:"):
+    def __init__(self, path: str = ":memory:", *, clock=None):
         self.path = path
+        self.clock = clock if clock is not None else SystemClock()
         self._lock = threading.Lock()
         self.db = sqlite3.connect(path, check_same_thread=False, isolation_level=None)
         self.db.row_factory = sqlite3.Row
+        self.db.execute("PRAGMA foreign_keys=ON")
         try:
             initialize_hive_schema(self.db)
         except BaseException:
             self.db.close()
             raise
+
+        self.transactions = SQLiteTransactions(self.db, self._lock, clock=self.clock)
+        self.database_io = DatabaseIO(clock=self.clock)
+
+    async def aclose(self):
+        """Drain owned SQL work before closing the shared connection."""
+        try:
+            await self.database_io.aclose()
+        except Exception:
+            self.db.close()  # Drain failed only after all worker operations finished.
+            raise
+        self.db.close()
 
     # --- helpers
 

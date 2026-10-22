@@ -18,7 +18,7 @@ def test_fresh_schema_has_run_scoped_evidence_key(tmp_path):
         cols = store.db.execute('PRAGMA table_info(evidence)').fetchall()
         assert [(r['name'], r['pk'], r['notnull']) for r in cols if r['pk']] == [
             ('id', 2, 1), ('run_id', 1, 1)]
-        assert store.db.execute('PRAGMA user_version').fetchone()[0] == 1
+        assert store.db.execute('PRAGMA user_version').fetchone()[0] == 2
     finally:
         store.db.close()
 
@@ -38,7 +38,7 @@ def test_upgrade_preserves_original_evidence_and_other_tables(tmp_path):
     before = snapshot(path)
     backup = tmp_path / 'backup.db'
     result = upgrade_hive_database(str(path), str(backup))
-    assert result['schema_version'] == 1 and result['migrated'] is True
+    assert result['schema_version'] == 2 and result['migrated'] is True
     assert snapshot(backup) == before
     assert backup.stat().st_mode & 0o777 == 0o600
     store = HiveStore(str(path))
@@ -177,7 +177,7 @@ def test_process_death_during_migration_recovers_old_or_new_schema(tmp_path,boun
     integrity, version, count = json.loads(probe.stdout)
     assert integrity == 'ok' and count == 2
     if boundary=='after_commit':
-        assert version==1
+        assert version==2
         store=HiveStore(str(path)); store.db.close()
     else:
         assert version==0 and snapshot(path)==before
