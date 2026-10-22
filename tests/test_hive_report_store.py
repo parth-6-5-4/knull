@@ -3,6 +3,7 @@ import asyncio
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import replace
 import json
+import sqlite3
 import threading
 import time
 
@@ -11,7 +12,7 @@ import pytest
 from app.hive.reporting import (
     ReportInputError, ReportSnapshotChanged, WriterAssignment, render_report,
 )
-from app.hive.store import HiveStore, TaskGraphError
+from app.hive.store import HiveStore, ReportPublicationBusy, RunDeadlineExceeded, TaskGraphError
 
 
 @pytest.fixture
@@ -214,6 +215,9 @@ def test_stale_report_attempt_cannot_publish(store):
     before = store.get_task(old.task_id)
     # Malformed caller content cannot bypass or precede the stale-assignment check.
     assert publish(store, old, None, None, None, now=113) is False
+    assert store.publish_report(old.task_id, old.worker, old.attempt, old.fence,
+                                None, None, None, now=113,
+                                task_deadline=time.monotonic() - 1) is False
     assert publish(store, old, snapshot, report, gate, now=113) is False
     assert store.get_task(old.task_id) == before
     fresh_snapshot = store.report_snapshot(run, "Objective", assignment=fresh)
@@ -383,3 +387,63 @@ def test_no_findings_publication_keeps_explicit_failure_metadata(store):
     assert task["result"]["report"] == ""
     assert task["result"]["gate"]["passed"] is False
     assert task["result"]["gate"]["reason"] == "no_selected_findings"
+
+
+@pytest.mark.parametrize("outcome", ["success", "invalid", "stale", "busy", "task_expired", "run_expired"])
+def test_deadline_publication_preserves_busy_timeout_and_transaction_state(store, outcome):
+    run, assignment, snapshot, report, gate = prepared(store)
+    configured_timeout = 19
+    store.db.execute(f"PRAGMA busy_timeout={configured_timeout}")
+    other = None
+    deadline = time.monotonic() + 1
+    kwargs = {"task_deadline": deadline}
+    if outcome in {"busy", "task_expired", "run_expired"}:
+        other = sqlite3.connect(store.path, isolation_level=None)
+        other.execute("BEGIN")
+        assert other.execute("SELECT * FROM tasks").fetchall()
+        if outcome.endswith("expired"):
+            kwargs = {outcome.removesuffix("_expired") + "_deadline": time.monotonic() + .005}
+    try:
+        args = (assignment.task_id, assignment.worker, assignment.attempt, assignment.fence)
+        if outcome == "invalid":
+            with pytest.raises(ReportInputError):
+                store.publish_report(*args, snapshot, "forged", gate, now=11, **kwargs)
+        elif outcome == "stale":
+            assert store.publish_report(args[0], args[1], 999, args[3], None, None, None,
+                                        now=11, task_deadline=-1) is False
+        elif outcome in {"busy", "task_expired", "run_expired"}:
+            expected = {"busy": ReportPublicationBusy, "task_expired": TimeoutError,
+                        "run_expired": RunDeadlineExceeded}[outcome]
+            with pytest.raises(expected):
+                store.publish_report(*args, snapshot, report, gate, now=11, **kwargs)
+        else:
+            assert store.publish_report(*args, snapshot, report, gate, now=11, **kwargs)
+    finally:
+        if other is not None:
+            other.execute("ROLLBACK")
+            other.close()
+    assert store.db.execute("PRAGMA busy_timeout").fetchone()[0] == configured_timeout
+    assert not store.db.in_transaction
+    if outcome != "success":
+        assert_unpublished(store, run, assignment)
+    assert [f["status"] for f in store.facts(run)] == ["verified", "verified"]
+
+
+def test_deadline_publication_with_wal_reader_keeps_report_atomic(store):
+    """WAL readers retain their snapshot without blocking deadline-bound publication."""
+    run, assignment, snapshot, report, gate = prepared(store)
+    assert store.db.execute("PRAGMA journal_mode=WAL").fetchone()[0] == "wal"
+    reader = sqlite3.connect(store.path, isolation_level=None)
+    try:
+        reader.execute("BEGIN")
+        assert reader.execute("SELECT result FROM tasks WHERE id=?", (assignment.task_id,)).fetchone()[0] is None
+        assert store.publish_report(assignment.task_id, assignment.worker, assignment.attempt,
+                                    assignment.fence, snapshot, report, gate, now=11,
+                                    task_deadline=time.monotonic() + 1)
+        assert reader.execute("SELECT result FROM tasks WHERE id=?", (assignment.task_id,)).fetchone()[0] is None
+        assert store.get_task(assignment.task_id)["result"] == {"report": report, "gate": gate}
+        assert not store.db.in_transaction
+    finally:
+        if reader.in_transaction:
+            reader.execute("ROLLBACK")
+        reader.close()

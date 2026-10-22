@@ -2,6 +2,9 @@
 import asyncio
 import json
 import re
+import sqlite3
+import threading
+import time
 from dataclasses import replace
 
 import pytest
@@ -70,6 +73,21 @@ def assert_facts_preserved(result):
 def assert_no_hive_tasks():
     assert not [task for task in asyncio.all_tasks()
                 if task.get_name().startswith("hive:") and not task.done()]
+
+
+def test_writer_succeeds_when_event_loop_clock_has_different_origin(store):
+    """The asyncio timer must use loop time even when publication uses monotonic time."""
+    install_writer(select_first)
+
+    class OffsetLoop(asyncio.SelectorEventLoop):
+        def time(self):
+            return super().time() + 10_000
+
+    with asyncio.Runner(loop_factory=OffsetLoop) as runner:
+        result = runner.run(execute(store, task_timeout_s=1, run_timeout_s=1))
+    assert result.status == "done"
+    assert write_task(store, result)["status"] == "done"
+    assert result.report
 
 
 async def test_empty_selection_blocks_run(store):
@@ -170,6 +188,123 @@ async def test_writer_error_classification_preserves_facts(store, monkeypatch, m
     assert "Private failing selection" not in json.dumps(result.events)
     if mode in {"deadline", "late-output"}:
         assert cancelled.is_set()
+    assert_no_hive_tasks()
+
+
+@pytest.mark.parametrize("lock_kind", ["mutex", "sqlite", "reader"])
+@pytest.mark.parametrize("deadline_kind", ["task", "run"])
+async def test_writer_cannot_publish_after_deadline_during_real_lock_wait(
+        store, monkeypatch, lock_kind, deadline_kind):
+    """A live lease does not permit writer completion after a logical deadline."""
+    install_writer(select_first)
+    original = store.publish_report
+    waits = []
+    lease_expiries = []
+
+    def contended(*args, **kwargs):
+        lease_expiries.append(store.get_task(args[0])["lease_expires"])
+        acquired = threading.Event()
+        release = threading.Event()
+        errors = []
+
+        def hold():
+            other = None
+            try:
+                if lock_kind == "mutex":
+                    with store._lock:
+                        acquired.set()
+                        release.wait(timeout=.3)
+                else:
+                    other = HiveStore(store.path)
+                    if lock_kind == "reader":
+                        assert other.db.execute("PRAGMA journal_mode").fetchone()[0] == "delete"
+                        other.db.execute("BEGIN")
+                        assert other.db.execute("SELECT * FROM tasks").fetchall()
+                    else:
+                        other.db.execute("BEGIN IMMEDIATE")
+                    acquired.set()
+                    release.wait(timeout=.3)
+                    other.db.execute("ROLLBACK")
+            except BaseException as exc:
+                errors.append(exc)
+            finally:
+                if other is not None:
+                    if other.db.in_transaction:
+                        other.db.execute("ROLLBACK")
+                    other.db.close()
+
+        holder = threading.Thread(target=hold)
+        holder.start()
+        started = time.monotonic()
+        try:
+            assert acquired.wait(timeout=2), errors
+            started = time.monotonic()
+            return original(*args, **kwargs)
+        finally:
+            waits.append(time.monotonic() - started)
+            release.set()
+            holder.join(timeout=2)
+            assert not holder.is_alive() and not errors
+
+    monkeypatch.setattr(store, "publish_report", contended)
+    result = await execute(store, max_attempts=1, lease_s=3,
+                           task_timeout_s=.1 if deadline_kind == "task" else 3,
+                           run_timeout_s=.1 if deadline_kind == "run" else 3)
+    assert waits and waits[0] >= .2
+    assert result.report == ""
+    writer = write_task(store, result)
+    assert lease_expiries[0] > time.time()
+    assert writer["status"] != "done"
+    assert not (writer["result"] or {}).get("report")
+    if deadline_kind == "task":
+        assert result.status == "blocked"
+        assert writer["status"] == "exhausted"
+        assert writer["result"]["code"] == "task_timeout"
+        assert any(e["kind"] == "task_error" and e["code"] == "task_timeout" for e in result.events)
+    else:
+        assert result.status == "stopped"
+        assert result.gate["code"] == "run_timeout"
+        assert writer["result"]["code"] == "run_timeout"
+    assert_facts_preserved(result)
+    assert sorted(f["status"] for f in store.facts(result.run_id)) == ["rejected", "verified"]
+    assert_no_hive_tasks()
+
+
+async def test_transient_reader_contention_retries_within_deadline(store, monkeypatch):
+    """A busy publication rolls back, then the ordinary bounded retry can succeed."""
+    install_writer(select_first)
+    original = store.publish_report
+    original_timeout = 17
+    store.db.execute(f"PRAGMA busy_timeout={original_timeout}")
+    calls = []
+
+    def contended(*args, **kwargs):
+        if calls:
+            calls.append(time.monotonic())
+            return original(*args, **kwargs)
+        calls.append(time.monotonic())
+        reader = sqlite3.connect(store.path, isolation_level=None)
+        try:
+            assert reader.execute("PRAGMA journal_mode").fetchone()[0] == "delete"
+            reader.execute("BEGIN")
+            assert reader.execute("SELECT * FROM tasks").fetchall()
+            return original(*args, **kwargs)
+        finally:
+            reader.execute("ROLLBACK")
+            reader.close()
+            assert store.db.execute("PRAGMA busy_timeout").fetchone()[0] == original_timeout
+            assert not store.db.in_transaction
+
+    monkeypatch.setattr(store, "publish_report", contended)
+    result = await execute(store, max_attempts=2, lease_s=3, task_timeout_s=1, run_timeout_s=1)
+    assert result.status == "done" and result.report
+    writer = write_task(store, result)
+    assert writer["status"] == "done" and writer["attempt"] == len(calls) == 2
+    errors = [e for e in result.events if e["kind"] == "task_error" and e["task"] == writer["id"]]
+    assert len(errors) == 1 and errors[0]["retryable"] is True
+    assert calls[1] - calls[0] >= .01  # The existing attempt backoff remains active.
+    assert store.db.execute("PRAGMA busy_timeout").fetchone()[0] == original_timeout
+    assert_facts_preserved(result)
     assert_no_hive_tasks()
 
 

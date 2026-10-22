@@ -2,11 +2,12 @@
 from __future__ import annotations
 
 import asyncio
+import time
 from dataclasses import dataclass, field
 from typing import Optional
 
 from app.hive import agents
-from app.hive.store import HiveStore, EvidenceIntegrityError, TaskGraphError
+from app.hive.store import HiveStore, EvidenceIntegrityError, RunDeadlineExceeded, TaskGraphError
 from app.hive.reporting import (
     POLICY_VERSION, ReportInputError, ReportSelectionError, ReportSnapshotChanged, WriterAssignment,
 )
@@ -66,6 +67,8 @@ async def run_hive(objective: str, store: Optional[HiveStore] = None, *, workers
     stop = asyncio.Event()
     supervised = []
     loop = asyncio.get_running_loop()
+    run_deadline = time.monotonic() + run_timeout_s
+    loop_run_deadline = loop.time() + run_timeout_s
     task_deadlines = {}
     retry_at = {}
 
@@ -76,12 +79,12 @@ async def run_hive(objective: str, store: Optional[HiveStore] = None, *, workers
 
     async def attempt(task, name):
         tid, att, fence = task["id"], task["attempt"], task["fence"]
-        deadline = task_deadlines.setdefault(tid, loop.time() + task_timeout_s)
+        deadline = task_deadlines.setdefault(tid, time.monotonic() + task_timeout_s)
 
         def guard():
             if not store.owns(tid, name, att, fence):
                 raise LeaseLost("assignment lease lost")
-            if loop.time() >= deadline:
+            if time.monotonic() >= deadline:
                 raise TimeoutError("logical task deadline exceeded")
             if stop.is_set():
                 raise LeaseLost("run admission closed")
@@ -110,7 +113,8 @@ async def run_hive(objective: str, store: Optional[HiveStore] = None, *, workers
                     snapshot = store.report_snapshot(run_id, objective, assignment=assignment)
                     report, gate = await agents.run_writer(store, run_id, objective, call, snapshot=snapshot)
                     guard()  # Cancellation-resistant calls cannot publish after a task deadline.
-                    return store.publish_report(tid, name, att, fence, snapshot, report, gate)
+                    return store.publish_report(tid, name, att, fence, snapshot, report, gate,
+                                                task_deadline=deadline, run_deadline=run_deadline)
                 raise TaskGraphError("unknown task kind")
             finally:
                 agents.attempt_guard.reset(token)
@@ -121,7 +125,7 @@ async def run_hive(objective: str, store: Optional[HiveStore] = None, *, workers
                 if not store.heartbeat(tid, name, att, fence, lease_s=lease_s):
                     raise LeaseLost("assignment renewal rejected")
 
-        remaining = deadline - loop.time()
+        remaining = deadline - time.monotonic()
         if remaining <= 0:
             raise TimeoutError("logical task deadline exceeded")
         execution = asyncio.create_task(asyncio.wait_for(execute(), remaining), name=f"hive:execute:{tid}")
@@ -154,6 +158,8 @@ async def run_hive(objective: str, store: Optional[HiveStore] = None, *, workers
                 stop.set(); return
             except LeaseLost:
                 store.event(run_id, "lease_lost", task=tid, worker=name, attempt=att, fence=fence)
+            except RunDeadlineExceeded:
+                raise
             except Exception as exc:
                 report_error = isinstance(exc, (ReportInputError, ReportSelectionError, ReportSnapshotChanged))
                 code = (exc.code if report_error else "task_timeout" if isinstance(exc, TimeoutError)
@@ -161,7 +167,7 @@ async def run_hive(objective: str, store: Optional[HiveStore] = None, *, workers
                         else "invalid_output" if isinstance(exc, ValueError) else "execution_error")
                 reason = code if report_error else f"{type(exc).__name__}: {exc}"[:300]
                 retryable = isinstance(exc, (LLMError, OSError, RuntimeError)) and not isinstance(exc, ValueError)
-                retryable = retryable and loop.time() < task_deadlines[tid]
+                retryable = retryable and time.monotonic() < task_deadlines[tid]
                 store.event(run_id, "task_error", task=tid, worker=name, code=code, retryable=retryable, error=reason)
                 if not retryable or att >= max_attempts:
                     store.mark_exhausted(tid, reason, worker=name, attempt=att, fence=fence, code=code)
@@ -201,7 +207,7 @@ async def run_hive(objective: str, store: Optional[HiveStore] = None, *, workers
 
     try:
         try:
-            async with asyncio.timeout(run_timeout_s):
+            async with asyncio.timeout_at(loop_run_deadline):
                 await pipeline()
         except agents.BudgetExceeded:
             abort("stopped", "budget_exhausted", "budget exhausted before planning")

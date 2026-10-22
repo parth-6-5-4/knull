@@ -10,6 +10,7 @@ same worker name) cannot write.
 from __future__ import annotations
 
 import json
+import math
 import sqlite3
 import threading
 import time
@@ -38,6 +39,14 @@ class TaskGraphError(ValueError):
 
 class EvidenceIntegrityError(ValueError):
     """Publication or promotion would violate run-owned immutable provenance."""
+
+
+class RunDeadlineExceeded(TimeoutError):
+    """The whole run expired before its writer could publish."""
+
+
+class ReportPublicationBusy(RuntimeError):
+    """Transient report lock contention; retry under the task attempt/deadline policy."""
 
 
 class HiveStore:
@@ -256,15 +265,33 @@ class HiveStore:
 
     def publish_report(self, task_id: str, worker: str, attempt: int, fence: int,
                        snapshot: ReportSnapshot, report: str, gate: dict, *,
-                       now: float | None = None) -> bool:
+                       now: float | None = None, task_deadline: float | None = None,
+                       run_deadline: float | None = None) -> bool:
         """Fence, recheck selected provenance, and commit only deterministic report output."""
+
+        def check_deadlines():
+            current = time.monotonic()
+            if run_deadline is not None and current >= run_deadline:
+                raise RunDeadlineExceeded("logical run deadline exceeded")
+            if task_deadline is not None and current >= task_deadline:
+                raise TimeoutError("logical task deadline exceeded")
+
+        deadline_bound = task_deadline is not None or run_deadline is not None
         with self._lock:
-            self.db.execute("BEGIN IMMEDIATE")
             try:
+                # Rollback-journal readers can block COMMIT after BEGIN IMMEDIATE.
+                # Acquire its exclusive lock first, then check deadlines before writes.
+                # In WAL mode readers do not block commit; EXCLUSIVE equals IMMEDIATE.
+                self.db.execute("BEGIN EXCLUSIVE" if deadline_bound else "BEGIN IMMEDIATE")
                 now = time.time() if now is None else now
                 if not self._holds(task_id, worker, attempt, fence, now):
                     self.db.execute("ROLLBACK")
                     return False
+                for deadline in (task_deadline, run_deadline):
+                    if (deadline is not None and (isinstance(deadline, bool)
+                            or not isinstance(deadline, (int, float)) or not math.isfinite(deadline))):
+                        raise ValueError("report deadline must be finite monotonic seconds")
+                check_deadlines()
                 task = self.db.execute("SELECT run_id,kind FROM tasks WHERE id=?", (task_id,)).fetchone()
                 if task["kind"] != "write":
                     raise TaskGraphError("Report publication requires a writer task")
@@ -297,11 +324,17 @@ class HiveStore:
                     raise ReportInputError("report_gate_invalid") from None
                 if type(report) is not str or report != expected_report or not gate_matches:
                     raise ReportInputError("report_artifact_mismatch")
+                check_deadlines()
                 self._complete_task(task_id, {"report": expected_report, "gate": expected_gate})
                 self.db.execute("COMMIT")
                 return True
-            except BaseException:
-                self.db.execute("ROLLBACK")
+            except BaseException as exc:
+                if self.db.in_transaction:
+                    self.db.execute("ROLLBACK")
+                if (deadline_bound and isinstance(exc, sqlite3.OperationalError)
+                        and getattr(exc, "sqlite_errorcode", 0) & 0xff == sqlite3.SQLITE_BUSY):
+                    check_deadlines()
+                    raise ReportPublicationBusy("report publication lock busy") from exc
                 raise
 
     def _transition_attempt(self, task_id, worker, attempt, fence, status, reason, code, now):
