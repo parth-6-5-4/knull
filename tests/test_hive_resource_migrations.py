@@ -167,13 +167,15 @@ def test_resource_schema_enforces_identity_checks_and_foreign_keys(tmp_path):
     try:
         db.execute("INSERT INTO resource_policy VALUES(1,'policy','{}')")
         db.execute("INSERT INTO resource_profiles VALUES('profile','{}')")
-        db.execute("INSERT INTO resource_allocations VALUES('a','a',NULL,200,0,0)")
+        db.execute("INSERT INTO runs(id) VALUES('r')")
+        db.execute("INSERT INTO resource_allocations VALUES('a','r','a',NULL,200,0,0)")
         for sql in ("INSERT INTO resource_policy VALUES(2,'other','{}')",
                     "INSERT INTO resource_profiles VALUES('bad','not json')",
-                    "INSERT INTO resource_allocations VALUES('bad','a','missing',10,0,0)",
-                    "INSERT INTO resource_allocations VALUES('bad','bad',NULL,-1,0,0)",
-                    "INSERT INTO resource_allocations VALUES('bad','bad',NULL,1.5,0,0)",
-                    "INSERT INTO resource_allocations VALUES('bad','bad',NULL,5,2,0)",
+                    "INSERT INTO resource_allocations VALUES('bad','r','a','missing',10,0,0)",
+                    "INSERT INTO resource_allocations VALUES('bad','r','bad',NULL,-1,0,0)",
+                    "INSERT INTO resource_allocations VALUES('bad','r','bad',NULL,1.5,0,0)",
+                    "INSERT INTO resource_allocations VALUES('bad','r','bad',NULL,5,2,0)",
+                    "INSERT INTO resource_allocations VALUES('bad','missing-run','bad',NULL,5,0,0)",
                     "INSERT INTO resource_usage_projection VALUES('missing',123)"):
             with pytest.raises(sqlite3.IntegrityError):db.execute(sql)
     finally:db.close()

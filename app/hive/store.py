@@ -67,6 +67,8 @@ class HiveStore:
 
         self.transactions = SQLiteTransactions(self.db, self._lock, clock=self.clock)
         self.database_io = DatabaseIO(clock=self.clock)
+        from app.hive.resource_store import ResourceStore
+        self.resources = ResourceStore(self)
 
     async def aclose(self):
         """Drain owned SQL work before closing the shared connection."""

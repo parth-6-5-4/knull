@@ -9,6 +9,7 @@ CREATE TABLE resource_profiles(
   canonical_json TEXT NOT NULL CHECK(json_valid(canonical_json)));
 CREATE TABLE resource_allocations(
   allocation_id TEXT PRIMARY KEY NOT NULL,
+  run_id TEXT NOT NULL REFERENCES runs(id),
   root_id TEXT NOT NULL REFERENCES resource_allocations(allocation_id),
   parent_id TEXT REFERENCES resource_allocations(allocation_id),
   limit_tokens INTEGER NOT NULL CHECK(typeof(limit_tokens)='integer' AND limit_tokens>=0),
