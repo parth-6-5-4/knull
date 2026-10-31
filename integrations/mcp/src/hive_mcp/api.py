@@ -2,6 +2,8 @@
 from __future__ import annotations
 
 import json
+import asyncio
+import math
 import re
 from typing import Any
 from urllib.parse import urlsplit
@@ -11,6 +13,41 @@ from mcp.server.mcpserver.exceptions import ToolError
 
 RUN_ID = re.compile(r"[a-f0-9]{12}\Z")
 LOOPBACK_HOSTS = frozenset({"127.0.0.1", "localhost", "::1"})
+REQUEST_DEADLINE_SECONDS = 10
+
+
+def _failure(mutation: bool, code: str) -> ToolError:
+    if mutation and code not in ("upstream_rejected", "upstream_redirect_refused"):
+        return ToolError("submission_outcome_unknown: Hive may have accepted the run; inspect Hive state before resubmitting")
+    messages = {
+        "run_not_found": "Run not found",
+        "upstream_rejected": "Hive rejected the request",
+        "upstream_redirect_refused": "Hive redirect refused",
+        "upstream_unavailable": "Hive is unavailable or request timed out",
+        "upstream_invalid_response": "Hive returned an invalid or oversized response",
+    }
+    return ToolError(f"{code}: {messages[code]}")
+
+
+def _valid_structure(payload: dict) -> bool:
+    # O(depth) traversal space; do not allocate a second list of every JSON value.
+    stack = [(iter([payload]), 0)]
+    while stack:
+        iterator, depth = stack[-1]
+        try:
+            value = next(iterator)
+        except StopIteration:
+            stack.pop()
+            continue
+        if depth > 32:
+            return False
+        if isinstance(value, dict):
+            stack.append((iter(value.values()), depth + 1))
+        elif isinstance(value, list):
+            stack.append((iter(value), depth + 1))
+        elif isinstance(value, float) and not math.isfinite(value):
+            return False
+    return True
 
 
 class HiveAPI:
@@ -27,22 +64,21 @@ class HiveAPI:
         self.transport = transport
 
     async def request(self, method: str, path: str, body: dict | None = None) -> dict[str, Any]:
+        try:
+            async with asyncio.timeout(REQUEST_DEADLINE_SECONDS):
+                return await self._request(method, path, body)
+        except TimeoutError:
+            raise _failure(method == "POST", "upstream_unavailable") from None
+
+    async def _request(self, method: str, path: str, body: dict | None) -> dict[str, Any]:
         mutation = method == "POST"
 
         def failure(code: str) -> ToolError:
-            if mutation and code not in ("upstream_rejected", "upstream_redirect_refused"):
-                return ToolError("submission_outcome_unknown: Hive may have accepted the run; inspect Hive state before resubmitting")
-            messages = {
-                "run_not_found": "Run not found",
-                "upstream_rejected": "Hive rejected the request",
-                "upstream_redirect_refused": "Hive redirect refused",
-                "upstream_unavailable": "Hive is unavailable or request timed out",
-                "upstream_invalid_response": "Hive returned an invalid or oversized response",
-            }
-            return ToolError(f"{code}: {messages[code]}")
+            return _failure(mutation, code)
 
         try:
-            async with httpx.AsyncClient(timeout=10, follow_redirects=False, trust_env=False,
+            async with httpx.AsyncClient(timeout=REQUEST_DEADLINE_SECONDS, follow_redirects=False, trust_env=False,
+                                         headers={"Accept-Encoding": "identity"},
                                          transport=self.transport) as client:
                 async with client.stream(method, self.url + path, json=body) as response:
                     if 300 <= response.status_code < 400:
@@ -53,16 +89,23 @@ class HiveAPI:
                         raise failure("upstream_rejected")
                     if response.status_code != (202 if mutation else 200):
                         raise failure("upstream_unavailable")
+                    if response.headers.get("content-encoding", "identity").lower() != "identity":
+                        raise failure("upstream_invalid_response")
                     data = bytearray()
-                    async for chunk in response.aiter_bytes():
+                    # Real streaming responses stay raw. Mock/in-memory responses may
+                    # already be materialized; neither path applies decompression here.
+                    chunks = response.aiter_bytes(chunk_size=65536) if response.is_stream_consumed else response.aiter_raw(chunk_size=65536)
+                    async for chunk in chunks:
                         if len(data) + len(chunk) > 1024 * 1024:
                             raise failure("upstream_invalid_response")
                         data.extend(chunk)
             try:
                 payload = json.loads(data)
-            except (ValueError, UnicodeError):
+            except (ValueError, UnicodeError, RecursionError):
                 raise failure("upstream_invalid_response") from None
             if not isinstance(payload, dict) or not isinstance(payload.get("status"), str):
+                raise failure("upstream_invalid_response")
+            if not _valid_structure(payload):
                 raise failure("upstream_invalid_response")
             if path != "/health":
                 run_id = payload.get("run_id")

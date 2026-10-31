@@ -1,0 +1,45 @@
+{
+  "date": "2026-10-21",
+  "kind": "publication packaging smoke; no new visual review",
+  "chromium": "156.0.8078.4",
+  "diagrams": [
+    {
+      "path": "docs/architecture/diagrams/01-current-codebase.html",
+      "svgPresent": true
+    },
+    {
+      "path": "docs/architecture/diagrams/02-proposed-system.html",
+      "svgPresent": true
+    },
+    {
+      "path": "docs/architecture/diagrams/03-runtime.html",
+      "svgPresent": true
+    },
+    {
+      "path": "docs/architecture/diagrams/04-roles-skills-routing.html",
+      "svgPresent": true
+    },
+    {
+      "path": "docs/architecture/diagrams/05-evidence.html",
+      "svgPresent": true
+    },
+    {
+      "path": "docs/architecture/diagrams/06-delivery-phases.html",
+      "svgPresent": true
+    },
+    {
+      "path": "docs/architecture/diagrams/07-task-lifecycle.html",
+      "svgPresent": true
+    },
+    {
+      "path": "docs/architecture/diagrams/08-knull-swarm.html",
+      "svgPresent": true
+    }
+  ],
+  "pageErrors": [],
+  "externalRequests": [],
+  "knullIframeLoaded": true,
+  "localLinkChecks": 283,
+  "missingOrUntrackedTargets": [],
+  "artifactAndCandidateHashesMatched": 8
+}

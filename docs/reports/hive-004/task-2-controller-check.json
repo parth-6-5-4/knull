@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-22",
+  "scope": "Task2 frozen six source/test files",
+  "source_hashes_match": true,
+  "unowned_source_changes": [],
+  "focused": {
+    "passed": 118,
+    "failed": 0,
+    "log": "task-2-green-final.log"
+  },
+  "full_restricted": {
+    "passed": 490,
+    "failed": 11,
+    "errors": 3,
+    "log": "task-2-full-final.log"
+  },
+  "permitted_boundary_rerun": {
+    "passed": 4,
+    "failed": 1,
+    "log": "task-2-permitted-boundaries.log"
+  },
+  "observed_unresolved_dependency_node_ids_match_baseline": true,
+  "restricted_setup_error_node_ids": [
+    "tests/test_llm_sdk_wiring.py::test_sdk_roundtrip[openai-OPENAI_API_KEY-hi-openai-tokens0]",
+    "tests/test_llm_sdk_wiring.py::test_sdk_roundtrip[anthropic-ANTHROPIC_API_KEY-hi-anthropic-tokens1]",
+    "tests/test_llm_sdk_wiring.py::test_sdk_roundtrip[gemini-GEMINI_API_KEY-hi-gemini-tokens2]"
+  ],
+  "no_synthesized_full_result": true,
+  "review": "Written independent report: spec compliant; quality Approved; no blocking findings. Reviewer turn hit usage limit after writing complete report.",
+  "runtime_integration": "later tasks remain open",
+  "screenshots": "Original dated bytes restored; regenerated copies private.",
+  "publication_recheck_date": "2026-11-01",
+  "review_dispositions": [
+    "Canonical fingerprints, normalized receipt categories, provider qualification/controls, fairness and integrated permits remain Tasks3\u20138 gates.",
+    "Public original call identity/receipt provenance inspection remains Task7 acceptance.",
+    "No full-suite green, production activation, integrated F3-J cleanup or system-wide release is claimed."
+  ],
+  "fresh_focused_log": "publication-focused-2026-11-01.log",
+  "fresh_focused_passed": 118,
+  "local_source_commit": "566b6ae"
+}

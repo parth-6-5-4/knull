@@ -2,11 +2,19 @@
 
 **Hive Lite is the first, lite version of the Knull agentic hive mind (AI Engineering 101, Ch. 15 "The Symbiote Swarm"). The full-fledged hive mind is coming soon.**
 
-An AI-powered research hive that transforms vague research objectives into structured, citation-backed reports: Knull plans a task DAG, researcher symbiotes claim tasks with leases and fences, an independent verifier checks every claim against verbatim evidence, and a watchdog plus a hard token budget keep runaways in check. Built for **local execution on resource-constrained hardware** (MacBook Pro M2, 8GB RAM).
+An AI-powered research hive that transforms vague research objectives into structured, citation-backed reports: Knull plans a task DAG, researcher symbiotes claim tasks with leases and fences, an independent verifier checks every claim against verbatim evidence, and a watchdog plus token accounting track execution and usage. Built for **local execution on resource-constrained hardware** (MacBook Pro M2, 8GB RAM).
 
 > **Note**: This project is not currently deployed as a hosted service. If you'd like to try it out, you're welcome to clone the repository and run it locally. The setup is straightforward and documented below. I'd appreciate any feedback or suggestions.
 
+## Development status
+
+**Active development — 1 November 2026.** Evidence isolation, task fencing and supported-report construction have recorded acceptance evidence. The new resource-accounting foundation is implemented and task-reviewed, but shared admission queues, provider controls and governed Caller integration are still unfinished. Current execution does not yet enforce the proposed shared hard budget.
+
+See the [development checkpoint](docs/reports/development-status-2026-11-01.md) for implemented modules, remaining work, verification results and the next task. The MCP adapter is an implemented local candidate with protocol test evidence; its design review and shared-host deployment gates remain open.
+
 ## Development workflow
+
+Start with the [beginner architecture guide](ARCHITECTURE.md), [eight-view visual atlas](docs/architecture/index.html), and [Knull swarm-control walkthrough](docs/architecture/knull.html). They explain current versus proposed behavior, module responsibilities and the phased implementation handoff. Open the HTML files locally in a browser; repository web previews may show their source.
 
 External agents can use the optional [Hive MCP server](integrations/mcp/README.md): stdio or authenticated local HTTP, with Codex/Claude Code setup examples and a remote GPT example. The adapter calls existing lite Hive APIs; modular skills/hierarchy remain proposed capabilities.
 
@@ -375,7 +383,7 @@ For questions, issues, or contributions, please open an issue on [GitHub](https:
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+New releases use the custom [Knull Noncommercial Reciprocal License 1.0](LICENSE): noncommercial personal/development use is allowed; distributing or hosting modifications requires source sharing and upstream submission. Private unshared modifications may remain private. Commercial use requires separate permission. See [licensing notes](docs/LICENSING.md) for scope, prior MIT grants and third-party notices.
 
 ---
 
@@ -395,8 +403,8 @@ Branch `hive-lite` adds a first, lite version of the "Symbiote Swarm" from *AI E
 | Claim table with leases | `app/hive/store.py`: atomic claim, attempt id, increasing fence, expiry; publish re-checks all of them |
 | Hive memory | `facts` table: proposed -> verified / rejected, each with an evidence id and a verbatim quote |
 | Verifier | separate context (sees only claim + evidence); non-verbatim quotes are rejected before any LLM call; fails closed |
-| Watchdog / governor | plain code in `app/hive/watchdog.py` and `runner.py`: lease expiry requeue, attempt cap, loop detector, hard token cap |
-| Final gate | findings sentences without a citation to a verified fact are removed; budget exhaustion returns `stopped`, never `done` |
+| Watchdog / governor | plain code in `app/hive/watchdog.py` and `runner.py`: lease expiry requeue, attempt cap, loop detector, measured-usage budget stop (concurrent overshoot remains open) |
+| Final gate | model selects accepted fact IDs; code renders their claims literally. Empty findings block the run; budget exhaustion returns `stopped`, never `done` |
 
 Not in this lite version: lieutenants, human console / steering, 20-30 workers, broadcast/recheck on superseded facts,
 long-term memory, process-crash replay across restarts of a live run (state is in SQLite but there is no resume command yet).
@@ -433,3 +441,25 @@ Stack: React 19 + TypeScript + Vite, Tailwind CSS v4 with a shadcn/ui-style sema
 Geist/Geist Mono (bundled via Fontsource), lucide-react icons. Status is carried by colored dots and
 badges, not node fills, so Knull's crimson accent never collides with error red.
 # knull
+
+## Hive storage upgrade and bounded execution
+
+HIVE-001 uses schema version 1 with evidence keyed by `(run_id, id)`. Fresh databases initialize automatically. A recognized old hive database refuses normal startup until explicitly upgraded. Historical missing provenance stays inspectable but cannot enter new verified-memory reads or reports; migration does not copy another run's evidence or regenerate saved reports.
+
+Stop **all** API, CLI and other hive writers before maintenance. Inspect first, then choose a new private backup destination:
+
+```bash
+python -m app.hive.migrate --db ./app_data/hive.db --check
+python -m app.hive.migrate --db ./app_data/hive.db --apply --backup ./app_data/hive-before-v1.db
+python -m app.hive.migrate --db ./app_data/hive.db --check
+```
+
+The command refuses unknown/custom schemas, NULL evidence keys, missing source files and existing backup destinations. It takes a consistent verified SQLite backup before the transactional rebuild; an already-v1 database is a no-op. Check evidence counts and `unresolved_facts_by_run` before/after. Restart writers only after validation. On failure, retain source and backup for inspection; there is no automatic restore. Restore a pre-upgrade backup only with writers stopped and confirmation that no accepted post-upgrade writes would be discarded. Otherwise retain current data and use forward repair. These commands were exercised on disposable fixtures; this task did not migrate your database.
+
+HIVE-002 renews active leases, rejects stale mutations, propagates required-dependency failures and supervises worker/watchdog cleanup. Task deadlines apply across retries within one lite process; run deadlines include planning. Defaults: task 600 seconds, run 1,800 seconds. Configure through API fields `task_timeout_s` / `run_timeout_s`, or CLI:
+
+```bash
+python -m app.hive.cli "Compare public research approaches" --task-timeout 600 --run-timeout 1800
+```
+
+Verifier outages remain execution failures rather than factual rejection. Hive owns router-level retries. Actual shared token/cost reservation, unknown external-call settlement and cross-run capacity controls remain HIVE-004. Cancellation cannot forcibly stop an underlying synchronous SDK thread; its late result cannot commit, and CLI shutdown may wait for it. Durable restart/resume remains HIVE-006. See the [implementation evidence](docs/reports/hive-integrity/summary.md).

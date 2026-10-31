@@ -1,0 +1,87 @@
+/opt/anaconda3/lib/python3.12/site-packages/pytest_asyncio/plugin.py:247: PytestDeprecationWarning: The configuration option "asyncio_default_fixture_loop_scope" is unset.
+The event loop scope for asynchronous fixtures will default to the fixture caching scope. Future versions of pytest-asyncio will default the loop scope for asynchronous fixtures to function scope. Set the default fixture loop scope explicitly in order to avoid unexpected behavior in the future. Valid fixture loop scopes are: "function", "class", "module", "package", "session"
+
+  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))
+============================= test session starts ==============================
+platform darwin -- Python 3.12.7, pytest-8.2.2, pluggy-1.6.0
+rootdir: /Users/parthsdambhare/hive-lite-v5
+configfile: pytest.ini
+plugins: mock-3.15.1, anyio-4.9.0, asyncio-1.3.0, cov-7.0.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 355 items
+
+tests/test_hive.py ................                                      [  4%]
+tests/test_hive_migrations.py ............................               [ 12%]
+tests/test_hive_evidence.py .................                            [ 17%]
+tests/test_hive_execution.py ........................................... [ 29%]
+.                                                                        [ 29%]
+tests/test_hive_cli.py ....                                              [ 30%]
+tests/test_hive_report_contracts.py .................................... [ 40%]
+........................................................................ [ 61%]
+.                                                                        [ 61%]
+tests/test_hive_reports.py ............................................. [ 74%]
+......F                                                                  [ 76%]
+tests/test_hive_report_store.py ........................................ [ 87%]
+                                                                         [ 87%]
+tests/test_hive_report_execution.py .......................              [ 93%]
+tests/test_api_research.py ......................                        [100%]
+
+=================================== FAILURES ===================================
+_______________________ test_marked_rendering_round_trip _______________________
+tests/test_hive_reports.py:198: in test_marked_rendering_round_trip
+    assert result.returncode == 0, result.stdout + result.stderr
+E   AssertionError: node:internal/modules/run_main:105
+E         triggerUncaughtException(
+E         ^
+E     
+E     browserType.launch: Target page, context or browser has been closed
+E     Browser logs:
+E     
+E     <launching> /tmp/hive-003-browsers/chromium_headless_shell-1248/chrome-headless-shell-mac-arm64/chrome-headless-shell --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,BlockOriginHeaderModificationOnRedirect,AvoidCorsURLLoaderRestartOnRedirect,Translate,AutoDeElevate,OptimizationHints,NetworkTimeServiceQuerying,AimEnabled,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/var/folders/mc/gvm9y0s93y50g3gglym7mpw40000gn/T/playwright_chromiumdev_profile-PsyK81 --remote-debugging-pipe --no-startup-window
+E     <launched> pid=70926
+E     [pid=70926][err] [1021/131913.581859:ERROR:base/power_monitor/thermal_state_observer_mac.mm:122] ThermalStateObserverMac unable to register to power notifications. Result: 9
+E     [pid=70926][err] [1021/131913.613259:ERROR:net/dns/dns_config_service_posix.cc:139] DNS config watch failed to start.
+E     [pid=70926][err] [1021/131913.618077:WARNING:net/dns/dns_config_service_posix.cc:198] Failed to read DnsConfig.
+E     [pid=70926][err] [1021/131913.627969:FATAL:base/apple/mach_port_rendezvous_mac.cc:159] Check failed: kr == KERN_SUCCESS. bootstrap_check_in org.chromium.Chromium.MachPortRendezvousServer.70926: Permission denied (1100)
+E     Call log:
+E     [2m  - <launching> /tmp/hive-003-browsers/chromium_headless_shell-1248/chrome-headless-shell-mac-arm64/chrome-headless-shell --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,BlockOriginHeaderModificationOnRedirect,AvoidCorsURLLoaderRestartOnRedirect,Translate,AutoDeElevate,OptimizationHints,NetworkTimeServiceQuerying,AimEnabled,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/var/folders/mc/gvm9y0s93y50g3gglym7mpw40000gn/T/playwright_chromiumdev_profile-PsyK81 --remote-debugging-pipe --no-startup-window[22m
+E     [2m  - <launched> pid=70926[22m
+E     [2m  - [pid=70926][err] [1021/131913.581859:ERROR:base/power_monitor/thermal_state_observer_mac.mm:122] ThermalStateObserverMac unable to register to power notifications. Result: 9[22m
+E     [2m  - [pid=70926][err] [1021/131913.613259:ERROR:net/dns/dns_config_service_posix.cc:139] DNS config watch failed to start.[22m
+E     [2m  - [pid=70926][err] [1021/131913.618077:WARNING:net/dns/dns_config_service_posix.cc:198] Failed to read DnsConfig.[22m
+E     [2m  - [pid=70926][err] [1021/131913.627969:FATAL:base/apple/mach_port_rendezvous_mac.cc:159] Check failed: kr == KERN_SUCCESS. bootstrap_check_in org.chromium.Chromium.MachPortRendezvousServer.70926: Permission denied (1100)[22m
+E     [2m  - [pid=70926] <gracefully close start>[22m
+E     [2m  - [pid=70926] <kill>[22m
+E     [2m  - [pid=70926] <will force kill>[22m
+E     [2m  - [pid=70926] exception while trying to kill process: Error: kill EPERM[22m
+E     [2m  - [pid=70926] <process did exit: exitCode=null, signal=SIGTRAP>[22m
+E     [2m  - [pid=70926] starting temporary directories cleanup[22m
+E     [2m  - [pid=70926] finished temporary directories cleanup[22m
+E     [2m  - [pid=70926] <gracefully close end>[22m
+E     
+E         at /Users/parthsdambhare/hive-lite-v5/web/scripts/check-hive-report.mjs:27:32 {
+E       log: [
+E         '  - <launching> /tmp/hive-003-browsers/chromium_headless_shell-1248/chrome-headless-shell-mac-arm64/chrome-headless-shell --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,BlockOriginHeaderModificationOnRedirect,AvoidCorsURLLoaderRestartOnRedirect,Translate,AutoDeElevate,OptimizationHints,NetworkTimeServiceQuerying,AimEnabled,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/var/folders/mc/gvm9y0s93y50g3gglym7mpw40000gn/T/playwright_chromiumdev_profile-PsyK81 --remote-debugging-pipe --no-startup-window',
+E         '  - <launched> pid=70926',
+E         '  - [pid=70926][err] [1021/131913.581859:ERROR:base/power_monitor/thermal_state_observer_mac.mm:122] ThermalStateObserverMac unable to register to power notifications. Result: 9',
+E         '  - [pid=70926][err] [1021/131913.613259:ERROR:net/dns/dns_config_service_posix.cc:139] DNS config watch failed to start.',
+E         '  - [pid=70926][err] [1021/131913.618077:WARNING:net/dns/dns_config_service_posix.cc:198] Failed to read DnsConfig.',
+E         '  - [pid=70926][err] [1021/131913.627969:FATAL:base/apple/mach_port_rendezvous_mac.cc:159] Check failed: kr == KERN_SUCCESS. bootstrap_check_in org.chromium.Chromium.MachPortRendezvousServer.70926: Permission denied (1100)',
+E         '  - [pid=70926] <gracefully close start>',
+E         '  - [pid=70926] <kill>',
+E         '  - [pid=70926] <will force kill>',
+E         '  - [pid=70926] exception while trying to kill process: Error: kill EPERM',
+E         '  - [pid=70926] <process did exit: exitCode=null, signal=SIGTRAP>',
+E         '  - [pid=70926] starting temporary directories cleanup',
+E         '  - [pid=70926] finished temporary directories cleanup',
+E         '  - [pid=70926] <gracefully close end>'
+E       ]
+E     }
+E     
+E     Node.js v24.2.0
+E     
+E   assert 1 == 0
+E    +  where 1 = CompletedProcess(args=['node', 'web/scripts/check-hive-report.mjs'], returncode=1, stdout='', stderr="node:internal/mo...] finished temporary directories cleanup',\n    '  - [pid=70926] <gracefully close end>'\n  ]\n}\n\nNode.js v24.2.0\n").returncode
+=========================== short test summary info ============================
+FAILED tests/test_hive_reports.py::test_marked_rendering_round_trip - Asserti...
+======================== 1 failed, 354 passed in 9.69s =========================

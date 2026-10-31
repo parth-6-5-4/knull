@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-22",
+  "argv": [
+    "/opt/anaconda3/bin/python",
+    "-m",
+    "pytest",
+    "-q"
+  ],
+  "env_overrides": {
+    "DEBUG": "false",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PLAYWRIGHT_BROWSERS_PATH": "/tmp/hive-003-browsers"
+  },
+  "cwd": ".",
+  "exit_code": 1,
+  "output": "docs/reports/hive-004/execution-baseline.log",
+  "scope": "Pre-implementation full-suite baseline; local browser/loopback permitted; no live provider or real application data"
+}

@@ -1,0 +1,13 @@
+# HIVE-003 supported reports — verified delivery
+
+21 October 2026. [Approved revision 1](../../superpowers/specs/2026-10-20-supported-reports-design.md), [completed plan](../../superpowers/plans/2026-10-20-supported-reports.md), [REP-01–12 coverage](requirements.md), [machine-readable evidence](verification.json), [closure checks](closure-check.json).
+
+The model selects accepted fact IDs. Code renders their original claims with fixed headings, literal encoding and selected-only pinned sources. Snapshot, assignment, lease and logical task/run deadlines are rechecked in atomic publication. Empty selections finish blocked without a report; malformed output and execution failure remain distinct. Existing HTTP/MCP report-string contracts and historical report bytes are preserved; direct/CLI results include the versioned gate.
+
+Latest source-frozen checks: **370 focused passed**, **122 affected passed**, **54 MCP passed**, no MCP skips. Full suite: **397 passed, 11 failed**—ten installed embedding-stack `HfFolder` import failures and one absent Anthropic SDK. Exact commands, exits and log paths: [final repair receipts](final-fix-2-commands.json). Earlier frontend [lint](task-5-web-lint.log) and [build](task-5-web-build.log) passed; no frontend changes followed. Restricted Chromium/socket failures and superseded repair failures remain retained, not counted as current passes.
+
+Fresh task reviews and [whole-change review](final-review-initial.md) completed. Its Important deadline finding required two bounded repairs: separate monotonic/loop clock domains, then acquire the reader-conflicting SQLite lock before deadline validation. [Final scoped review](final-fix-2-rereview.md): all findings addressed, no new Critical/Important breakage. [Review record](review.md) and [controller rulings](rulings.md) retain scope decisions and historical failures.
+
+Graph refreshed after final source changes: 1,459 nodes, 3,598 edges, 72 communities, 121 source hashes. [Browser smoke](final-fix-2-graph-browser.json) loaded/search-selected the graph without page errors or failed requests. Two known static `super()` self-loops remain extractor limitations; graph navigation does not prove runtime correctness. [Graph guide](../../knowledge-graph.md).
+
+Guarantee applies at publication. Historical arbitrary Markdown sanitization remains HIVE-005; post-publication revocation and durable recovery remain HIVE-006. Pre-existing SQLite lifecycle contention F3-J can leave an unfinished run despite correctly refusing report publication; it is a separate HIVE-004 integration/HIVE-006 gate. Budget overshoot (cap 100, spent 400) remains HIVE-004. No live-provider accuracy, distributed capacity or production-readiness claim. Current changes remain uncommitted.

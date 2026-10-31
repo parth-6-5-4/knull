@@ -1,20 +1,20 @@
 # Run-scoped evidence isolation design
 
 **Spec ID:** HIVE-001
-**Status:** Draft
+**Status:** Verified (SQLite lite scope, 2026-10-20)
 **Date:** 2026-10-19
 **Owner:** Project maintainer
-**Approval:** Pending user review
+**Approval:** Direct user execution instruction, 2026-10-20; see linked plan.
 **Depends on:** None
-**Plan:** [Draft implementation candidate](../plans/2026-10-19-evidence-isolation.md); joint spec/plan review pending
+**Plan:** [Completed implementation ledger](../plans/2026-10-19-evidence-isolation.md)
 
 ## Intent
 
 A researcher should be able to run two objectives using the same papers without the second run losing its evidence or rejecting supported claims. Each claim must resolve to the source content actually published for its own run.
 
-The maintainer requested a modular hive review and adoption of spec-driven development. This spec proposes the first isolated repair from that review; its technical design has not yet been approved.
+The maintainer requested a modular hive review and adoption of spec-driven development. This spec defines the first isolated repair. The user explicitly authorized completion on 2026-10-20; current acceptance is recorded below.
 
-## Current behavior and evidence
+## Pre-implementation behavior and evidence
 
 `app/hive/agents.py::evidence_id` derives a short ID from a source URL, ID or title. `app/hive/store.py` gives `evidence.id` a global primary key. `publish()` inserts evidence with `INSERT OR IGNORE`, while `evidence(run_id, evidence_id)` filters by run. A second run publishing the same source therefore has facts referring to evidence that exists only under the first run.
 
@@ -77,7 +77,7 @@ Existing reports are historical artifacts; this change must not silently regener
 
 Use deterministic mock model/search results so the oracle measures storage and provenance, not model variance. Run focused tests plus existing hive and affected API tests. The gap probe must be updated or retired when fixed: its original purpose is recording a defect, not defining desired behavior.
 
-No implementation or acceptance tests have been run for this proposed design. Test names, task breakdown and exact commands will be supplied by the plan after spec approval.
+The initial draft had no implementation evidence. The completed plan and acceptance summary below supersede that historical delivery state.
 
 ## Open decisions
 
@@ -90,3 +90,7 @@ Self-review on 2026-10-19: requirements cover observed collision, provenance own
 Step-1 investigation on 2026-10-19 reproduced F1 in a disposable file-backed database, plus ignored same-run conflicts, accepted unresolved-reference publication, and writer eligibility of missing-provenance facts. Existing hive tests passed 15/15. [Fresh baseline](../../reviews/2026-10-19-hive-001-baseline.json). These are diagnosis results, not implementation acceptance.
 
 The linked planning candidate proposes an explicit stopped-writer migration with a verified backup; opening an unmigrated old store fails clearly with migration instructions. Historical statuses/reports remain inspectable, while verified-memory reads and new assessments require run-owned evidence. These concrete choices remain subject to the same pending spec/plan review. No runtime changes or storage upgrade executed.
+
+## Implementation acceptance — 2026-10-20
+
+User explicitly requested completion of HIVE-001 then HIVE-002. Native serial implementation, focused real-SQLite/fault/API/CLI checks and one independent review completed. All important review findings received failing-then-passing regressions. See [requirement traceability and verification limits](../../reports/hive-integrity/summary.md). No real application database was migrated. Unrelated dependency-suite failures remain HIVE-011; broader modular/Postgres claims remain excluded.

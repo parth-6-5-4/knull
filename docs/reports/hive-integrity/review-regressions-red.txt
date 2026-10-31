@@ -1,0 +1,68 @@
+/opt/anaconda3/lib/python3.12/site-packages/pytest_asyncio/plugin.py:247: PytestDeprecationWarning: The configuration option "asyncio_default_fixture_loop_scope" is unset.
+The event loop scope for asynchronous fixtures will default to the fixture caching scope. Future versions of pytest-asyncio will default the loop scope for asynchronous fixtures to function scope. Set the default fixture loop scope explicitly in order to avoid unexpected behavior in the future. Valid fixture loop scopes are: "function", "class", "module", "package", "session"
+
+  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))
+============================= test session starts ==============================
+platform darwin -- Python 3.12.7, pytest-8.2.2, pluggy-1.6.0
+rootdir: /Users/parthsdambhare/hive-lite-v5
+configfile: pytest.ini
+plugins: mock-3.15.1, anyio-4.9.0, asyncio-1.3.0, cov-7.0.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 68 items / 60 deselected / 8 selected
+
+tests/test_hive_migrations.py FFF                                        [ 37%]
+tests/test_hive_execution.py FFFFF                                       [100%]
+
+=================================== FAILURES ===================================
+_ test_custom_constraints_are_refused_without_discarding_semantics[text TEXT CHECK(text != 'forbidden')] _
+tests/test_hive_migrations.py:200: in test_custom_constraints_are_refused_without_discarding_semantics
+    with pytest.raises(HiveSchemaError):upgrade_hive_database(str(path),str(tmp_path/'backup.db'))
+E   Failed: DID NOT RAISE <class 'app.hive.schema.HiveSchemaError'>
+_ test_custom_constraints_are_refused_without_discarding_semantics[text TEXT REFERENCES runs(id)] _
+tests/test_hive_migrations.py:200: in test_custom_constraints_are_refused_without_discarding_semantics
+    with pytest.raises(HiveSchemaError):upgrade_hive_database(str(path),str(tmp_path/'backup.db'))
+E   Failed: DID NOT RAISE <class 'app.hive.schema.HiveSchemaError'>
+_ test_custom_constraints_are_refused_without_discarding_semantics[text TEXT COLLATE NOCASE] _
+tests/test_hive_migrations.py:200: in test_custom_constraints_are_refused_without_discarding_semantics
+    with pytest.raises(HiveSchemaError):upgrade_hive_database(str(path),str(tmp_path/'backup.db'))
+E   Failed: DID NOT RAISE <class 'app.hive.schema.HiveSchemaError'>
+_______ test_default_search_outage_retries_and_records_execution_failure _______
+tests/test_hive_execution.py:308: in test_default_search_outage_retries_and_records_execution_failure
+    assert len(calls)==6
+E   assert 3 == 6
+E    +  where 3 = len([1, 1, 1])
+_ test_strict_search_adapters_preserve_errors_and_legacy_empty_contract[arxiv] _
+tests/test_hive_execution.py:334: in test_strict_search_adapters_preserve_errors_and_legacy_empty_contract
+    with pytest.raises(OSError):await search('query',raise_on_error=True)
+E   TypeError: search_arxiv() got an unexpected keyword argument 'raise_on_error'
+------------------------------ Captured log call -------------------------------
+ERROR    app.tools.arxiv:arxiv.py:94 arXiv search failed: unavailable
+_ test_strict_search_adapters_preserve_errors_and_legacy_empty_contract[semantic_scholar] _
+tests/test_hive_execution.py:334: in test_strict_search_adapters_preserve_errors_and_legacy_empty_contract
+    with pytest.raises(OSError):await search('query',raise_on_error=True)
+E   TypeError: search_semantic_scholar() got an unexpected keyword argument 'raise_on_error'
+------------------------------ Captured log call -------------------------------
+ERROR    app.tools.semantic_scholar:semantic_scholar.py:131 Semantic Scholar search failed: unavailable
+_ test_strict_search_adapters_preserve_errors_and_legacy_empty_contract[wikipedia] _
+tests/test_hive_execution.py:334: in test_strict_search_adapters_preserve_errors_and_legacy_empty_contract
+    with pytest.raises(OSError):await search('query',raise_on_error=True)
+E   TypeError: search_wikipedia() got an unexpected keyword argument 'raise_on_error'
+------------------------------ Captured log call -------------------------------
+ERROR    app.tools.wikipedia:wikipedia.py:112 Wikipedia search failed: unavailable
+__________________ test_arxiv_fetch_does_not_block_event_loop __________________
+tests/test_hive_execution.py:353: in test_arxiv_fetch_does_not_block_event_loop
+    assert order==['fetch-start','tick','fetch-end']
+E   AssertionError: assert ['fetch-start...-end', 'tick'] == ['fetch-start..., 'fetch-end']
+E     
+E     At index 1 diff: 'fetch-end' != 'tick'
+E     Use -v to get more diff
+=========================== short test summary info ============================
+FAILED tests/test_hive_migrations.py::test_custom_constraints_are_refused_without_discarding_semantics[text TEXT CHECK(text != 'forbidden')]
+FAILED tests/test_hive_migrations.py::test_custom_constraints_are_refused_without_discarding_semantics[text TEXT REFERENCES runs(id)]
+FAILED tests/test_hive_migrations.py::test_custom_constraints_are_refused_without_discarding_semantics[text TEXT COLLATE NOCASE]
+FAILED tests/test_hive_execution.py::test_default_search_outage_retries_and_records_execution_failure
+FAILED tests/test_hive_execution.py::test_strict_search_adapters_preserve_errors_and_legacy_empty_contract[arxiv]
+FAILED tests/test_hive_execution.py::test_strict_search_adapters_preserve_errors_and_legacy_empty_contract[semantic_scholar]
+FAILED tests/test_hive_execution.py::test_strict_search_adapters_preserve_errors_and_legacy_empty_contract[wikipedia]
+FAILED tests/test_hive_execution.py::test_arxiv_fetch_does_not_block_event_loop
+======================= 8 failed, 60 deselected in 1.47s =======================

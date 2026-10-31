@@ -1,0 +1,242 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Delivery phases | gates before expansion",
+    "output": ".archify/architecture-knull-guide-20261020-121808/06-delivery-phases/06-delivery-phases.html",
+    "quality_profile": "showcase",
+    "locale": "en",
+    "repository": {
+      "url": "https://github.com/parth-6-5-4/knull.git",
+      "revision": "f4f541332b3f78a755bccc5f4890931b1b256d07",
+      "link_mode": "web"
+    }
+  },
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Work starts small",
+      "items": [
+        "First slice: evidence isolation and execution integrity.",
+        "A draft spec or diagram does not approve implementation.",
+        "Highlighted rail is the foundation; arrows continue through later lanes."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Qualification matters",
+      "items": [
+        "Fixture checks do not establish model quality or capacity.",
+        "Public sharing requires caller authorization and idempotency."
+      ]
+    }
+  ],
+  "lanes": [
+    {
+      "id": "foundation",
+      "label": "1. Foundation"
+    },
+    {
+      "id": "modularity",
+      "label": "2. Module seams"
+    },
+    {
+      "id": "release",
+      "label": "3. Qualification"
+    }
+  ],
+  "mainPath": [
+    "review",
+    "integrity",
+    "durable"
+  ],
+  "nodes": [
+    {
+      "id": "review",
+      "label": "Review contracts",
+      "sublabel": "spec + bounded plan",
+      "type": "backend",
+      "lane": "foundation",
+      "col": 0,
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-evidence-isolation-design.md",
+          "line": 31,
+          "end_line": 45,
+          "label": "2026-10-19-evidence-isolation-design.md"
+        }
+      ],
+      "width": 210
+    },
+    {
+      "id": "integrity",
+      "label": "Evidence + integrity",
+      "sublabel": "HIVE-001 / 002",
+      "type": "backend",
+      "lane": "foundation",
+      "col": 1,
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-execution-integrity-design.md",
+          "line": 23,
+          "end_line": 38,
+          "label": "2026-10-19-execution-integrity-design.md"
+        }
+      ],
+      "width": 210
+    },
+    {
+      "id": "durable",
+      "label": "Durable resources",
+      "sublabel": "HIVE-004 / 006",
+      "type": "backend",
+      "lane": "foundation",
+      "col": 2,
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 58,
+          "end_line": 62,
+          "label": "2026-10-19-durable-runtime-design.md"
+        }
+      ],
+      "width": 210
+    },
+    {
+      "id": "roles",
+      "label": "Roles + skill seams",
+      "sublabel": "HIVE-008 / 012",
+      "type": "backend",
+      "lane": "modularity",
+      "col": 2,
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-role-hierarchy-design.md",
+          "line": 25,
+          "end_line": 39,
+          "label": "2026-10-19-role-hierarchy-design.md"
+        }
+      ],
+      "width": 210
+    },
+    {
+      "id": "shadow",
+      "label": "Jev shadow",
+      "sublabel": "no action authority",
+      "type": "backend",
+      "lane": "modularity",
+      "col": 1,
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-jev-decisions-design.md",
+          "line": 65,
+          "end_line": 71,
+          "label": "2026-10-19-jev-decisions-design.md"
+        }
+      ],
+      "width": 210
+    },
+    {
+      "id": "qualify",
+      "label": "Decision qualification",
+      "sublabel": "held-out promotion gate",
+      "type": "backend",
+      "lane": "modularity",
+      "col": 0,
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-jev-decisions-design.md",
+          "line": 65,
+          "end_line": 71,
+          "label": "2026-10-19-jev-decisions-design.md"
+        }
+      ],
+      "width": 210
+    },
+    {
+      "id": "branches",
+      "label": "Bounded branches",
+      "sublabel": "wait / join / criteria",
+      "type": "backend",
+      "lane": "release",
+      "col": 0,
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-role-hierarchy-design.md",
+          "line": 25,
+          "end_line": 39,
+          "label": "2026-10-19-role-hierarchy-design.md"
+        }
+      ],
+      "width": 210
+    },
+    {
+      "id": "product",
+      "label": "Product contracts",
+      "sublabel": "reports / UI / auth",
+      "type": "backend",
+      "lane": "release",
+      "col": 1,
+      "sources": [
+        {
+          "path": "docs/superpowers/README.md",
+          "line": 21,
+          "end_line": 27,
+          "label": "README.md"
+        }
+      ],
+      "width": 210
+    },
+    {
+      "id": "load",
+      "label": "Fault + load gate",
+      "sublabel": "measured capacity",
+      "type": "backend",
+      "lane": "release",
+      "col": 2,
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 78,
+          "end_line": 80,
+          "label": "2026-10-19-durable-runtime-design.md"
+        }
+      ],
+      "width": 210
+    }
+  ],
+  "edges": [
+    {
+      "from": "review",
+      "to": "integrity"
+    },
+    {
+      "from": "integrity",
+      "to": "durable"
+    },
+    {
+      "from": "durable",
+      "to": "roles"
+    },
+    {
+      "from": "roles",
+      "to": "shadow"
+    },
+    {
+      "from": "shadow",
+      "to": "qualify"
+    },
+    {
+      "from": "qualify",
+      "to": "branches"
+    },
+    {
+      "from": "branches",
+      "to": "product"
+    },
+    {
+      "from": "product",
+      "to": "load"
+    }
+  ]
+}

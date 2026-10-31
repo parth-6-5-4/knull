@@ -169,7 +169,8 @@ class LLMRouter:
                 raise LLMError(f"SDK for provider '{spec.provider}' is not installed: {e}") from e
             except Exception as e:
                 last = e
-            await asyncio.sleep(min(2 ** attempt, 8))
+            if attempt < retries:
+                await asyncio.sleep(min(2 ** attempt, 8))
         raise LLMError(f"{spec.provider}/{spec.model} failed: {last}") from last
 
 

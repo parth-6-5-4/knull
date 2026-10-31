@@ -1,17 +1,22 @@
-"""Knull (orchestrator), researcher / verifier / writer symbiotes, final gate."""
+"""Knull (orchestrator), researcher / verifier / writer symbiotes."""
 from __future__ import annotations
 
 import hashlib
 import json
 import re
+from contextvars import ContextVar
 from typing import Awaitable, Callable, Optional
 
 from app.hive.store import HiveStore
+from app.hive.reporting import (
+    ReportInputError, ReportSnapshot, parse_selection, render_report, writer_messages,
+)
 from app.hive.watchdog import BudgetGovernor, is_looping
 from app.llm import LLMError, get_router
 from app.llm.parsing import parse_json  # re-exported for callers/tests
 
 SearchFn = Callable[[str, int], Awaitable[list[dict]]]
+attempt_guard: ContextVar[Optional[Callable[[], None]]] = ContextVar("hive_attempt_guard", default=None)
 
 
 class BudgetExceeded(Exception):
@@ -21,15 +26,19 @@ class BudgetExceeded(Exception):
 class Caller:
     """Routes every LLM call through the configured (layer, agent) and books usage in the ledger."""
 
-    def __init__(self, store: HiveStore, run_id: str, governor: BudgetGovernor):
+    def __init__(self, store: HiveStore, run_id: str, governor: BudgetGovernor,
+                 before_call: Optional[Callable[[], None]] = None):
         self.store, self.run_id, self.gov = store, run_id, governor
+        self.before_call = before_call
 
     async def __call__(self, layer: str, agent: str, system: str, user: str, max_tokens: int = 1500) -> str:
+        if self.before_call:
+            self.before_call()
         if self.gov.exhausted():
             raise BudgetExceeded(f"token cap {self.gov.cap} reached")
         r = await get_router().complete(
             [{"role": "system", "content": system}, {"role": "user", "content": user}],
-            layer=layer, agent=agent, max_tokens=max_tokens)
+            layer=layer, agent=agent, max_tokens=max_tokens, retries=0)
         self.store.record_usage(self.run_id, layer, agent, r.provider, r.model, r.input_tokens, r.output_tokens)
         return r.text
 
@@ -47,11 +56,17 @@ async def default_search(query: str, max_results: int) -> list[dict]:
     """Reuse the original retrieval tools (arXiv, Semantic Scholar, Wikipedia)."""
     from app.tools import search_arxiv, search_semantic_scholar, search_wikipedia
     out: list[dict] = []
+    failures = []
     for fn, n in ((search_arxiv, max_results), (search_semantic_scholar, max_results), (search_wikipedia, 1)):
+        guard = attempt_guard.get()
+        if guard:
+            guard()
         try:
-            out += [r.to_dict() for r in await fn(query, max_results=n)]
+            out += [r.to_dict() for r in await fn(query, max_results=n, raise_on_error=True)]
         except Exception:
-            continue
+            failures.append(fn.__name__)
+    if not out and failures:
+        raise OSError("retrieval unavailable: " + ", ".join(failures))
     return out
 
 
@@ -164,62 +179,28 @@ async def run_verifier(store: HiveStore, run_id: str, deps: list[str], call: Cal
         if not ev or _norm(f["quote"] or "") not in _norm(ev[0]["text"]):
             updates[f["id"]] = ("rejected", "quote not found in evidence")  # mechanical check, no LLM
             continue
-        try:
-            text = await call("verifier", "verifier", VERIFY_SYSTEM,
-                              f"CLAIM: {f['claim']}\n\nEVIDENCE:\n{ev[0]['text'][:2000]}", 400)
-        except LLMError as e:
-            updates[f["id"]] = ("rejected", f"verifier unavailable: {e}")
-            continue
-        data = parse_json(text) or {}
-        ok = str(data.get("verdict", "")).lower() == "supported"
+        text = await call("verifier", "verifier", VERIFY_SYSTEM,
+                          f"CLAIM: {f['claim']}\n\nEVIDENCE:\n{ev[0]['text'][:2000]}", 400)
+        data = parse_json(text)
+        if not isinstance(data, dict) or data.get("verdict") not in ("supported", "unsupported"):
+            raise ValueError("invalid verifier assessment output")
+        ok = data["verdict"] == "supported"
         updates[f["id"]] = ("verified" if ok else "rejected", str(data.get("note", ""))[:300])
     return updates
 
 
-# ------------------------------------------------------------------ writer + final gate
+# ------------------------------------------------------------------ writer
 
-WRITE_SYSTEM = """You are the writer symbiote of a research hive. Write a short report using ONLY the VERIFIED FACTS listed in the input.
-
-Rules:
-- Every factual sentence must end with the id of the fact it states, in brackets, e.g. [F-ab12cd34]. A factual sentence without a citation is deleted by the final gate.
-- Do not add, merge, or infer facts that are not listed. You may group, order and connect them.
-- Structure: a '## Findings' section with short grouped paragraphs. Keep it under 400 words.
-
-Reply with the report markdown only."""
-
-_CITE = re.compile(r"\[(F-[0-9a-f]{8})\]")
-
-
-def final_gate(report: str, verified_ids: set[str]) -> tuple[str, dict]:
-    """Drop findings sentences without a citation to a verified fact; report what was removed."""
-    kept_lines, removed, total = [], [], 0
-    for line in report.splitlines():
-        stripped = line.strip()
-        if not stripped or stripped.startswith("#"):
-            kept_lines.append(line); continue
-        parts = re.split(r"(?<=[.!?\]])\s+(?=[A-Z\-\*•])", stripped)
-        keep = []
-        for p in parts:
-            total += 1
-            ids = set(_CITE.findall(p))
-            if ids and ids <= verified_ids:
-                keep.append(p)
-            else:
-                removed.append(p)
-        if keep:
-            kept_lines.append(" ".join(keep))
-    return "\n".join(kept_lines), {"sentences": total, "removed_uncited_or_unverified": removed,
-                                   "passed": not removed}
-
-
-async def run_writer(store: HiveStore, run_id: str, objective: str, call: Caller) -> tuple[str, dict]:
-    facts = store.facts(run_id, "verified")
-    if not facts:
-        return "", {"passed": False, "reason": "no verified facts"}
-    ev = {e["id"]: e for e in store.evidence(run_id)}
-    listing = "\n".join(f"[{f['id']}] {f['claim']}" for f in facts)
-    text = await call("workers", "writer", WRITE_SYSTEM, f"OBJECTIVE: {objective}\n\nVERIFIED FACTS:\n{listing}", 2000)
-    body, gate = final_gate(text, {f["id"] for f in facts})
-    refs = "\n".join(f"- [{f['id']}] {ev[f['evidence_id']]['title']} - {ev[f['evidence_id']]['url']}"
-                     for f in facts if f["evidence_id"] in ev)
-    return f"# {objective}\n\n{body}\n\n## Sources\n{refs}\n", gate
+async def run_writer(store: HiveStore, run_id: str, objective: str, call: Caller, *,
+                     snapshot: ReportSnapshot | None = None) -> tuple[str, dict]:
+    """Select identities once; code renders accepted wording and source bindings."""
+    if snapshot is None:
+        snapshot = store.report_snapshot(run_id, objective)
+    if (not isinstance(snapshot, ReportSnapshot) or snapshot.run_id != run_id
+            or snapshot.objective != objective):
+        raise ReportInputError("report_snapshot_mismatch")
+    if not snapshot.candidates:
+        return render_report(snapshot, ())
+    system, user = writer_messages(snapshot)
+    text = await call("workers", "writer", system, user, 512)
+    return render_report(snapshot, parse_selection(text, snapshot))

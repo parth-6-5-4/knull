@@ -58,3 +58,11 @@ Introduce admission around existing provider seams, first with deterministic fak
 | RES-06/07 | Multi-process permits, provider outage, queue overload and starvation/fairness tests with real database |
 
 Observe reservation debt, settlement lag, unknown calls, denied work, provider saturation, queue age and admitted versus actual spend. None of these checks have been executed. Self-reviewed 2026-10-19; proposed configuration awaits review; live capacity remains unmeasured.
+
+## First integrated delivery — 2026-10-21
+
+[HIVE-004-A revision 2](2026-10-21-resource-ledger-design.md) now includes the token ledger, current Caller/provider integration, shared active-run/global/run/provider limits, bounded fair run/call queues, required lifecycle contention repair and explicit SQLite v2 migration. This replaces revision 1's standalone-library proposal after the user requested both shared queues and immediate integration. [Scoping/problem report](../../reports/hive-004/scoping.md) records the current flow and outstanding fixes.
+
+Shared means all governed Hive API/CLI/direct processes on one trusted host using one canonical Hive database and persisted policy. One transaction authority covers admission, reservations and usage; no cross-file dual-write accounting. Postgres/multi-host execution and monetary policy remain outside this local delivery. They remain parent RES obligations, not silently satisfied by HIVE-004-A.
+
+HIVE-004-A revision 2 approved 2026-10-21; its [integrated plan](../plans/2026-10-21-resource-admission.md) approved 2026-10-22. Tasks1–2 schema/transaction and accounting foundations are implemented and independently task-reviewed; shared queues/provider/Caller integration remain unfinished. Parent monetary/cross-host scope remains Draft; local slice approval does not approve those deferred contracts. Integrated runtime overshoot, provider controls and capacity remain unverified.

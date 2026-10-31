@@ -1,6 +1,6 @@
 # Spec index
 
-Read [the development workflow](../DEVELOPMENT.md) before advancing a spec. Entries below convert the architecture audit into scoped work; all technical choices remain proposals until reviewed.
+Read [the development workflow](../DEVELOPMENT.md) before advancing a spec. Entries below record actual delivery state. Remaining Draft designs are proposals; Verified rows link observed acceptance evidence.
 
 ## Modular hive program
 
@@ -10,11 +10,12 @@ Start with [HIVE-MOD: modular task-based hive](specs/2026-10-19-modular-hive-des
 
 | ID | Work | State | Dependencies | Design / next stage |
 |---|---|---|---|---|
-| HIVE-001 | Run-scoped evidence isolation | Draft | None | [Written spec](specs/2026-10-19-evidence-isolation-design.md) and [draft planning candidate](plans/2026-10-19-evidence-isolation.md); joint user review pending; native execution recommended |
-| HIVE-002 | Attempt fencing, terminal progress, and lease supervision | Draft | None; coordinate store edits with HIVE-001 | [Written spec](specs/2026-10-19-execution-integrity-design.md); user spec review |
-| HIVE-003 | Supported final findings and safe report construction | Backlog | HIVE-001 | Write spec against F3; cover headings and empty findings |
-| HIVE-004 | Atomic resource reservations and bounded provider calls | Draft | HIVE-002 for integrated execution | [Written spec](specs/2026-10-19-resource-governance-design.md); user spec review |
-| HIVE-005 | Live console/API contract | Backlog | None | Write bounded design or spec against F6 after tracing actual response/render path |
+| HIVE-001 | Run-scoped evidence isolation | Verified | None | [Spec](specs/2026-10-19-evidence-isolation-design.md), [completed plan](plans/2026-10-19-evidence-isolation.md), [acceptance evidence](../reports/hive-integrity/summary.md). SQLite upgrade is explicit stopped-writer maintenance; real data not migrated. |
+| HIVE-002 | Attempt fencing, terminal progress, and lease supervision | Verified | HIVE-001 storage integration | [Spec](specs/2026-10-19-execution-integrity-design.md), [completed plan](plans/2026-10-20-execution-integrity.md), [acceptance evidence](../reports/hive-integrity/summary.md). Lite SQLite scope; durable restart/global admission remain separate. |
+| HIVE-003 | Supported final findings and safe report construction | Verified | HIVE-001, HIVE-002 | [Approved design revision 1](specs/2026-10-20-supported-reports-design.md), [completed plan](plans/2026-10-20-supported-reports.md), [acceptance evidence](../reports/hive-003/summary.md). 370 focused + 54 MCP passed; final scoped review closed deadline I1. Full suite retains 11 dependency failures; F3-J lifecycle contention separately scoped. |
+| HIVE-004 | Atomic resource reservations and bounded provider calls | Draft parent; local slice below | HIVE-002 for integrated execution | [Parent design](specs/2026-10-19-resource-governance-design.md); local HIVE-004-A approved separately. Monetary policy and multi-host authority remain deferred/unapproved. |
+| HIVE-004-A | Integrated local admission, Caller/providers and shared fair queues | In progress | HIVE-001/002/003 | [Approved revision 2](specs/2026-10-21-resource-ledger-design.md), [eight-task integrated plan](plans/2026-10-21-resource-admission.md). Spec approved 2026-10-21; plan approved 2026-10-22; Tasks1–2 foundations implemented and task-reviewed; Tasks3–8 remain unimplemented. Development checkpoint published separately from integrated acceptance. [Execution](../reports/hive-004/execution-ledger.md), [scoping](../reports/hive-004/scoping.md); integrated runtime acceptance remains open. |
+| HIVE-005 | Live console/API contract | Backlog | None | Write bounded design or spec against F6 after tracing actual response/render path; include F3-D historical/arbitrary report sanitization as an independently bounded consumer repair. |
 | HIVE-006 | Durable run lifecycle, manifests, resume, and Postgres execution | Draft | HIVE-001, HIVE-002, HIVE-004 | [Written spec](specs/2026-10-19-durable-runtime-design.md); user spec review |
 | HIVE-007 | Jev decision interface, route qualification, and shadow rollout | Draft | HIVE-004/006 for integration; HIVE-003/010 for claim-acceptance promotion | [Written spec](specs/2026-10-19-jev-decisions-design.md); user spec review |
 | HIVE-008 | Role registry and bounded branch hierarchy | Draft | HIVE-002/004/006 for runtime; HIVE-007 for Jev routes | [Written spec](specs/2026-10-19-role-hierarchy-design.md); user spec review |
@@ -35,7 +36,7 @@ The audit's capacity, telemetry, evidence invalidation, compatibility and fault-
 3. Follow the review gates in `docs/DEVELOPMENT.md`. Once the spec is approved, create its plan at `docs/superpowers/plans/YYYY-MM-DD-<topic>.md` using the [plan template](templates/plan-template.md).
 4. Link the plan in this index when it exists. Update delivery state only from actual review or execution evidence.
 
-HIVE-001 now has a draft planning candidate prepared with fresh diagnosis so the storage/error/migration choices are concrete for review. It does not advance the spec to Approved, select execution, or authorize application changes. Remaining architectural work follows the normal spec-then-plan stages.
+The user explicitly authorized HIVE-001 completion and HIVE-002 implementation on 2026-10-20. Both now have observed acceptance evidence and completed plans. Remaining architectural work follows the normal spec-then-plan stages.
 
 ## Existing evidence
 

@@ -1,0 +1,128 @@
+{
+  "date": "2026-10-21",
+  "scope": "HIVE-003 final delivery evidence",
+  "deliveryState": "Verified; approved lite publication contract",
+  "spec": "docs/superpowers/specs/2026-10-20-supported-reports-design.md",
+  "plan": "docs/superpowers/plans/2026-10-20-supported-reports.md",
+  "requirements": "docs/reports/hive-003/requirements.md",
+  "python": "3.12.7",
+  "sqlite": "3.45.3",
+  "checks": {
+    "cliApiCompatibility": {
+      "passed": 26,
+      "failed": 0,
+      "output": "task-5-compatibility.log"
+    },
+    "focusedRestricted": {
+      "passed": 354,
+      "failed": 1,
+      "cause": "Chromium Mach rendezvous permission denied",
+      "output": "task-5-focused.log"
+    },
+    "focusedPermitted": {
+      "passed": 355,
+      "failed": 0,
+      "output": "task-5-focused-permitted.log"
+    },
+    "mcpRestricted": {
+      "passed": 49,
+      "failed": 1,
+      "errors": 4,
+      "cause": "loopback socket permission denied",
+      "output": "task-5-mcp.log"
+    },
+    "mcpPermitted": {
+      "passed": 54,
+      "failed": 0,
+      "skippedShown": 0,
+      "realRouteFixtureExecuted": true,
+      "output": "task-5-mcp-permitted.log"
+    },
+    "promptsAfterRepair": {
+      "passed": 6,
+      "failed": 0,
+      "output": "task-5-prompts-green.log"
+    },
+    "frontendLint": {
+      "reportedExitCode": 0,
+      "output": "task-5-web-lint.log"
+    },
+    "frontendBuild": {
+      "reportedExitCode": 0,
+      "output": "task-5-web-build.log"
+    },
+    "fullSuiteRestricted": {
+      "passed": 378,
+      "failed": 12,
+      "errors": 3,
+      "output": "task-5-full-suite.log"
+    },
+    "fullSuitePermitted": {
+      "passed": 382,
+      "failed": 11,
+      "errors": 0,
+      "embeddingImportFailures": 10,
+      "missingAnthropicSdkFailures": 1,
+      "output": "task-5-full-suite-permitted.log"
+    },
+    "finalRepair": {
+      "commands": "final-fix-2-commands.json",
+      "affectedPassed": 122,
+      "focusedPassed": 370,
+      "mcpPassed": 54,
+      "mcpSkipped": 0,
+      "fullPassed": 397,
+      "fullFailed": 11,
+      "embeddingImportFailures": 10,
+      "missingAnthropicSdkFailures": 1
+    }
+  },
+  "diagnostics": {
+    "reports": "task-5-reports-observations.json",
+    "gaps": "task-5-gaps-observations.json",
+    "evidence": "task-5-evidence-observations.json",
+    "classification": "offline observations, separate from acceptance tests",
+    "budgetGap": {
+      "cap": 100,
+      "spent": 400,
+      "owner": "HIVE-004"
+    }
+  },
+  "evidenceLimitations": [
+    "Earlier Task 5 logs retain terminal summaries; final repair commands include explicit argv, environment and exit receipts.",
+    "Full suite remains red on existing dependency incompatibility and absent Anthropic SDK.",
+    "Historical report readback does not establish historical Markdown browser safety.",
+    "No live-provider quality evaluation, distributed load test or production-readiness claim.",
+    "Pre-existing F3-J lifecycle SQLite contention remains outside publication scope; runtime budget overshoot remains HIVE-004."
+  ],
+  "graph": {
+    "mode": "local code-only; no semantic/model calls",
+    "nodes": 1459,
+    "edges": 3598,
+    "communities": 72,
+    "detectedCodeFiles": 121,
+    "representedSourceFiles": 115,
+    "sourceHashes": "graphify-out/provenance.json",
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "missingEndpoints": 0,
+    "danglingEndpoints": 0,
+    "duplicateEdges": 0,
+    "knownExtractorSelfLoops": 2,
+    "browserSmoke": "final-fix-2-graph-browser.json",
+    "browserPageErrors": 0,
+    "browserFailedRequests": 0,
+    "qualityReview": false
+  },
+  "reviews": {
+    "task1": "task-1-review.md",
+    "task2": "task-2-review.md",
+    "task3": "task-3-rereview-1.md",
+    "task4": "task-4-review.md",
+    "task5": "task-5-review.md",
+    "wholeChange": "final-review-initial.md",
+    "firstRepair": "final-fix-1-rereview.md",
+    "finalRepair": "final-fix-2-rereview.md"
+  },
+  "closureCheck": "closure-check.json"
+}

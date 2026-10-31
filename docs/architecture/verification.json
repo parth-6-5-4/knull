@@ -1,0 +1,769 @@
+{
+  "created": "2026-10-20",
+  "repository": "https://github.com/parth-6-5-4/knull.git",
+  "revision": "f4f541332b3f78a755bccc5f4890931b1b256d07",
+  "scope": "Architecture explanations; draft specifications are proposed behavior. Local MCP modifications predate this task.",
+  "documentsChecked": 13,
+  "localLinksChecked": 131,
+  "brokenLinks": [],
+  "diagrams": [
+    {
+      "diagram": "01-current-codebase",
+      "type": "architecture",
+      "output": ".archify/architecture-knull-guide-20261020-121808/01-current-codebase/01-current-codebase.html",
+      "specificationSha256": "6e5cfc625337b843e0197711fc6a622620fff59ba7926125c44228ec792b81e0",
+      "artifactSha256": "8f0bd889f34ab960f11288e9398afe262e98198c012d559b3dc5e9bb3d2ca968",
+      "validation": "9/9 showcase; 0 errors; 0 warnings",
+      "gates": {
+        "validate": "pass",
+        "deliver": "pass",
+        "check": "pass",
+        "browser-check": "pass"
+      },
+      "browserEvidence": "passed",
+      "visualReview": "not_requested",
+      "correctionRounds": 1,
+      "summaryReceipt": ".archify/architecture-knull-guide-20261020-121808/01-current-codebase/review-3/01-current-codebase.finalize-summary.json",
+      "advisories": {
+        "resolvedCrossovers": 1,
+        "routesOverSuggestedBends": 4,
+        "routesOverSuggestedStretch": 1
+      },
+      "sources": [
+        {
+          "path": "web/src/App.tsx",
+          "line": 62,
+          "end_line": 68,
+          "label": "App.tsx",
+          "committedSha256": "33ca010ba09fb7663b3c5ee5dc0ee3cb7d28552ef498efe6cd8fc5508f715fc7"
+        },
+        {
+          "path": "app/api/routes_hive.py",
+          "line": 39,
+          "end_line": 45,
+          "label": "routes_hive.py",
+          "committedSha256": "25e55e7c1d53ad081dfc3f71781cb794e5088a331d323efceeac782e5b9e518b"
+        },
+        {
+          "path": "app/hive/runner.py",
+          "line": 29,
+          "end_line": 35,
+          "label": "runner.py",
+          "committedSha256": "1504a6aaab54b4d276c7b05d2afd81c16f2a82471aa7cb601e57d607f0320750"
+        },
+        {
+          "path": "app/hive/store.py",
+          "line": 43,
+          "end_line": 49,
+          "label": "store.py",
+          "committedSha256": "5ced896079ef78d172aab5c9361764a43dec93914ac37f8298c5a2969a60c318"
+        },
+        {
+          "path": "app/agent/graph.py",
+          "line": 547,
+          "end_line": 553,
+          "label": "graph.py",
+          "committedSha256": "3758e21d980e6365ca9769b123200bb19906e74654ad7777fb6d01078b5b5eb5"
+        },
+        {
+          "path": "app/agent/graph.py",
+          "line": 263,
+          "end_line": 269,
+          "label": "graph.py",
+          "committedSha256": "3758e21d980e6365ca9769b123200bb19906e74654ad7777fb6d01078b5b5eb5"
+        },
+        {
+          "path": "app/llm/router.py",
+          "line": 133,
+          "end_line": 139,
+          "label": "router.py",
+          "committedSha256": "420158707b75adf7ead39f7db02d56651c71a309959905be889a5e4597dd1e80"
+        },
+        {
+          "path": "integrations/mcp/src/hive_mcp/server.py",
+          "line": 33,
+          "end_line": 39,
+          "label": "server.py",
+          "committedSha256": "cfa206480a05929948a2e3c9338419c5cdaae8739a806851bc31b8f274f6bb48"
+        },
+        {
+          "path": "app/hive/cli.py",
+          "line": 6,
+          "end_line": 12,
+          "label": "cli.py",
+          "committedSha256": "bb73add4a09b84212f57371681558eec36c2c883629af140d11d265a93e92c43"
+        }
+      ],
+      "publishedOutput": "docs/architecture/diagrams/01-current-codebase.html",
+      "publishedSpecification": "docs/architecture/diagrams/01-current-codebase.json",
+      "publishedSummaryReceipt": "docs/architecture/diagrams/01-current-codebase.finalize-summary.json",
+      "publishedSummarySha256": "5cb40ffc6086213af8dd7802263c7c0c5c05c66c06bd0912b5288cf34a86146f"
+    },
+    {
+      "diagram": "02-proposed-system",
+      "type": "architecture",
+      "output": ".archify/architecture-knull-guide-20261020-121808/02-proposed-system/02-proposed-system.html",
+      "specificationSha256": "c335e800f3399762c55fb7eacb4cb019401abd8d4fada09ec52836de8a6c6cd4",
+      "artifactSha256": "70abeb5e6ab23e98fe4872e40d05521c8ed7445263b822f1b42a886cf3ca2b94",
+      "validation": "9/9 showcase; 0 errors; 0 warnings",
+      "gates": {
+        "validate": "pass",
+        "deliver": "pass",
+        "check": "pass",
+        "browser-check": "pass"
+      },
+      "browserEvidence": "passed",
+      "visualReview": "not_requested",
+      "correctionRounds": 0,
+      "summaryReceipt": ".archify/architecture-knull-guide-20261020-121808/02-proposed-system/source-review/02-proposed-system.finalize-summary.json",
+      "advisories": {},
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 23,
+          "end_line": 27,
+          "label": "2026-10-19-durable-runtime-design.md",
+          "committedSha256": "9bc76a1c3037cd67e1e8605679702111db9a3e159a0d562341bccf5447ed820a"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-role-hierarchy-design.md",
+          "line": 25,
+          "end_line": 39,
+          "label": "2026-10-19-role-hierarchy-design.md",
+          "committedSha256": "73f6cbe768bfa70c8bd0e0d6beda2ab62699475c9f89847958d9a59af8b9dd2f"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-role-hierarchy-design.md",
+          "line": 25,
+          "end_line": 39,
+          "label": "2026-10-19-role-hierarchy-design.md",
+          "committedSha256": "73f6cbe768bfa70c8bd0e0d6beda2ab62699475c9f89847958d9a59af8b9dd2f"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 43,
+          "end_line": 51,
+          "label": "2026-10-19-durable-runtime-design.md",
+          "committedSha256": "9bc76a1c3037cd67e1e8605679702111db9a3e159a0d562341bccf5447ed820a"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 58,
+          "end_line": 62,
+          "label": "2026-10-19-durable-runtime-design.md",
+          "committedSha256": "9bc76a1c3037cd67e1e8605679702111db9a3e159a0d562341bccf5447ed820a"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-resource-governance-design.md",
+          "line": 23,
+          "end_line": 42,
+          "label": "2026-10-19-resource-governance-design.md",
+          "committedSha256": "8cbb54c73a671e4d97218e281301e64472f72cba354ff386669508f5cab0ade8"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-role-hierarchy-design.md",
+          "line": 25,
+          "end_line": 39,
+          "label": "2026-10-19-role-hierarchy-design.md",
+          "committedSha256": "73f6cbe768bfa70c8bd0e0d6beda2ab62699475c9f89847958d9a59af8b9dd2f"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-evidence-isolation-design.md",
+          "line": 31,
+          "end_line": 45,
+          "label": "2026-10-19-evidence-isolation-design.md",
+          "committedSha256": "02ef6442c84aff930175a89c619baff7b9e5782b8bea7d4ea14ef951f6ec6064"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-execution-integrity-design.md",
+          "line": 23,
+          "end_line": 38,
+          "label": "2026-10-19-execution-integrity-design.md",
+          "committedSha256": "4b808341fe70081a33ad53ba0e38cdc3cc5eeab4261474bed08904b06d94873b"
+        }
+      ],
+      "publishedOutput": "docs/architecture/diagrams/02-proposed-system.html",
+      "publishedSpecification": "docs/architecture/diagrams/02-proposed-system.json",
+      "publishedSummaryReceipt": "docs/architecture/diagrams/02-proposed-system.finalize-summary.json",
+      "publishedSummarySha256": "9f3888414a1625227ed11a3393f71f99e5d8071316f719c7d268b3919605978b"
+    },
+    {
+      "diagram": "03-runtime",
+      "type": "architecture",
+      "output": ".archify/architecture-knull-guide-20261020-121808/03-runtime/03-runtime.html",
+      "specificationSha256": "f20d8fc48764185bb60d996bfdd158392d1028de39c0bd0ecb3a61412406362e",
+      "artifactSha256": "e71e25906a4c5349321de0acf837937ba187dd3994404f8a9c0d07495530ae2e",
+      "validation": "9/9 showcase; 0 errors; 0 warnings",
+      "gates": {
+        "validate": "pass",
+        "deliver": "pass",
+        "check": "pass",
+        "browser-check": "pass"
+      },
+      "browserEvidence": "passed",
+      "visualReview": "not_requested",
+      "correctionRounds": 0,
+      "summaryReceipt": ".archify/architecture-knull-guide-20261020-121808/03-runtime/source-review/03-runtime.finalize-summary.json",
+      "advisories": {},
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 31,
+          "end_line": 37,
+          "label": "2026-10-19-durable-runtime-design.md",
+          "committedSha256": "9bc76a1c3037cd67e1e8605679702111db9a3e159a0d562341bccf5447ed820a"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 58,
+          "end_line": 62,
+          "label": "2026-10-19-durable-runtime-design.md",
+          "committedSha256": "9bc76a1c3037cd67e1e8605679702111db9a3e159a0d562341bccf5447ed820a"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-resource-governance-design.md",
+          "line": 23,
+          "end_line": 42,
+          "label": "2026-10-19-resource-governance-design.md",
+          "committedSha256": "8cbb54c73a671e4d97218e281301e64472f72cba354ff386669508f5cab0ade8"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-execution-integrity-design.md",
+          "line": 23,
+          "end_line": 38,
+          "label": "2026-10-19-execution-integrity-design.md",
+          "committedSha256": "4b808341fe70081a33ad53ba0e38cdc3cc5eeab4261474bed08904b06d94873b"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 58,
+          "end_line": 62,
+          "label": "2026-10-19-durable-runtime-design.md",
+          "committedSha256": "9bc76a1c3037cd67e1e8605679702111db9a3e159a0d562341bccf5447ed820a"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 23,
+          "end_line": 27,
+          "label": "2026-10-19-durable-runtime-design.md",
+          "committedSha256": "9bc76a1c3037cd67e1e8605679702111db9a3e159a0d562341bccf5447ed820a"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-execution-integrity-design.md",
+          "line": 23,
+          "end_line": 38,
+          "label": "2026-10-19-execution-integrity-design.md",
+          "committedSha256": "4b808341fe70081a33ad53ba0e38cdc3cc5eeab4261474bed08904b06d94873b"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 47,
+          "end_line": 54,
+          "label": "2026-10-19-durable-runtime-design.md",
+          "committedSha256": "9bc76a1c3037cd67e1e8605679702111db9a3e159a0d562341bccf5447ed820a"
+        }
+      ],
+      "publishedOutput": "docs/architecture/diagrams/03-runtime.html",
+      "publishedSpecification": "docs/architecture/diagrams/03-runtime.json",
+      "publishedSummaryReceipt": "docs/architecture/diagrams/03-runtime.finalize-summary.json",
+      "publishedSummarySha256": "3da1e84d5c5b4bd61ef5fff509c21aaffd024dfe26f6fd81011fa0948f48bc32"
+    },
+    {
+      "diagram": "04-roles-skills-routing",
+      "type": "architecture",
+      "output": ".archify/architecture-knull-guide-20261020-121808/04-roles-skills-routing/04-roles-skills-routing.html",
+      "specificationSha256": "53626b43e4ef190ca0bf11b1c914d850cf9e081324e7878157f14b56769f4b36",
+      "artifactSha256": "953d3d8dd7cb908d382032762b82eee44498aaf185f93bb1b70ddc3129fb9e38",
+      "validation": "9/9 showcase; 0 errors; 0 warnings",
+      "gates": {
+        "validate": "pass",
+        "deliver": "pass",
+        "check": "pass",
+        "browser-check": "pass"
+      },
+      "browserEvidence": "passed",
+      "visualReview": "not_requested",
+      "correctionRounds": 0,
+      "summaryReceipt": ".archify/architecture-knull-guide-20261020-121808/04-roles-skills-routing/source-review/04-roles-skills-routing.finalize-summary.json",
+      "advisories": {
+        "routesOverSuggestedBends": 1
+      },
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 23,
+          "end_line": 27,
+          "label": "2026-10-19-durable-runtime-design.md",
+          "committedSha256": "9bc76a1c3037cd67e1e8605679702111db9a3e159a0d562341bccf5447ed820a"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-role-hierarchy-design.md",
+          "line": 25,
+          "end_line": 39,
+          "label": "2026-10-19-role-hierarchy-design.md",
+          "committedSha256": "73f6cbe768bfa70c8bd0e0d6beda2ab62699475c9f89847958d9a59af8b9dd2f"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-jev-decisions-design.md",
+          "line": 25,
+          "end_line": 29,
+          "label": "2026-10-19-jev-decisions-design.md",
+          "committedSha256": "33eb2c3ee4a7a803884134601a5201c9240c7eb592b752c99135beac4ced6285"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-role-hierarchy-design.md",
+          "line": 25,
+          "end_line": 39,
+          "label": "2026-10-19-role-hierarchy-design.md",
+          "committedSha256": "73f6cbe768bfa70c8bd0e0d6beda2ab62699475c9f89847958d9a59af8b9dd2f"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-role-hierarchy-design.md",
+          "line": 25,
+          "end_line": 39,
+          "label": "2026-10-19-role-hierarchy-design.md",
+          "committedSha256": "73f6cbe768bfa70c8bd0e0d6beda2ab62699475c9f89847958d9a59af8b9dd2f"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-role-hierarchy-design.md",
+          "line": 25,
+          "end_line": 39,
+          "label": "2026-10-19-role-hierarchy-design.md",
+          "committedSha256": "73f6cbe768bfa70c8bd0e0d6beda2ab62699475c9f89847958d9a59af8b9dd2f"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-skill-registry-design.md",
+          "line": 64,
+          "end_line": 78,
+          "label": "2026-10-19-skill-registry-design.md",
+          "committedSha256": "df62d0af81b0172601b5b51e7f08bf1bab8243cfb149d6485e2777617b988145"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-skill-registry-design.md",
+          "line": 64,
+          "end_line": 78,
+          "label": "2026-10-19-skill-registry-design.md",
+          "committedSha256": "df62d0af81b0172601b5b51e7f08bf1bab8243cfb149d6485e2777617b988145"
+        }
+      ],
+      "publishedOutput": "docs/architecture/diagrams/04-roles-skills-routing.html",
+      "publishedSpecification": "docs/architecture/diagrams/04-roles-skills-routing.json",
+      "publishedSummaryReceipt": "docs/architecture/diagrams/04-roles-skills-routing.finalize-summary.json",
+      "publishedSummarySha256": "40f640c5d3fc7713587bf2e1ebf62188f4920b38e9deb14e6f66557a6c3b6d2b"
+    },
+    {
+      "diagram": "05-evidence",
+      "type": "architecture",
+      "output": ".archify/architecture-knull-guide-20261020-121808/05-evidence/05-evidence.html",
+      "specificationSha256": "b975395c94d51d39b132dbe9a872125f7dbbc053625682ec568afdc93c5a185e",
+      "artifactSha256": "333668a0062df4fe220076d704fcae25dfc8edf10d1cb9c2cbc252ec1d4ec41e",
+      "validation": "9/9 showcase; 0 errors; 0 warnings",
+      "gates": {
+        "validate": "pass",
+        "deliver": "pass",
+        "check": "pass",
+        "browser-check": "pass"
+      },
+      "browserEvidence": "passed",
+      "visualReview": "not_requested",
+      "correctionRounds": 0,
+      "summaryReceipt": ".archify/architecture-knull-guide-20261020-121808/05-evidence/source-review/05-evidence.finalize-summary.json",
+      "advisories": {},
+      "sources": [
+        {
+          "path": "app/hive/agents.py",
+          "line": 103,
+          "end_line": 109,
+          "label": "agents.py",
+          "committedSha256": "2d79617b02acccc24593f330a68dcfdbba0138d3b577ceb5f73033489da1d9dd"
+        },
+        {
+          "path": "app/hive/agents.py",
+          "line": 103,
+          "end_line": 109,
+          "label": "agents.py",
+          "committedSha256": "2d79617b02acccc24593f330a68dcfdbba0138d3b577ceb5f73033489da1d9dd"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-evidence-isolation-design.md",
+          "line": 31,
+          "end_line": 45,
+          "label": "2026-10-19-evidence-isolation-design.md",
+          "committedSha256": "02ef6442c84aff930175a89c619baff7b9e5782b8bea7d4ea14ef951f6ec6064"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-evidence-isolation-design.md",
+          "line": 31,
+          "end_line": 45,
+          "label": "2026-10-19-evidence-isolation-design.md",
+          "committedSha256": "02ef6442c84aff930175a89c619baff7b9e5782b8bea7d4ea14ef951f6ec6064"
+        },
+        {
+          "path": "app/hive/agents.py",
+          "line": 157,
+          "end_line": 163,
+          "label": "agents.py",
+          "committedSha256": "2d79617b02acccc24593f330a68dcfdbba0138d3b577ceb5f73033489da1d9dd"
+        },
+        {
+          "path": "app/hive/agents.py",
+          "line": 157,
+          "end_line": 163,
+          "label": "agents.py",
+          "committedSha256": "2d79617b02acccc24593f330a68dcfdbba0138d3b577ceb5f73033489da1d9dd"
+        },
+        {
+          "path": "app/hive/agents.py",
+          "line": 215,
+          "end_line": 221,
+          "label": "agents.py",
+          "committedSha256": "2d79617b02acccc24593f330a68dcfdbba0138d3b577ceb5f73033489da1d9dd"
+        },
+        {
+          "path": "docs/superpowers/README.md",
+          "line": 15,
+          "end_line": 21,
+          "label": "README.md",
+          "committedSha256": "0b43dfef57ac0982c3719889af8cfc73185fd6eba8f0e5a7dbb59c1cc88d992d"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 33,
+          "end_line": 37,
+          "label": "2026-10-19-durable-runtime-design.md",
+          "committedSha256": "9bc76a1c3037cd67e1e8605679702111db9a3e159a0d562341bccf5447ed820a"
+        }
+      ],
+      "publishedOutput": "docs/architecture/diagrams/05-evidence.html",
+      "publishedSpecification": "docs/architecture/diagrams/05-evidence.json",
+      "publishedSummaryReceipt": "docs/architecture/diagrams/05-evidence.finalize-summary.json",
+      "publishedSummarySha256": "227160144e0f619d231e16b6450c94bc88ed5b36e2c5b2ec6d6aa88d3b0d3272"
+    },
+    {
+      "diagram": "06-delivery-phases",
+      "type": "workflow",
+      "output": ".archify/architecture-knull-guide-20261020-121808/06-delivery-phases/06-delivery-phases.html",
+      "specificationSha256": "724808cc07e7357fb92576f6a26cdd0e9f90b007bc25b8856222eedc34502858",
+      "artifactSha256": "0e8e3e53c9b120d0d5fa907b1dd8e4828bc4c19adf7974b9c9e10ed7acf8d6c3",
+      "validation": "9/9 showcase; 0 errors; 0 warnings",
+      "gates": {
+        "validate": "pass",
+        "deliver": "pass",
+        "check": "pass",
+        "browser-check": "pass"
+      },
+      "browserEvidence": "passed",
+      "visualReview": "not_requested",
+      "correctionRounds": 1,
+      "summaryReceipt": ".archify/architecture-knull-guide-20261020-121808/06-delivery-phases/source-review/06-delivery-phases.finalize-summary.json",
+      "advisories": {},
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-evidence-isolation-design.md",
+          "line": 31,
+          "end_line": 45,
+          "label": "2026-10-19-evidence-isolation-design.md",
+          "committedSha256": "02ef6442c84aff930175a89c619baff7b9e5782b8bea7d4ea14ef951f6ec6064"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-execution-integrity-design.md",
+          "line": 23,
+          "end_line": 38,
+          "label": "2026-10-19-execution-integrity-design.md",
+          "committedSha256": "4b808341fe70081a33ad53ba0e38cdc3cc5eeab4261474bed08904b06d94873b"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 58,
+          "end_line": 62,
+          "label": "2026-10-19-durable-runtime-design.md",
+          "committedSha256": "9bc76a1c3037cd67e1e8605679702111db9a3e159a0d562341bccf5447ed820a"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-role-hierarchy-design.md",
+          "line": 25,
+          "end_line": 39,
+          "label": "2026-10-19-role-hierarchy-design.md",
+          "committedSha256": "73f6cbe768bfa70c8bd0e0d6beda2ab62699475c9f89847958d9a59af8b9dd2f"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-jev-decisions-design.md",
+          "line": 65,
+          "end_line": 71,
+          "label": "2026-10-19-jev-decisions-design.md",
+          "committedSha256": "33eb2c3ee4a7a803884134601a5201c9240c7eb592b752c99135beac4ced6285"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-jev-decisions-design.md",
+          "line": 65,
+          "end_line": 71,
+          "label": "2026-10-19-jev-decisions-design.md",
+          "committedSha256": "33eb2c3ee4a7a803884134601a5201c9240c7eb592b752c99135beac4ced6285"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-role-hierarchy-design.md",
+          "line": 25,
+          "end_line": 39,
+          "label": "2026-10-19-role-hierarchy-design.md",
+          "committedSha256": "73f6cbe768bfa70c8bd0e0d6beda2ab62699475c9f89847958d9a59af8b9dd2f"
+        },
+        {
+          "path": "docs/superpowers/README.md",
+          "line": 21,
+          "end_line": 27,
+          "label": "README.md",
+          "committedSha256": "0b43dfef57ac0982c3719889af8cfc73185fd6eba8f0e5a7dbb59c1cc88d992d"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 78,
+          "end_line": 80,
+          "label": "2026-10-19-durable-runtime-design.md",
+          "committedSha256": "9bc76a1c3037cd67e1e8605679702111db9a3e159a0d562341bccf5447ed820a"
+        }
+      ],
+      "publishedOutput": "docs/architecture/diagrams/06-delivery-phases.html",
+      "publishedSpecification": "docs/architecture/diagrams/06-delivery-phases.json",
+      "publishedSummaryReceipt": "docs/architecture/diagrams/06-delivery-phases.finalize-summary.json",
+      "publishedSummarySha256": "df584b3236adead5d818445491df4fe9942b5020f839b17c0fc538a6cfe4fdac"
+    },
+    {
+      "diagram": "07-task-lifecycle",
+      "type": "lifecycle",
+      "output": ".archify/architecture-knull-guide-20261020-121808/07-task-lifecycle/07-task-lifecycle.html",
+      "specificationSha256": "c90a4a9edce7fdfd8429974b1033ab6e3ae2de7e8dffb164696f3dc5f3f9a2f2",
+      "artifactSha256": "78a4cafe5e12c00f21f0312bc86eca292f95a7bb3e7c133697d4f17067356e39",
+      "validation": "9/9 showcase; 0 errors; 0 warnings",
+      "gates": {
+        "validate": "pass",
+        "deliver": "pass",
+        "check": "pass",
+        "browser-check": "pass"
+      },
+      "browserEvidence": "passed",
+      "visualReview": "not_requested",
+      "correctionRounds": 0,
+      "summaryReceipt": ".archify/architecture-knull-guide-20261020-121808/07-task-lifecycle/source-review/07-task-lifecycle.finalize-summary.json",
+      "advisories": {
+        "resolvedCrossovers": 2
+      },
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 31,
+          "end_line": 37,
+          "label": "2026-10-19-durable-runtime-design.md",
+          "committedSha256": "9bc76a1c3037cd67e1e8605679702111db9a3e159a0d562341bccf5447ed820a"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 31,
+          "end_line": 37,
+          "label": "2026-10-19-durable-runtime-design.md",
+          "committedSha256": "9bc76a1c3037cd67e1e8605679702111db9a3e159a0d562341bccf5447ed820a"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 31,
+          "end_line": 37,
+          "label": "2026-10-19-durable-runtime-design.md",
+          "committedSha256": "9bc76a1c3037cd67e1e8605679702111db9a3e159a0d562341bccf5447ed820a"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 31,
+          "end_line": 37,
+          "label": "2026-10-19-durable-runtime-design.md",
+          "committedSha256": "9bc76a1c3037cd67e1e8605679702111db9a3e159a0d562341bccf5447ed820a"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 31,
+          "end_line": 37,
+          "label": "2026-10-19-durable-runtime-design.md",
+          "committedSha256": "9bc76a1c3037cd67e1e8605679702111db9a3e159a0d562341bccf5447ed820a"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 31,
+          "end_line": 37,
+          "label": "2026-10-19-durable-runtime-design.md",
+          "committedSha256": "9bc76a1c3037cd67e1e8605679702111db9a3e159a0d562341bccf5447ed820a"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 31,
+          "end_line": 37,
+          "label": "2026-10-19-durable-runtime-design.md",
+          "committedSha256": "9bc76a1c3037cd67e1e8605679702111db9a3e159a0d562341bccf5447ed820a"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 31,
+          "end_line": 37,
+          "label": "2026-10-19-durable-runtime-design.md",
+          "committedSha256": "9bc76a1c3037cd67e1e8605679702111db9a3e159a0d562341bccf5447ed820a"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 31,
+          "end_line": 37,
+          "label": "2026-10-19-durable-runtime-design.md",
+          "committedSha256": "9bc76a1c3037cd67e1e8605679702111db9a3e159a0d562341bccf5447ed820a"
+        }
+      ],
+      "publishedOutput": "docs/architecture/diagrams/07-task-lifecycle.html",
+      "publishedSpecification": "docs/architecture/diagrams/07-task-lifecycle.json",
+      "publishedSummaryReceipt": "docs/architecture/diagrams/07-task-lifecycle.finalize-summary.json",
+      "publishedSummarySha256": "74364e833a6bcb9e6742061d07be7ee96e102962791f1a806a8ec13e297abb2e"
+    },
+    {
+      "diagram": "08-knull-swarm",
+      "type": "architecture",
+      "output": ".archify/architecture-knull-guide-20261020-121808/08-knull-swarm/08-knull-swarm.html",
+      "specificationSha256": "52e5584924a3a90a7fc590f78a8c38b48f455a40f10cf2e8e30c816ecba2a1c3",
+      "artifactSha256": "5f9061523c2c50939e3394ef84dcca3789d405309380c74e142178f512ed6d7e",
+      "validation": "9/9 showcase; 0 errors; 0 warnings",
+      "gates": {
+        "validate": "pass",
+        "deliver": "pass",
+        "check": "pass",
+        "browser-check": "pass"
+      },
+      "browserEvidence": "passed",
+      "visualReview": "not_requested",
+      "correctionRounds": 1,
+      "summaryReceipt": ".archify/architecture-knull-guide-20261020-121808/08-knull-swarm/source-review/08-knull-swarm.finalize-summary.json",
+      "advisories": {},
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-role-hierarchy-design.md",
+          "line": 25,
+          "end_line": 39,
+          "label": "2026-10-19-role-hierarchy-design.md",
+          "committedSha256": "73f6cbe768bfa70c8bd0e0d6beda2ab62699475c9f89847958d9a59af8b9dd2f"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-role-hierarchy-design.md",
+          "line": 25,
+          "end_line": 39,
+          "label": "2026-10-19-role-hierarchy-design.md",
+          "committedSha256": "73f6cbe768bfa70c8bd0e0d6beda2ab62699475c9f89847958d9a59af8b9dd2f"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 43,
+          "end_line": 51,
+          "label": "2026-10-19-durable-runtime-design.md",
+          "committedSha256": "9bc76a1c3037cd67e1e8605679702111db9a3e159a0d562341bccf5447ed820a"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-resource-governance-design.md",
+          "line": 23,
+          "end_line": 42,
+          "label": "2026-10-19-resource-governance-design.md",
+          "committedSha256": "8cbb54c73a671e4d97218e281301e64472f72cba354ff386669508f5cab0ade8"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-role-hierarchy-design.md",
+          "line": 25,
+          "end_line": 39,
+          "label": "2026-10-19-role-hierarchy-design.md",
+          "committedSha256": "73f6cbe768bfa70c8bd0e0d6beda2ab62699475c9f89847958d9a59af8b9dd2f"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-role-hierarchy-design.md",
+          "line": 25,
+          "end_line": 39,
+          "label": "2026-10-19-role-hierarchy-design.md",
+          "committedSha256": "73f6cbe768bfa70c8bd0e0d6beda2ab62699475c9f89847958d9a59af8b9dd2f"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-execution-integrity-design.md",
+          "line": 23,
+          "end_line": 38,
+          "label": "2026-10-19-execution-integrity-design.md",
+          "committedSha256": "4b808341fe70081a33ad53ba0e38cdc3cc5eeab4261474bed08904b06d94873b"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 66,
+          "end_line": 68,
+          "label": "2026-10-19-durable-runtime-design.md",
+          "committedSha256": "9bc76a1c3037cd67e1e8605679702111db9a3e159a0d562341bccf5447ed820a"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 47,
+          "end_line": 54,
+          "label": "2026-10-19-durable-runtime-design.md",
+          "committedSha256": "9bc76a1c3037cd67e1e8605679702111db9a3e159a0d562341bccf5447ed820a"
+        }
+      ],
+      "publishedOutput": "docs/architecture/diagrams/08-knull-swarm.html",
+      "publishedSpecification": "docs/architecture/diagrams/08-knull-swarm.json",
+      "publishedSummaryReceipt": "docs/architecture/diagrams/08-knull-swarm.finalize-summary.json",
+      "publishedSummarySha256": "e7f7c42d59c30c3e64c187cdf06ecf7cc2ce41718e0bc4e9f5a804c646e5e47a"
+    }
+  ],
+  "notes": [
+    "Current overview retained one resolved crossover after the one placement trial failed; the original passing candidate was restored.",
+    "Task lifecycle has two resolved crossovers. The roles/skills view retains one detour advisory; Knull has none after its feedback-loop revision.",
+    "Automated Chrome checks passed. No perceptual quality claim is made.",
+    "No runtime implementation or spec approval state changed."
+  ],
+  "dirtyTrackedPathsAtVerification": [
+    "AGENTS.md",
+    "README.md",
+    "docs/knowledge-graph.md",
+    "docs/reports/problems-and-fixes.md",
+    "docs/superpowers/plans/2026-10-20-mcp-server.md",
+    "docs/superpowers/specs/2026-10-20-mcp-server-design.md",
+    "graphify-out/GRAPH_REPORT.md",
+    "graphify-out/detection.json",
+    "graphify-out/explain-smoke.txt",
+    "graphify-out/graph.html",
+    "graphify-out/graph.json",
+    "graphify-out/health.json",
+    "graphify-out/manifest.json",
+    "graphify-out/provenance.json",
+    "graphify-out/query-smoke.txt",
+    "integrations/mcp/README.md",
+    "integrations/mcp/src/hive_mcp/api.py",
+    "integrations/mcp/tests/test_server.py"
+  ],
+  "existingSourceSnapshotCheck": {
+    "files": 102,
+    "mismatches": 0,
+    "source": "graphify-out/provenance.json"
+  },
+  "walkthroughCheck": {
+    "evidenceKind": "script-level DOM harness; not browser click-through",
+    "file": "docs/architecture/knull.html",
+    "sha256": "3171f56baeee524901f7177750f647f2b6be046a5c25d58737c2d48203122f87",
+    "scenarioCount": 5,
+    "assertions": 108,
+    "status": "pass",
+    "browserObservation": "Chrome loaded initial page and embedded Archify viewer; native UI interaction unavailable"
+  },
+  "documentSha256": {
+    "AGENTS.md": "21c9c0293d395bfc9397dd162f573eac26fc487ee314df65ecd284b8a62dbbac",
+    "README.md": "95cda78387c1d8c3ed45059999c04393841dddf486707098fd5b47cfd9e7ff92",
+    "ARCHITECTURE.md": "f74abfcec256d193e2ba9629570719e3546f7372f0bd4a41fbf8a616a4337ad1",
+    "docs/reports/problems-and-fixes.md": "3bef4b54cc1633080b455948ae444f5344988b742dc5d13465152c3dbff78b7e",
+    "docs/architecture/decisions-and-providers.md": "5c90b1f67e1d67b63213638e402d08406e307bc52aea1ca5f92ee47a1fd9e2b2",
+    "docs/architecture/delivery-phases.md": "18cdcd6fbfbc56a6185e30e2569791c36e88161660f8cf4da9a3c18965a7cd3f",
+    "docs/architecture/evidence-and-reports.md": "d16dcaa4e2fed5bfc9fbec7f5b14ab7dcff97ae2b47bdce95a1a4bfab092b3a8",
+    "docs/architecture/interfaces-and-platform.md": "d26150ea8c48f3bbfcbac192d4c80014e108985f8ab5ab723829cd89aa8868bc",
+    "docs/architecture/roles-and-skills.md": "4d706cef5ab402825db3e41e4ad7df7ff0993bd94cbcf05968080d5ff76b2afe",
+    "docs/architecture/runtime-and-state.md": "7f8f8965922b02ba9228626407f94afc3969790d8b499af0fc0104f8a1de6afa",
+    "docs/architecture/verification.md": "d9d5d411f181ac267415a19f06dc7bca3a44fa9889db1d96122fe0a40a2f84ea",
+    "docs/architecture/index.html": "f48e114dac1cf30eef6057be9d1454b8bbc598d5a5017662f8497202696b9940",
+    "docs/architecture/knull.html": "3171f56baeee524901f7177750f647f2b6be046a5c25d58737c2d48203122f87"
+  },
+  "publication": {
+    "date": "2026-10-21",
+    "artifacts": "Eight original HTML/candidate files copied byte-for-byte; finalization summary host paths sanitized, original local receipts retained. No regeneration or new visual approval.",
+    "links": "Guide and wrappers now point to published diagrams instead of ignored scratch."
+  }
+}

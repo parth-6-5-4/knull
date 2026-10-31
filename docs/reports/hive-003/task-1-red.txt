@@ -1,0 +1,1234 @@
+/opt/anaconda3/lib/python3.12/site-packages/pytest_asyncio/plugin.py:247: PytestDeprecationWarning: The configuration option "asyncio_default_fixture_loop_scope" is unset.
+The event loop scope for asynchronous fixtures will default to the fixture caching scope. Future versions of pytest-asyncio will default the loop scope for asynchronous fixtures to function scope. Set the default fixture loop scope explicitly in order to avoid unexpected behavior in the future. Valid fixture loop scopes are: "function", "class", "module", "package", "session"
+
+  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))
+============================= test session starts ==============================
+platform darwin -- Python 3.12.7, pytest-8.2.2, pluggy-1.6.0
+rootdir: /Users/parthsdambhare/hive-lite-v5
+configfile: pytest.ini
+plugins: mock-3.15.1, anyio-4.9.0, asyncio-1.3.0, cov-7.0.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 109 items
+
+tests/test_hive_report_contracts.py FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF [ 33%]
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF [ 99%]
+F                                                                        [100%]
+
+=================================== FAILURES ===================================
+____ test_selection_rejects_noncontract_json[```json\n{"fact_ids":[]}\n```] ____
+tests/test_hive_report_contracts.py:40: in test_selection_rejects_noncontract_json
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+________ test_selection_rejects_noncontract_json[{"fact_ids":[]} extra] ________
+tests/test_hive_report_contracts.py:40: in test_selection_rejects_noncontract_json
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+____ test_selection_rejects_noncontract_json[{"fact_ids":[],"fact_ids":[]}] ____
+tests/test_hive_report_contracts.py:40: in test_selection_rejects_noncontract_json
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_________________ test_selection_rejects_noncontract_json[[]] __________________
+tests/test_hive_report_contracts.py:40: in test_selection_rejects_noncontract_json
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_______________ test_selection_rejects_noncontract_json["text"] ________________
+tests/test_hive_report_contracts.py:40: in test_selection_rejects_noncontract_json
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+__________________ test_selection_rejects_noncontract_json[1] __________________
+tests/test_hive_report_contracts.py:40: in test_selection_rejects_noncontract_json
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+________________ test_selection_rejects_noncontract_json[true] _________________
+tests/test_hive_report_contracts.py:40: in test_selection_rejects_noncontract_json
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+________________ test_selection_rejects_noncontract_json[null] _________________
+tests/test_hive_report_contracts.py:40: in test_selection_rejects_noncontract_json
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+________ test_selection_rejects_noncontract_json[{"fact_ids":"F-good"}] ________
+tests/test_hive_report_contracts.py:40: in test_selection_rejects_noncontract_json
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_________ test_selection_rejects_noncontract_json[{"fact_ids":[true]}] _________
+tests/test_hive_report_contracts.py:40: in test_selection_rejects_noncontract_json
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+__________ test_selection_rejects_noncontract_json[{"fact_ids":[1]}] ___________
+tests/test_hive_report_contracts.py:40: in test_selection_rejects_noncontract_json
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_________ test_selection_rejects_noncontract_json[{"fact_ids":[null]}] _________
+tests/test_hive_report_contracts.py:40: in test_selection_rejects_noncontract_json
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+__________ test_selection_rejects_noncontract_json[{"fact_ids":[{}]}] __________
+tests/test_hive_report_contracts.py:40: in test_selection_rejects_noncontract_json
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+______ test_selection_rejects_noncontract_json[{"fact_ids":[],"other":1}] ______
+tests/test_hive_report_contracts.py:40: in test_selection_rejects_noncontract_json
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_________________ test_selection_rejects_noncontract_json[{}] __________________
+tests/test_hive_report_contracts.py:40: in test_selection_rejects_noncontract_json
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+__________ test_selection_rejects_noncontract_json[{"fact_ids":NaN}] ___________
+tests/test_hive_report_contracts.py:40: in test_selection_rejects_noncontract_json
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+________ test_selection_rejects_noncontract_json[{"fact_ids":Infinity}] ________
+tests/test_hive_report_contracts.py:40: in test_selection_rejects_noncontract_json
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_______ test_selection_rejects_noncontract_json[{"fact_ids":-Infinity}] ________
+tests/test_hive_report_contracts.py:40: in test_selection_rejects_noncontract_json
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_________ test_selection_rejects_duplicate_unknown_or_excess_ids[ids0] _________
+tests/test_hive_report_contracts.py:51: in test_selection_rejects_duplicate_unknown_or_excess_ids
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_________ test_selection_rejects_duplicate_unknown_or_excess_ids[ids1] _________
+tests/test_hive_report_contracts.py:51: in test_selection_rejects_duplicate_unknown_or_excess_ids
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_________ test_selection_rejects_duplicate_unknown_or_excess_ids[ids2] _________
+tests/test_hive_report_contracts.py:51: in test_selection_rejects_duplicate_unknown_or_excess_ids
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_______________ test_selection_empty_and_sixteen_preserve_order ________________
+tests/test_hive_report_contracts.py:58: in test_selection_empty_and_sixteen_preserve_order
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+___________________ test_report_utf8_boundaries[claim-4096] ____________________
+tests/test_hive_report_contracts.py:69: in test_report_utf8_boundaries
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+___________________ test_report_utf8_boundaries[title-2048] ____________________
+tests/test_hive_report_contracts.py:69: in test_report_utf8_boundaries
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+____________________ test_report_utf8_boundaries[url-4096] _____________________
+tests/test_hive_report_contracts.py:69: in test_report_utf8_boundaries
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_________________ test_report_utf8_boundaries[objective-4096] __________________
+tests/test_hive_report_contracts.py:69: in test_report_utf8_boundaries
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_____________________ test_report_utf8_boundaries_response _____________________
+tests/test_hive_report_contracts.py:82: in test_report_utf8_boundaries_response
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+__________ test_report_utf8_boundaries_candidates_and_eligible_count ___________
+tests/test_hive_report_contracts.py:93: in test_report_utf8_boundaries_candidates_and_eligible_count
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+______________ test_report_utf8_boundaries_complete_message_array ______________
+tests/test_hive_report_contracts.py:104: in test_report_utf8_boundaries_complete_message_array
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+______________________ test_report_rejects_empty_claim[] _______________________
+tests/test_hive_report_contracts.py:122: in test_report_rejects_empty_claim
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+___________________ test_report_rejects_empty_claim[ \r\n\t] ___________________
+tests/test_hive_report_contracts.py:122: in test_report_rejects_empty_claim
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+___________________ test_report_rejects_empty_claim[\u2003] ____________________
+tests/test_hive_report_contracts.py:122: in test_report_rejects_empty_claim
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_______ test_report_rejects_nonstring_or_unrepresentable_fields[None-id] _______
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_____ test_report_rejects_nonstring_or_unrepresentable_fields[None-run_id] _____
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_____ test_report_rejects_nonstring_or_unrepresentable_fields[None-status] _____
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_____ test_report_rejects_nonstring_or_unrepresentable_fields[None-claim] ______
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+__ test_report_rejects_nonstring_or_unrepresentable_fields[None-evidence_id] ___
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_____ test_report_rejects_nonstring_or_unrepresentable_fields[None-quote] ______
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_ test_report_rejects_nonstring_or_unrepresentable_fields[None-evidence_run_id] _
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+___ test_report_rejects_nonstring_or_unrepresentable_fields[None-source_id] ____
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_____ test_report_rejects_nonstring_or_unrepresentable_fields[None-title] ______
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+______ test_report_rejects_nonstring_or_unrepresentable_fields[None-url] _______
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+______ test_report_rejects_nonstring_or_unrepresentable_fields[None-text] ______
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_______ test_report_rejects_nonstring_or_unrepresentable_fields[True-id] _______
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_____ test_report_rejects_nonstring_or_unrepresentable_fields[True-run_id] _____
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_____ test_report_rejects_nonstring_or_unrepresentable_fields[True-status] _____
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_____ test_report_rejects_nonstring_or_unrepresentable_fields[True-claim] ______
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+__ test_report_rejects_nonstring_or_unrepresentable_fields[True-evidence_id] ___
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_____ test_report_rejects_nonstring_or_unrepresentable_fields[True-quote] ______
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_ test_report_rejects_nonstring_or_unrepresentable_fields[True-evidence_run_id] _
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+___ test_report_rejects_nonstring_or_unrepresentable_fields[True-source_id] ____
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_____ test_report_rejects_nonstring_or_unrepresentable_fields[True-title] ______
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+______ test_report_rejects_nonstring_or_unrepresentable_fields[True-url] _______
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+______ test_report_rejects_nonstring_or_unrepresentable_fields[True-text] ______
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+________ test_report_rejects_nonstring_or_unrepresentable_fields[42-id] ________
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+______ test_report_rejects_nonstring_or_unrepresentable_fields[42-run_id] ______
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+______ test_report_rejects_nonstring_or_unrepresentable_fields[42-status] ______
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+______ test_report_rejects_nonstring_or_unrepresentable_fields[42-claim] _______
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+___ test_report_rejects_nonstring_or_unrepresentable_fields[42-evidence_id] ____
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+______ test_report_rejects_nonstring_or_unrepresentable_fields[42-quote] _______
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_ test_report_rejects_nonstring_or_unrepresentable_fields[42-evidence_run_id] __
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+____ test_report_rejects_nonstring_or_unrepresentable_fields[42-source_id] _____
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+______ test_report_rejects_nonstring_or_unrepresentable_fields[42-title] _______
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_______ test_report_rejects_nonstring_or_unrepresentable_fields[42-url] ________
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_______ test_report_rejects_nonstring_or_unrepresentable_fields[42-text] _______
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+___ test_report_rejects_nonstring_or_unrepresentable_fields[bad\x00value-id] ___
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_ test_report_rejects_nonstring_or_unrepresentable_fields[bad\x00value-run_id] _
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_ test_report_rejects_nonstring_or_unrepresentable_fields[bad\x00value-status] _
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_ test_report_rejects_nonstring_or_unrepresentable_fields[bad\x00value-claim] __
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_ test_report_rejects_nonstring_or_unrepresentable_fields[bad\x00value-evidence_id] _
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_ test_report_rejects_nonstring_or_unrepresentable_fields[bad\x00value-quote] __
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_ test_report_rejects_nonstring_or_unrepresentable_fields[bad\x00value-evidence_run_id] _
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_ test_report_rejects_nonstring_or_unrepresentable_fields[bad\x00value-source_id] _
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_ test_report_rejects_nonstring_or_unrepresentable_fields[bad\x00value-title] __
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+__ test_report_rejects_nonstring_or_unrepresentable_fields[bad\x00value-url] ___
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+__ test_report_rejects_nonstring_or_unrepresentable_fields[bad\x00value-text] __
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+__ test_report_rejects_nonstring_or_unrepresentable_fields[bad\ud800value-id] __
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_ test_report_rejects_nonstring_or_unrepresentable_fields[bad\ud800value-run_id] _
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_ test_report_rejects_nonstring_or_unrepresentable_fields[bad\ud800value-status] _
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_ test_report_rejects_nonstring_or_unrepresentable_fields[bad\ud800value-claim] _
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_ test_report_rejects_nonstring_or_unrepresentable_fields[bad\ud800value-evidence_id] _
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_ test_report_rejects_nonstring_or_unrepresentable_fields[bad\ud800value-quote] _
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_ test_report_rejects_nonstring_or_unrepresentable_fields[bad\ud800value-evidence_run_id] _
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_ test_report_rejects_nonstring_or_unrepresentable_fields[bad\ud800value-source_id] _
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_ test_report_rejects_nonstring_or_unrepresentable_fields[bad\ud800value-title] _
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_ test_report_rejects_nonstring_or_unrepresentable_fields[bad\ud800value-url] __
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_ test_report_rejects_nonstring_or_unrepresentable_fields[bad\ud800value-text] _
+tests/test_hive_report_contracts.py:131: in test_report_rejects_nonstring_or_unrepresentable_fields
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_____________ test_report_rejects_unrepresentable_objective[None] ______________
+tests/test_hive_report_contracts.py:140: in test_report_rejects_unrepresentable_objective
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_____________ test_report_rejects_unrepresentable_objective[True] ______________
+tests/test_hive_report_contracts.py:140: in test_report_rejects_unrepresentable_objective
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_______ test_report_rejects_unrepresentable_objective[bad\x00objective] ________
+tests/test_hive_report_contracts.py:140: in test_report_rejects_unrepresentable_objective
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+______ test_report_rejects_unrepresentable_objective[bad\ud800objective] _______
+tests/test_hive_report_contracts.py:140: in test_report_rejects_unrepresentable_objective
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+___________ test_report_rejects_foreign_or_unverified_rows[change0] ____________
+tests/test_hive_report_contracts.py:148: in test_report_rejects_foreign_or_unverified_rows
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+___________ test_report_rejects_foreign_or_unverified_rows[change1] ____________
+tests/test_hive_report_contracts.py:148: in test_report_rejects_foreign_or_unverified_rows
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+___________ test_report_rejects_foreign_or_unverified_rows[change2] ____________
+tests/test_hive_report_contracts.py:148: in test_report_rejects_foreign_or_unverified_rows
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+___________ test_report_rejects_foreign_or_unverified_rows[change3] ____________
+tests/test_hive_report_contracts.py:148: in test_report_rejects_foreign_or_unverified_rows
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_________ test_report_rejects_duplicate_or_missing_candidate_identity __________
+tests/test_hive_report_contracts.py:154: in test_report_rejects_duplicate_or_missing_candidate_identity
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+________ test_writer_messages_send_only_objective_and_candidate_claims _________
+tests/test_hive_report_contracts.py:164: in test_writer_messages_send_only_objective_and_candidate_claims
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+______________ test_raw_source_changes_invalidate_binding[claim] _______________
+tests/test_hive_report_contracts.py:183: in test_raw_source_changes_invalidate_binding
+    first = snapshot([row()]).candidates[0]
+tests/test_hive_report_contracts.py:26: in snapshot
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+______________ test_raw_source_changes_invalidate_binding[quote] _______________
+tests/test_hive_report_contracts.py:183: in test_raw_source_changes_invalidate_binding
+    first = snapshot([row()]).candidates[0]
+tests/test_hive_report_contracts.py:26: in snapshot
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+___________ test_raw_source_changes_invalidate_binding[evidence_id] ____________
+tests/test_hive_report_contracts.py:183: in test_raw_source_changes_invalidate_binding
+    first = snapshot([row()]).candidates[0]
+tests/test_hive_report_contracts.py:26: in snapshot
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+____________ test_raw_source_changes_invalidate_binding[source_id] _____________
+tests/test_hive_report_contracts.py:183: in test_raw_source_changes_invalidate_binding
+    first = snapshot([row()]).candidates[0]
+tests/test_hive_report_contracts.py:26: in snapshot
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+______________ test_raw_source_changes_invalidate_binding[title] _______________
+tests/test_hive_report_contracts.py:183: in test_raw_source_changes_invalidate_binding
+    first = snapshot([row()]).candidates[0]
+tests/test_hive_report_contracts.py:26: in snapshot
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_______________ test_raw_source_changes_invalidate_binding[url] ________________
+tests/test_hive_report_contracts.py:183: in test_raw_source_changes_invalidate_binding
+    first = snapshot([row()]).candidates[0]
+tests/test_hive_report_contracts.py:26: in snapshot
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_______________ test_raw_source_changes_invalidate_binding[text] _______________
+tests/test_hive_report_contracts.py:183: in test_raw_source_changes_invalidate_binding
+    first = snapshot([row()]).candidates[0]
+tests/test_hive_report_contracts.py:26: in snapshot
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+________________ test_raw_source_changes_invalidate_binding[id] ________________
+tests/test_hive_report_contracts.py:183: in test_raw_source_changes_invalidate_binding
+    first = snapshot([row()]).candidates[0]
+tests/test_hive_report_contracts.py:26: in snapshot
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+__________ test_selection_rejects_nonstring_or_invalid_unicode[None] ___________
+tests/test_hive_report_contracts.py:200: in test_selection_rejects_nonstring_or_invalid_unicode
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+__________ test_selection_rejects_nonstring_or_invalid_unicode[True] ___________
+tests/test_hive_report_contracts.py:200: in test_selection_rejects_nonstring_or_invalid_unicode
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_________ test_selection_rejects_nonstring_or_invalid_unicode[\ud800] __________
+tests/test_hive_report_contracts.py:200: in test_selection_rejects_nonstring_or_invalid_unicode
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+_ test_selection_rejects_nonstring_or_invalid_unicode[{"fact_ids":["F-good"]}\x00] _
+tests/test_hive_report_contracts.py:200: in test_selection_rejects_nonstring_or_invalid_unicode
+    r = reporting()
+tests/test_hive_report_contracts.py:12: in reporting
+    assert importlib.util.find_spec("app.hive.reporting") is not None, "strict report contract is missing"
+E   AssertionError: strict report contract is missing
+E   assert None is not None
+E    +  where None = <function find_spec at 0x103464d60>('app.hive.reporting')
+E    +    where <function find_spec at 0x103464d60> = <module 'importlib.util' (frozen)>.find_spec
+E    +      where <module 'importlib.util' (frozen)> = importlib.util
+=========================== short test summary info ============================
+FAILED tests/test_hive_report_contracts.py::test_selection_rejects_noncontract_json[```json\n{"fact_ids":[]}\n```]
+FAILED tests/test_hive_report_contracts.py::test_selection_rejects_noncontract_json[{"fact_ids":[]} extra]
+FAILED tests/test_hive_report_contracts.py::test_selection_rejects_noncontract_json[{"fact_ids":[],"fact_ids":[]}]
+FAILED tests/test_hive_report_contracts.py::test_selection_rejects_noncontract_json[[]]
+FAILED tests/test_hive_report_contracts.py::test_selection_rejects_noncontract_json["text"]
+FAILED tests/test_hive_report_contracts.py::test_selection_rejects_noncontract_json[1]
+FAILED tests/test_hive_report_contracts.py::test_selection_rejects_noncontract_json[true]
+FAILED tests/test_hive_report_contracts.py::test_selection_rejects_noncontract_json[null]
+FAILED tests/test_hive_report_contracts.py::test_selection_rejects_noncontract_json[{"fact_ids":"F-good"}]
+FAILED tests/test_hive_report_contracts.py::test_selection_rejects_noncontract_json[{"fact_ids":[true]}]
+FAILED tests/test_hive_report_contracts.py::test_selection_rejects_noncontract_json[{"fact_ids":[1]}]
+FAILED tests/test_hive_report_contracts.py::test_selection_rejects_noncontract_json[{"fact_ids":[null]}]
+FAILED tests/test_hive_report_contracts.py::test_selection_rejects_noncontract_json[{"fact_ids":[{}]}]
+FAILED tests/test_hive_report_contracts.py::test_selection_rejects_noncontract_json[{"fact_ids":[],"other":1}]
+FAILED tests/test_hive_report_contracts.py::test_selection_rejects_noncontract_json[{}]
+FAILED tests/test_hive_report_contracts.py::test_selection_rejects_noncontract_json[{"fact_ids":NaN}]
+FAILED tests/test_hive_report_contracts.py::test_selection_rejects_noncontract_json[{"fact_ids":Infinity}]
+FAILED tests/test_hive_report_contracts.py::test_selection_rejects_noncontract_json[{"fact_ids":-Infinity}]
+FAILED tests/test_hive_report_contracts.py::test_selection_rejects_duplicate_unknown_or_excess_ids[ids0]
+FAILED tests/test_hive_report_contracts.py::test_selection_rejects_duplicate_unknown_or_excess_ids[ids1]
+FAILED tests/test_hive_report_contracts.py::test_selection_rejects_duplicate_unknown_or_excess_ids[ids2]
+FAILED tests/test_hive_report_contracts.py::test_selection_empty_and_sixteen_preserve_order
+FAILED tests/test_hive_report_contracts.py::test_report_utf8_boundaries[claim-4096]
+FAILED tests/test_hive_report_contracts.py::test_report_utf8_boundaries[title-2048]
+FAILED tests/test_hive_report_contracts.py::test_report_utf8_boundaries[url-4096]
+FAILED tests/test_hive_report_contracts.py::test_report_utf8_boundaries[objective-4096]
+FAILED tests/test_hive_report_contracts.py::test_report_utf8_boundaries_response
+FAILED tests/test_hive_report_contracts.py::test_report_utf8_boundaries_candidates_and_eligible_count
+FAILED tests/test_hive_report_contracts.py::test_report_utf8_boundaries_complete_message_array
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_empty_claim[]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_empty_claim[ \r\n\t]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_empty_claim[\u2003]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[None-id]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[None-run_id]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[None-status]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[None-claim]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[None-evidence_id]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[None-quote]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[None-evidence_run_id]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[None-source_id]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[None-title]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[None-url]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[None-text]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[True-id]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[True-run_id]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[True-status]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[True-claim]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[True-evidence_id]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[True-quote]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[True-evidence_run_id]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[True-source_id]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[True-title]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[True-url]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[True-text]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[42-id]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[42-run_id]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[42-status]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[42-claim]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[42-evidence_id]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[42-quote]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[42-evidence_run_id]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[42-source_id]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[42-title]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[42-url]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[42-text]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[bad\x00value-id]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[bad\x00value-run_id]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[bad\x00value-status]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[bad\x00value-claim]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[bad\x00value-evidence_id]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[bad\x00value-quote]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[bad\x00value-evidence_run_id]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[bad\x00value-source_id]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[bad\x00value-title]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[bad\x00value-url]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[bad\x00value-text]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[bad\ud800value-id]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[bad\ud800value-run_id]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[bad\ud800value-status]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[bad\ud800value-claim]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[bad\ud800value-evidence_id]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[bad\ud800value-quote]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[bad\ud800value-evidence_run_id]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[bad\ud800value-source_id]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[bad\ud800value-title]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[bad\ud800value-url]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_nonstring_or_unrepresentable_fields[bad\ud800value-text]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_unrepresentable_objective[None]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_unrepresentable_objective[True]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_unrepresentable_objective[bad\x00objective]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_unrepresentable_objective[bad\ud800objective]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_foreign_or_unverified_rows[change0]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_foreign_or_unverified_rows[change1]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_foreign_or_unverified_rows[change2]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_foreign_or_unverified_rows[change3]
+FAILED tests/test_hive_report_contracts.py::test_report_rejects_duplicate_or_missing_candidate_identity
+FAILED tests/test_hive_report_contracts.py::test_writer_messages_send_only_objective_and_candidate_claims
+FAILED tests/test_hive_report_contracts.py::test_raw_source_changes_invalidate_binding[claim]
+FAILED tests/test_hive_report_contracts.py::test_raw_source_changes_invalidate_binding[quote]
+FAILED tests/test_hive_report_contracts.py::test_raw_source_changes_invalidate_binding[evidence_id]
+FAILED tests/test_hive_report_contracts.py::test_raw_source_changes_invalidate_binding[source_id]
+FAILED tests/test_hive_report_contracts.py::test_raw_source_changes_invalidate_binding[title]
+FAILED tests/test_hive_report_contracts.py::test_raw_source_changes_invalidate_binding[url]
+FAILED tests/test_hive_report_contracts.py::test_raw_source_changes_invalidate_binding[text]
+FAILED tests/test_hive_report_contracts.py::test_raw_source_changes_invalidate_binding[id]
+FAILED tests/test_hive_report_contracts.py::test_selection_rejects_nonstring_or_invalid_unicode[None]
+FAILED tests/test_hive_report_contracts.py::test_selection_rejects_nonstring_or_invalid_unicode[True]
+FAILED tests/test_hive_report_contracts.py::test_selection_rejects_nonstring_or_invalid_unicode[\ud800]
+FAILED tests/test_hive_report_contracts.py::test_selection_rejects_nonstring_or_invalid_unicode[{"fact_ids":["F-good"]}\x00]
+============================= 109 failed in 0.79s ==============================

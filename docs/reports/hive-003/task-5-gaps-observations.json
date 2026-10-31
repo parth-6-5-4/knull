@@ -1,0 +1,88 @@
+{
+  "cross_run_source_collision": {
+    "first": {
+      "status": "done",
+      "verified": 2
+    },
+    "second": {
+      "status": "done",
+      "verified": 2,
+      "rejected": 0
+    },
+    "second_evidence_rows": 2
+  },
+  "exhausted_dependency_hang": {
+    "timed_out": false,
+    "run_status": "blocked",
+    "tasks": [
+      {
+        "kind": "research",
+        "status": "exhausted",
+        "attempt": 3
+      },
+      {
+        "kind": "verify",
+        "status": "blocked",
+        "attempt": 0
+      },
+      {
+        "kind": "write",
+        "status": "blocked",
+        "attempt": 0
+      }
+    ]
+  },
+  "citation_laundering": {
+    "known_fact": "Caching reduces calls by 40%.",
+    "unsafe_prose": {
+      "outcome": "rejected",
+      "error_code": "report_selection_invalid",
+      "reason": "selection_json_invalid",
+      "report": "",
+      "facts_unchanged": true
+    },
+    "supported_selection": {
+      "outcome": "rendered",
+      "report": "# Research report\n\n<p>Objective: <span class=\"hive-objective\" style=\"white-space: pre-wrap; overflow-wrap: anywhere\">Report integrity probe</span></p>\n\n## Findings\n\n<ul><li><span class=\"hive-claim\" style=\"white-space: pre-wrap; overflow-wrap: anywhere\">Caching reduces calls by 40%.</span> <a href=\"#hive-source-1\" style=\"white-space: pre-wrap; overflow-wrap: anywhere\">[F-aaaaaaaa]</a></li></ul>\n\n## Sources\n\n<ul><li id=\"hive-source-1\"><span class=\"hive-citation\" style=\"white-space: pre-wrap; overflow-wrap: anywhere\">[F-aaaaaaaa]</span> <span class=\"hive-source-title\" style=\"white-space: pre-wrap; overflow-wrap: anywhere\">Cache study</span> <a class=\"hive-source-url\" style=\"white-space: pre-wrap; overflow-wrap: anywhere\" href=\"https://fixture.example/cache\">https://fixture.example/cache</a></li></ul>\n",
+      "gate": {
+        "policy_version": "accepted-claims-v1",
+        "passed": true,
+        "finding_count": 1,
+        "selected_fact_ids": [
+          "F-aaaaaaaa"
+        ],
+        "candidate_count": 2,
+        "eligible_count": 2,
+        "omitted_count": 0,
+        "warnings": [],
+        "provenance": [
+          {
+            "fact_id": "F-aaaaaaaa",
+            "claim": "Caching reduces calls by 40%.",
+            "evidence_id": "E-aaaaaaaa",
+            "source_id": "cache-study",
+            "title": "Cache study",
+            "url": "https://fixture.example/cache",
+            "claim_sha256": "6de68e31ae96758738b5b29ab1728efd6f42299c6670f9b839721371adea1973",
+            "quote_sha256": "5bb48f29c235f5b59cf9a4ede8711630bef76d2b757c36ac2be405508f853756",
+            "evidence_sha256": "5bb48f29c235f5b59cf9a4ede8711630bef76d2b757c36ac2be405508f853756",
+            "binding_sha256": "288710d529b8843911eef98fdf21813d9106f04851016f86cfa6cab9819db948"
+          }
+        ],
+        "writer_assignment": null,
+        "sentences": 1,
+        "removed_uncited_or_unverified": []
+      },
+      "facts_unchanged": true
+    }
+  },
+  "concurrent_budget_overshoot": {
+    "cap": 100,
+    "spent": 400
+  },
+  "unfenced_exhaustion": {
+    "old_fence": 1,
+    "current_fence": 2,
+    "status_after_success_then_stale_failure": "done"
+  }
+}

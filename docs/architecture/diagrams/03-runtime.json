@@ -1,0 +1,259 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Runtime module | admission and recovery",
+    "output": ".archify/architecture-knull-guide-20261020-121808/03-runtime/03-runtime.html",
+    "quality_profile": "showcase",
+    "locale": "en",
+    "repository": {
+      "url": "https://github.com/parth-6-5-4/knull.git",
+      "revision": "f4f541332b3f78a755bccc5f4890931b1b256d07",
+      "link_mode": "web"
+    }
+  },
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Write authority",
+      "items": [
+        "Every authoritative mutation checks the active attempt/fence.",
+        "An expired worker cannot publish late success or failure."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Accounting",
+      "items": [
+        "Unknown provider outcomes remain conservatively charged.",
+        "Retries share limits and cannot create fresh free budget."
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Recovery",
+      "items": [
+        "Persist leases and state in PostgreSQL.",
+        "Process-loss and real lock contention need integration checks."
+      ]
+    }
+  ],
+  "components": [
+    {
+      "id": "tasks",
+      "type": "messagebus",
+      "label": "Ready tasks",
+      "sublabel": "dependencies satisfied",
+      "pos": [
+        30,
+        40
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 31,
+          "end_line": 37,
+          "label": "2026-10-19-durable-runtime-design.md"
+        }
+      ],
+      "tag": "PROPOSED"
+    },
+    {
+      "id": "scheduler",
+      "type": "backend",
+      "label": "Scheduler",
+      "sublabel": "fair capacity selection",
+      "pos": [
+        390,
+        40
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 58,
+          "end_line": 62,
+          "label": "2026-10-19-durable-runtime-design.md"
+        }
+      ]
+    },
+    {
+      "id": "ledger",
+      "type": "security",
+      "label": "Resource ledger",
+      "sublabel": "reserve before each call",
+      "pos": [
+        750,
+        40
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-resource-governance-design.md",
+          "line": 23,
+          "end_line": 42,
+          "label": "2026-10-19-resource-governance-design.md"
+        }
+      ]
+    },
+    {
+      "id": "lease",
+      "type": "backend",
+      "label": "Guarded assignment",
+      "sublabel": "attempt / fence / expiry",
+      "pos": [
+        750,
+        250
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-execution-integrity-design.md",
+          "line": 23,
+          "end_line": 38,
+          "label": "2026-10-19-execution-integrity-design.md"
+        }
+      ]
+    },
+    {
+      "id": "executor",
+      "type": "backend",
+      "label": "Bounded executor",
+      "sublabel": "network outside DB locks",
+      "pos": [
+        390,
+        250
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 58,
+          "end_line": 62,
+          "label": "2026-10-19-durable-runtime-design.md"
+        }
+      ]
+    },
+    {
+      "id": "candidate",
+      "type": "backend",
+      "label": "Candidate result",
+      "sublabel": "typed output + receipts",
+      "pos": [
+        30,
+        250
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 23,
+          "end_line": 27,
+          "label": "2026-10-19-durable-runtime-design.md"
+        }
+      ]
+    },
+    {
+      "id": "commit",
+      "type": "database",
+      "label": "Guarded store",
+      "sublabel": "atomic result + event",
+      "pos": [
+        30,
+        470
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-execution-integrity-design.md",
+          "line": 23,
+          "end_line": 38,
+          "label": "2026-10-19-execution-integrity-design.md"
+        }
+      ]
+    },
+    {
+      "id": "reaper",
+      "type": "backend",
+      "label": "Recovery supervisor",
+      "sublabel": "renew / expire / retry",
+      "pos": [
+        750,
+        470
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 47,
+          "end_line": 54,
+          "label": "2026-10-19-durable-runtime-design.md"
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "from": "tasks",
+      "to": "scheduler",
+      "label": "eligible"
+    },
+    {
+      "from": "scheduler",
+      "to": "ledger",
+      "label": "request"
+    },
+    {
+      "from": "ledger",
+      "to": "lease",
+      "label": "admit"
+    },
+    {
+      "from": "lease",
+      "to": "executor",
+      "label": "assign"
+    },
+    {
+      "from": "executor",
+      "to": "candidate",
+      "label": "return"
+    },
+    {
+      "from": "candidate",
+      "to": "commit",
+      "label": "validate"
+    },
+    {
+      "from": "reaper",
+      "to": "lease",
+      "fromSide": "top",
+      "toSide": "bottom",
+      "label": "reclaim"
+    }
+  ]
+}

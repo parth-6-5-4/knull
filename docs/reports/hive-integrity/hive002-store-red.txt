@@ -1,0 +1,71 @@
+/opt/anaconda3/lib/python3.12/site-packages/pytest_asyncio/plugin.py:247: PytestDeprecationWarning: The configuration option "asyncio_default_fixture_loop_scope" is unset.
+The event loop scope for asynchronous fixtures will default to the fixture caching scope. Future versions of pytest-asyncio will default the loop scope for asynchronous fixtures to function scope. Set the default fixture loop scope explicitly in order to avoid unexpected behavior in the future. Valid fixture loop scopes are: "function", "class", "module", "package", "session"
+
+  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))
+============================= test session starts ==============================
+platform darwin -- Python 3.12.7, pytest-8.2.2, pluggy-1.6.0
+rootdir: /Users/parthsdambhare/hive-lite-v5
+configfile: pytest.ini
+plugins: mock-3.15.1, anyio-4.9.0, asyncio-1.3.0, cov-7.0.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 14 items
+
+tests/test_hive_execution.py FF..FF..FFFFFF                              [100%]
+
+=================================== FAILURES ===================================
+______ test_old_attempt_cannot_mutate_replacement_or_completion[release] _______
+tests/test_hive_execution.py:37: in test_old_attempt_cannot_mutate_replacement_or_completion
+    assert stale() is False and store.get_task(tid)==before
+tests/test_hive_execution.py:32: in stale
+    if action=='release':return store.release(*args,'late failure',now=113)
+E   TypeError: HiveStore.release() got an unexpected keyword argument 'now'
+______ test_old_attempt_cannot_mutate_replacement_or_completion[exhaust] _______
+tests/test_hive_execution.py:37: in test_old_attempt_cannot_mutate_replacement_or_completion
+    assert stale() is False and store.get_task(tid)==before
+tests/test_hive_execution.py:33: in stale
+    if action=='exhaust':return store.mark_exhausted(tid,'late failure',worker='same-worker',attempt=a['attempt'],fence=a['fence'],now=113)
+E   TypeError: HiveStore.mark_exhausted() got an unexpected keyword argument 'worker'
+__________ test_expired_owner_cannot_mutate_without_reclaim[release] ___________
+tests/test_hive_execution.py:46: in test_expired_owner_cannot_mutate_without_reclaim
+    if action=='release':ok=store.release(tid,'same-worker',a['attempt'],a['fence'],'late',now=110)
+E   TypeError: HiveStore.release() got an unexpected keyword argument 'now'
+__________ test_expired_owner_cannot_mutate_without_reclaim[exhaust] ___________
+tests/test_hive_execution.py:47: in test_expired_owner_cannot_mutate_without_reclaim
+    elif action=='exhaust':ok=store.mark_exhausted(tid,'late',worker='same-worker',attempt=a['attempt'],fence=a['fence'],now=110)
+E   TypeError: HiveStore.mark_exhausted() got an unexpected keyword argument 'worker'
+__ test_failed_dependency_blocks_descendants_but_preserves_independent_branch __
+tests/test_hive_execution.py:75: in test_failed_dependency_blocks_descendants_but_preserves_independent_branch
+    assert store.mark_exhausted(tid,'permanent failure',worker='same-worker',attempt=a['attempt'],fence=a['fence'],now=101)
+E   TypeError: HiveStore.mark_exhausted() got an unexpected keyword argument 'worker'
+_______ test_invalid_dependency_graph_rejected_before_execution[missing] _______
+tests/test_hive_execution.py:99: in test_invalid_dependency_graph_rejected_before_execution
+    with pytest.raises(ValueError):store.validate_graph(run)
+E   AttributeError: 'HiveStore' object has no attribute 'validate_graph'
+______ test_invalid_dependency_graph_rejected_before_execution[cross_run] ______
+tests/test_hive_execution.py:99: in test_invalid_dependency_graph_rejected_before_execution
+    with pytest.raises(ValueError):store.validate_graph(run)
+E   AttributeError: 'HiveStore' object has no attribute 'validate_graph'
+________ test_invalid_dependency_graph_rejected_before_execution[cycle] ________
+tests/test_hive_execution.py:99: in test_invalid_dependency_graph_rejected_before_execution
+    with pytest.raises(ValueError):store.validate_graph(run)
+E   AttributeError: 'HiveStore' object has no attribute 'validate_graph'
+____ test_invalid_dependency_graph_rejected_before_execution[unknown_kind] _____
+tests/test_hive_execution.py:99: in test_invalid_dependency_graph_rejected_before_execution
+    with pytest.raises(ValueError):store.validate_graph(run)
+E   AttributeError: 'HiveStore' object has no attribute 'validate_graph'
+____________ test_no_progress_blocking_is_transactional_and_causal _____________
+tests/test_hive_execution.py:106: in test_no_progress_blocking_is_transactional_and_causal
+    store.block_unsatisfied(run)
+E   AttributeError: 'HiveStore' object has no attribute 'block_unsatisfied'
+=========================== short test summary info ============================
+FAILED tests/test_hive_execution.py::test_old_attempt_cannot_mutate_replacement_or_completion[release]
+FAILED tests/test_hive_execution.py::test_old_attempt_cannot_mutate_replacement_or_completion[exhaust]
+FAILED tests/test_hive_execution.py::test_expired_owner_cannot_mutate_without_reclaim[release]
+FAILED tests/test_hive_execution.py::test_expired_owner_cannot_mutate_without_reclaim[exhaust]
+FAILED tests/test_hive_execution.py::test_failed_dependency_blocks_descendants_but_preserves_independent_branch
+FAILED tests/test_hive_execution.py::test_invalid_dependency_graph_rejected_before_execution[missing]
+FAILED tests/test_hive_execution.py::test_invalid_dependency_graph_rejected_before_execution[cross_run]
+FAILED tests/test_hive_execution.py::test_invalid_dependency_graph_rejected_before_execution[cycle]
+FAILED tests/test_hive_execution.py::test_invalid_dependency_graph_rejected_before_execution[unknown_kind]
+FAILED tests/test_hive_execution.py::test_no_progress_blocking_is_transactional_and_causal
+========================= 10 failed, 4 passed in 0.25s =========================

@@ -1,0 +1,144 @@
+/opt/anaconda3/lib/python3.12/site-packages/pytest_asyncio/plugin.py:247: PytestDeprecationWarning: The configuration option "asyncio_default_fixture_loop_scope" is unset.
+The event loop scope for asynchronous fixtures will default to the fixture caching scope. Future versions of pytest-asyncio will default the loop scope for asynchronous fixtures to function scope. Set the default fixture loop scope explicitly in order to avoid unexpected behavior in the future. Valid fixture loop scopes are: "function", "class", "module", "package", "session"
+
+  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))
+============================= test session starts ==============================
+platform darwin -- Python 3.12.7, pytest-8.2.2, pluggy-1.6.0
+rootdir: /Users/parthsdambhare/hive-lite-v5
+configfile: pytest.ini
+plugins: mock-3.15.1, anyio-4.9.0, asyncio-1.3.0, cov-7.0.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 24 items
+
+tests/test_hive_migrations.py FFFFFFFFFFFFFFFFFFFFFFFF                   [100%]
+
+=================================== FAILURES ===================================
+________________ test_fresh_schema_has_run_scoped_evidence_key _________________
+tests/test_hive_migrations.py:19: in test_fresh_schema_has_run_scoped_evidence_key
+    assert [(r['name'], r['pk'], r['notnull']) for r in cols if r['pk']] == [
+E   AssertionError: assert [('id', 1, 0)] == [('id', 2, 1)...un_id', 1, 1)]
+E     
+E     At index 0 diff: ('id', 1, 0) != ('id', 2, 1)
+E     Right contains one more item: ('run_id', 1, 1)
+E     Use -v to get more diff
+___________ test_old_schema_requires_explicit_upgrade_without_writes ___________
+tests/test_hive_migrations.py:27: in test_old_schema_requires_explicit_upgrade_without_writes
+    from app.hive.schema import HiveMigrationRequired
+E   ModuleNotFoundError: No module named 'app.hive.schema'
+__________ test_upgrade_preserves_original_evidence_and_other_tables ___________
+tests/test_hive_migrations.py:36: in test_upgrade_preserves_original_evidence_and_other_tables
+    from app.hive.migrate import upgrade_hive_database
+E   ModuleNotFoundError: No module named 'app.hive.migrate'
+________________ test_upgrade_reopen_and_reapply_are_idempotent ________________
+tests/test_hive_migrations.py:56: in test_upgrade_reopen_and_reapply_are_idempotent
+    from app.hive.migrate import upgrade_hive_database
+E   ModuleNotFoundError: No module named 'app.hive.migrate'
+____________ test_check_is_read_only_and_reports_missing_references ____________
+tests/test_hive_migrations.py:69: in test_check_is_read_only_and_reports_missing_references
+    assert p.returncode == 0, p.stderr
+E   AssertionError: /opt/anaconda3/bin/python: No module named app.hive.migrate
+E     
+E   assert 1 == 0
+E    +  where 1 = CompletedProcess(args=['/opt/anaconda3/bin/python', '-m', 'app.hive.migrate', '--db', '/private/var/folders/mc/gvm9y0s...0/old.db', '--check'], returncode=1, stdout='', stderr='/opt/anaconda3/bin/python: No module named app.hive.migrate\n').returncode
+_ test_unknown_or_partial_schema_refused_before_writes[PRAGMA user_version=99] _
+tests/test_hive_migrations.py:91: in test_unknown_or_partial_schema_refused_before_writes
+    from app.hive.migrate import upgrade_hive_database
+E   ModuleNotFoundError: No module named 'app.hive.migrate'
+_ test_unknown_or_partial_schema_refused_before_writes[PRAGMA user_version=1] __
+tests/test_hive_migrations.py:91: in test_unknown_or_partial_schema_refused_before_writes
+    from app.hive.migrate import upgrade_hive_database
+E   ModuleNotFoundError: No module named 'app.hive.migrate'
+___ test_unknown_or_partial_schema_refused_before_writes[DROP TABLE ledger] ____
+tests/test_hive_migrations.py:91: in test_unknown_or_partial_schema_refused_before_writes
+    from app.hive.migrate import upgrade_hive_database
+E   ModuleNotFoundError: No module named 'app.hive.migrate'
+_ test_unknown_or_partial_schema_refused_before_writes[INSERT INTO evidence VALUES('null-run',NULL,'','','','')] _
+tests/test_hive_migrations.py:91: in test_unknown_or_partial_schema_refused_before_writes
+    from app.hive.migrate import upgrade_hive_database
+E   ModuleNotFoundError: No module named 'app.hive.migrate'
+_ test_unknown_or_partial_schema_refused_before_writes[INSERT INTO evidence VALUES(NULL,'old','','','','')] _
+tests/test_hive_migrations.py:91: in test_unknown_or_partial_schema_refused_before_writes
+    from app.hive.migrate import upgrade_hive_database
+E   ModuleNotFoundError: No module named 'app.hive.migrate'
+_ test_unknown_or_partial_schema_refused_before_writes[CREATE INDEX custom_evidence ON evidence(title)] _
+tests/test_hive_migrations.py:91: in test_unknown_or_partial_schema_refused_before_writes
+    from app.hive.migrate import upgrade_hive_database
+E   ModuleNotFoundError: No module named 'app.hive.migrate'
+_ test_unknown_or_partial_schema_refused_before_writes[CREATE TRIGGER custom_evidence AFTER INSERT ON evidence BEGIN SELECT 1; END] _
+tests/test_hive_migrations.py:91: in test_unknown_or_partial_schema_refused_before_writes
+    from app.hive.migrate import upgrade_hive_database
+E   ModuleNotFoundError: No module named 'app.hive.migrate'
+_ test_unknown_or_partial_schema_refused_before_writes[CREATE VIEW custom_evidence AS SELECT * FROM evidence] _
+tests/test_hive_migrations.py:91: in test_unknown_or_partial_schema_refused_before_writes
+    from app.hive.migrate import upgrade_hive_database
+E   ModuleNotFoundError: No module named 'app.hive.migrate'
+________________ test_backup_failure_leaves_original_unchanged _________________
+tests/test_hive_migrations.py:104: in test_backup_failure_leaves_original_unchanged
+    from app.hive.migrate import upgrade_hive_database
+E   ModuleNotFoundError: No module named 'app.hive.migrate'
+____________________ test_migration_error_rolls_back[copy] _____________________
+tests/test_hive_migrations.py:115: in test_migration_error_rolls_back
+    import app.hive.migrate as migration
+E   ModuleNotFoundError: No module named 'app.hive.migrate'
+____________________ test_migration_error_rolls_back[drop] _____________________
+tests/test_hive_migrations.py:115: in test_migration_error_rolls_back
+    import app.hive.migrate as migration
+E   ModuleNotFoundError: No module named 'app.hive.migrate'
+___________________ test_migration_error_rolls_back[rename] ____________________
+tests/test_hive_migrations.py:115: in test_migration_error_rolls_back
+    import app.hive.migrate as migration
+E   ModuleNotFoundError: No module named 'app.hive.migrate'
+___________________ test_migration_error_rolls_back[version] ___________________
+tests/test_hive_migrations.py:115: in test_migration_error_rolls_back
+    import app.hive.migrate as migration
+E   ModuleNotFoundError: No module named 'app.hive.migrate'
+_____ test_process_death_during_migration_recovers_old_or_new_schema[copy] _____
+tests/test_hive_migrations.py:161: in test_process_death_during_migration_recovers_old_or_new_schema
+    from app.hive.schema import HiveMigrationRequired
+E   ModuleNotFoundError: No module named 'app.hive.schema'
+_____ test_process_death_during_migration_recovers_old_or_new_schema[drop] _____
+tests/test_hive_migrations.py:161: in test_process_death_during_migration_recovers_old_or_new_schema
+    from app.hive.schema import HiveMigrationRequired
+E   ModuleNotFoundError: No module named 'app.hive.schema'
+____ test_process_death_during_migration_recovers_old_or_new_schema[rename] ____
+tests/test_hive_migrations.py:161: in test_process_death_during_migration_recovers_old_or_new_schema
+    from app.hive.schema import HiveMigrationRequired
+E   ModuleNotFoundError: No module named 'app.hive.schema'
+___ test_process_death_during_migration_recovers_old_or_new_schema[version] ____
+tests/test_hive_migrations.py:161: in test_process_death_during_migration_recovers_old_or_new_schema
+    from app.hive.schema import HiveMigrationRequired
+E   ModuleNotFoundError: No module named 'app.hive.schema'
+_ test_process_death_during_migration_recovers_old_or_new_schema[before_commit] _
+tests/test_hive_migrations.py:161: in test_process_death_during_migration_recovers_old_or_new_schema
+    from app.hive.schema import HiveMigrationRequired
+E   ModuleNotFoundError: No module named 'app.hive.schema'
+_ test_process_death_during_migration_recovers_old_or_new_schema[after_commit] _
+tests/test_hive_migrations.py:161: in test_process_death_during_migration_recovers_old_or_new_schema
+    from app.hive.schema import HiveMigrationRequired
+E   ModuleNotFoundError: No module named 'app.hive.schema'
+=========================== short test summary info ============================
+FAILED tests/test_hive_migrations.py::test_fresh_schema_has_run_scoped_evidence_key
+FAILED tests/test_hive_migrations.py::test_old_schema_requires_explicit_upgrade_without_writes
+FAILED tests/test_hive_migrations.py::test_upgrade_preserves_original_evidence_and_other_tables
+FAILED tests/test_hive_migrations.py::test_upgrade_reopen_and_reapply_are_idempotent
+FAILED tests/test_hive_migrations.py::test_check_is_read_only_and_reports_missing_references
+FAILED tests/test_hive_migrations.py::test_unknown_or_partial_schema_refused_before_writes[PRAGMA user_version=99]
+FAILED tests/test_hive_migrations.py::test_unknown_or_partial_schema_refused_before_writes[PRAGMA user_version=1]
+FAILED tests/test_hive_migrations.py::test_unknown_or_partial_schema_refused_before_writes[DROP TABLE ledger]
+FAILED tests/test_hive_migrations.py::test_unknown_or_partial_schema_refused_before_writes[INSERT INTO evidence VALUES('null-run',NULL,'','','','')]
+FAILED tests/test_hive_migrations.py::test_unknown_or_partial_schema_refused_before_writes[INSERT INTO evidence VALUES(NULL,'old','','','','')]
+FAILED tests/test_hive_migrations.py::test_unknown_or_partial_schema_refused_before_writes[CREATE INDEX custom_evidence ON evidence(title)]
+FAILED tests/test_hive_migrations.py::test_unknown_or_partial_schema_refused_before_writes[CREATE TRIGGER custom_evidence AFTER INSERT ON evidence BEGIN SELECT 1; END]
+FAILED tests/test_hive_migrations.py::test_unknown_or_partial_schema_refused_before_writes[CREATE VIEW custom_evidence AS SELECT * FROM evidence]
+FAILED tests/test_hive_migrations.py::test_backup_failure_leaves_original_unchanged
+FAILED tests/test_hive_migrations.py::test_migration_error_rolls_back[copy]
+FAILED tests/test_hive_migrations.py::test_migration_error_rolls_back[drop]
+FAILED tests/test_hive_migrations.py::test_migration_error_rolls_back[rename]
+FAILED tests/test_hive_migrations.py::test_migration_error_rolls_back[version]
+FAILED tests/test_hive_migrations.py::test_process_death_during_migration_recovers_old_or_new_schema[copy]
+FAILED tests/test_hive_migrations.py::test_process_death_during_migration_recovers_old_or_new_schema[drop]
+FAILED tests/test_hive_migrations.py::test_process_death_during_migration_recovers_old_or_new_schema[rename]
+FAILED tests/test_hive_migrations.py::test_process_death_during_migration_recovers_old_or_new_schema[version]
+FAILED tests/test_hive_migrations.py::test_process_death_during_migration_recovers_old_or_new_schema[before_commit]
+FAILED tests/test_hive_migrations.py::test_process_death_during_migration_recovers_old_or_new_schema[after_commit]
+============================== 24 failed in 0.39s ==============================

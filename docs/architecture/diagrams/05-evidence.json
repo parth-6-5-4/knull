@@ -1,0 +1,285 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Evidence module | support before report",
+    "output": ".archify/architecture-knull-guide-20261020-121808/05-evidence/05-evidence.html",
+    "quality_profile": "showcase",
+    "locale": "en",
+    "repository": {
+      "url": "https://github.com/parth-6-5-4/knull.git",
+      "revision": "f4f541332b3f78a755bccc5f4890931b1b256d07",
+      "link_mode": "web"
+    }
+  },
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "Current checks",
+      "items": [
+        "Verbatim quotes do not establish correct interpretation.",
+        "Citation identifiers do not prove sentence-level support."
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Proposed isolation",
+      "items": [
+        "Each run owns its accepted evidence and provenance.",
+        "Stale or failed attempts must not publish accepted records."
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Unspecified policy",
+      "items": [
+        "High-impact verification thresholds need a contract and eval.",
+        "Provider failure must remain distinct from unsupported content."
+      ]
+    }
+  ],
+  "components": [
+    {
+      "id": "sources",
+      "type": "external",
+      "label": "Public sources",
+      "sublabel": "captured source material",
+      "pos": [
+        30,
+        40
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "app/hive/agents.py",
+          "line": 103,
+          "end_line": 109,
+          "label": "agents.py"
+        }
+      ],
+      "tag": "MIXED STATUS"
+    },
+    {
+      "id": "research",
+      "type": "backend",
+      "label": "Research candidate",
+      "sublabel": "claim + quote + provenance",
+      "pos": [
+        390,
+        40
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "app/hive/agents.py",
+          "line": 103,
+          "end_line": 109,
+          "label": "agents.py"
+        }
+      ]
+    },
+    {
+      "id": "publish",
+      "type": "security",
+      "label": "Evidence publication",
+      "sublabel": "run-owned fenced writes",
+      "pos": [
+        750,
+        40
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-evidence-isolation-design.md",
+          "line": 31,
+          "end_line": 45,
+          "label": "2026-10-19-evidence-isolation-design.md"
+        }
+      ]
+    },
+    {
+      "id": "snapshot",
+      "type": "database",
+      "label": "Evidence snapshot",
+      "sublabel": "immutable run scope",
+      "pos": [
+        750,
+        260
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-evidence-isolation-design.md",
+          "line": 31,
+          "end_line": 45,
+          "label": "2026-10-19-evidence-isolation-design.md"
+        }
+      ]
+    },
+    {
+      "id": "verifier",
+      "type": "security",
+      "label": "Independent verifier",
+      "sublabel": "meaning + failure state",
+      "pos": [
+        390,
+        260
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "app/hive/agents.py",
+          "line": 157,
+          "end_line": 163,
+          "label": "agents.py"
+        }
+      ]
+    },
+    {
+      "id": "assessment",
+      "type": "backend",
+      "label": "Assessment",
+      "sublabel": "support / uncertainty",
+      "pos": [
+        30,
+        260
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "app/hive/agents.py",
+          "line": 157,
+          "end_line": 163,
+          "label": "agents.py"
+        }
+      ]
+    },
+    {
+      "id": "writer",
+      "type": "backend",
+      "label": "Writer",
+      "sublabel": "uses accepted findings",
+      "pos": [
+        30,
+        480
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "app/hive/agents.py",
+          "line": 215,
+          "end_line": 221,
+          "label": "agents.py"
+        }
+      ]
+    },
+    {
+      "id": "support",
+      "type": "security",
+      "label": "Final support gate",
+      "sublabel": "HIVE-003: needs spec",
+      "pos": [
+        390,
+        480
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "docs/superpowers/README.md",
+          "line": 15,
+          "end_line": 21,
+          "label": "README.md"
+        }
+      ],
+      "tag": "BACKLOG"
+    },
+    {
+      "id": "report",
+      "type": "frontend",
+      "label": "Report outcome",
+      "sublabel": "complete / partial / stop",
+      "pos": [
+        750,
+        480
+      ],
+      "size": [
+        210,
+        78
+      ],
+      "sources": [
+        {
+          "path": "docs/superpowers/specs/2026-10-19-durable-runtime-design.md",
+          "line": 33,
+          "end_line": 37,
+          "label": "2026-10-19-durable-runtime-design.md"
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "from": "sources",
+      "to": "research",
+      "label": "extract"
+    },
+    {
+      "from": "research",
+      "to": "publish",
+      "label": "candidate"
+    },
+    {
+      "from": "publish",
+      "to": "snapshot",
+      "label": "accept"
+    },
+    {
+      "from": "snapshot",
+      "to": "verifier",
+      "label": "isolate"
+    },
+    {
+      "from": "verifier",
+      "to": "assessment",
+      "label": "assess"
+    },
+    {
+      "from": "assessment",
+      "to": "writer",
+      "label": "accepted"
+    },
+    {
+      "from": "writer",
+      "to": "support",
+      "label": "prose"
+    },
+    {
+      "from": "support",
+      "to": "report",
+      "label": "qualify"
+    }
+  ]
+}

@@ -1,0 +1,242 @@
+/opt/anaconda3/lib/python3.12/site-packages/pytest_asyncio/plugin.py:247: PytestDeprecationWarning: The configuration option "asyncio_default_fixture_loop_scope" is unset.
+The event loop scope for asynchronous fixtures will default to the fixture caching scope. Future versions of pytest-asyncio will default the loop scope for asynchronous fixtures to function scope. Set the default fixture loop scope explicitly in order to avoid unexpected behavior in the future. Valid fixture loop scopes are: "function", "class", "module", "package", "session"
+
+  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))
+============================= test session starts ==============================
+platform darwin -- Python 3.12.7, pytest-8.2.2, pluggy-1.6.0
+rootdir: /Users/parthsdambhare/hive-lite-v5
+configfile: pytest.ini
+plugins: mock-3.15.1, anyio-4.9.0, asyncio-1.3.0, cov-7.0.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 32 items
+
+tests/test_hive_resources.py EEEEEEEEEEEFEEEEEEEEEEEEEEEEEEEF            [100%]
+
+==================================== ERRORS ====================================
+_________ ERROR at setup of test_invalid_resource_values_are_atomic[0] _________
+tests/test_hive_resources.py:21: in ledger
+    store=resources(hive);store.create_root('root',run,100);attach_resource_run(hive,run)
+tests/test_hive_resources.py:14: in resources
+    from app.hive.resource_store import ResourceStore
+E   ModuleNotFoundError: No module named 'app.hive.resource_store'
+________ ERROR at setup of test_invalid_resource_values_are_atomic[-1] _________
+tests/test_hive_resources.py:21: in ledger
+    store=resources(hive);store.create_root('root',run,100);attach_resource_run(hive,run)
+tests/test_hive_resources.py:14: in resources
+    from app.hive.resource_store import ResourceStore
+E   ModuleNotFoundError: No module named 'app.hive.resource_store'
+_______ ERROR at setup of test_invalid_resource_values_are_atomic[True] ________
+tests/test_hive_resources.py:21: in ledger
+    store=resources(hive);store.create_root('root',run,100);attach_resource_run(hive,run)
+tests/test_hive_resources.py:14: in resources
+    from app.hive.resource_store import ResourceStore
+E   ModuleNotFoundError: No module named 'app.hive.resource_store'
+________ ERROR at setup of test_invalid_resource_values_are_atomic[1.5] ________
+tests/test_hive_resources.py:21: in ledger
+    store=resources(hive);store.create_root('root',run,100);attach_resource_run(hive,run)
+tests/test_hive_resources.py:14: in resources
+    from app.hive.resource_store import ResourceStore
+E   ModuleNotFoundError: No module named 'app.hive.resource_store'
+_ ERROR at setup of test_invalid_resource_values_are_atomic[9223372036854775808] _
+tests/test_hive_resources.py:21: in ledger
+    store=resources(hive);store.create_root('root',run,100);attach_resource_run(hive,run)
+tests/test_hive_resources.py:14: in resources
+    from app.hive.resource_store import ResourceStore
+E   ModuleNotFoundError: No module named 'app.hive.resource_store'
+________ ERROR at setup of test_invalid_resource_values_are_atomic[10] _________
+tests/test_hive_resources.py:21: in ledger
+    store=resources(hive);store.create_root('root',run,100);attach_resource_run(hive,run)
+tests/test_hive_resources.py:14: in resources
+    from app.hive.resource_store import ResourceStore
+E   ModuleNotFoundError: No module named 'app.hive.resource_store'
+_______ ERROR at setup of test_invalid_resource_values_are_atomic[None] ________
+tests/test_hive_resources.py:21: in ledger
+    store=resources(hive);store.create_root('root',run,100);attach_resource_run(hive,run)
+tests/test_hive_resources.py:14: in resources
+    from app.hive.resource_store import ResourceStore
+E   ModuleNotFoundError: No module named 'app.hive.resource_store'
+___________ ERROR at setup of test_nested_grants_conserve_authority ____________
+tests/test_hive_resources.py:21: in ledger
+    store=resources(hive);store.create_root('root',run,100);attach_resource_run(hive,run)
+tests/test_hive_resources.py:14: in resources
+    from app.hive.resource_store import ResourceStore
+E   ModuleNotFoundError: No module named 'app.hive.resource_store'
+____________ ERROR at setup of test_close_returns_only_unused_grant ____________
+tests/test_hive_resources.py:21: in ledger
+    store=resources(hive);store.create_root('root',run,100);attach_resource_run(hive,run)
+tests/test_hive_resources.py:14: in resources
+    from app.hive.resource_store import ResourceStore
+E   ModuleNotFoundError: No module named 'app.hive.resource_store'
+________________ ERROR at setup of test_call_transition_matrix _________________
+tests/test_hive_resources.py:21: in ledger
+    store=resources(hive);store.create_root('root',run,100);attach_resource_run(hive,run)
+tests/test_hive_resources.py:14: in resources
+    from app.hive.resource_store import ResourceStore
+E   ModuleNotFoundError: No module named 'app.hive.resource_store'
+___________ ERROR at setup of test_overrun_freezes_root_and_siblings ___________
+tests/test_hive_resources.py:21: in ledger
+    store=resources(hive);store.create_root('root',run,100);attach_resource_run(hive,run)
+tests/test_hive_resources.py:14: in resources
+    from app.hive.resource_store import ResourceStore
+E   ModuleNotFoundError: No module named 'app.hive.resource_store'
+_ ERROR at setup of test_call_identity_binds_request_and_assignment[request_fingerprint-changed] _
+tests/test_hive_resources.py:21: in ledger
+    store=resources(hive);store.create_root('root',run,100);attach_resource_run(hive,run)
+tests/test_hive_resources.py:14: in resources
+    from app.hive.resource_store import ResourceStore
+E   ModuleNotFoundError: No module named 'app.hive.resource_store'
+_ ERROR at setup of test_call_identity_binds_request_and_assignment[endpoint_id-other] _
+tests/test_hive_resources.py:21: in ledger
+    store=resources(hive);store.create_root('root',run,100);attach_resource_run(hive,run)
+tests/test_hive_resources.py:14: in resources
+    from app.hive.resource_store import ResourceStore
+E   ModuleNotFoundError: No module named 'app.hive.resource_store'
+_ ERROR at setup of test_call_identity_binds_request_and_assignment[provider-other] _
+tests/test_hive_resources.py:21: in ledger
+    store=resources(hive);store.create_root('root',run,100);attach_resource_run(hive,run)
+tests/test_hive_resources.py:14: in resources
+    from app.hive.resource_store import ResourceStore
+E   ModuleNotFoundError: No module named 'app.hive.resource_store'
+_ ERROR at setup of test_call_identity_binds_request_and_assignment[model-other] _
+tests/test_hive_resources.py:21: in ledger
+    store=resources(hive);store.create_root('root',run,100);attach_resource_run(hive,run)
+tests/test_hive_resources.py:14: in resources
+    from app.hive.resource_store import ResourceStore
+E   ModuleNotFoundError: No module named 'app.hive.resource_store'
+_ ERROR at setup of test_call_identity_binds_request_and_assignment[sdk_version-other] _
+tests/test_hive_resources.py:21: in ledger
+    store=resources(hive);store.create_root('root',run,100);attach_resource_run(hive,run)
+tests/test_hive_resources.py:14: in resources
+    from app.hive.resource_store import ResourceStore
+E   ModuleNotFoundError: No module named 'app.hive.resource_store'
+_ ERROR at setup of test_call_identity_binds_request_and_assignment[budget_mode-estimated] _
+tests/test_hive_resources.py:21: in ledger
+    store=resources(hive);store.create_root('root',run,100);attach_resource_run(hive,run)
+tests/test_hive_resources.py:14: in resources
+    from app.hive.resource_store import ResourceStore
+E   ModuleNotFoundError: No module named 'app.hive.resource_store'
+_ ERROR at setup of test_call_identity_binds_request_and_assignment[profile_digest-other] _
+tests/test_hive_resources.py:21: in ledger
+    store=resources(hive);store.create_root('root',run,100);attach_resource_run(hive,run)
+tests/test_hive_resources.py:14: in resources
+    from app.hive.resource_store import ResourceStore
+E   ModuleNotFoundError: No module named 'app.hive.resource_store'
+_ ERROR at setup of test_call_identity_binds_request_and_assignment[bound_tokens-51] _
+tests/test_hive_resources.py:21: in ledger
+    store=resources(hive);store.create_root('root',run,100);attach_resource_run(hive,run)
+tests/test_hive_resources.py:14: in resources
+    from app.hive.resource_store import ResourceStore
+E   ModuleNotFoundError: No module named 'app.hive.resource_store'
+_ ERROR at setup of test_call_identity_binds_request_and_assignment[max_output_tokens-11] _
+tests/test_hive_resources.py:21: in ledger
+    store=resources(hive);store.create_root('root',run,100);attach_resource_run(hive,run)
+tests/test_hive_resources.py:14: in resources
+    from app.hive.resource_store import ResourceStore
+E   ModuleNotFoundError: No module named 'app.hive.resource_store'
+_ ERROR at setup of test_call_identity_binds_request_and_assignment[temperature-0.3] _
+tests/test_hive_resources.py:21: in ledger
+    store=resources(hive);store.create_root('root',run,100);attach_resource_run(hive,run)
+tests/test_hive_resources.py:14: in resources
+    from app.hive.resource_store import ResourceStore
+E   ModuleNotFoundError: No module named 'app.hive.resource_store'
+____ ERROR at setup of test_terminal_partial_receipt_releases_only_capacity ____
+tests/test_hive_resources.py:21: in ledger
+    store=resources(hive);store.create_root('root',run,100);attach_resource_run(hive,run)
+tests/test_hive_resources.py:14: in resources
+    from app.hive.resource_store import ResourceStore
+E   ModuleNotFoundError: No module named 'app.hive.resource_store'
+____ ERROR at setup of test_partial_overrun_is_lower_bound_not_double_hold _____
+tests/test_hive_resources.py:21: in ledger
+    store=resources(hive);store.create_root('root',run,100);attach_resource_run(hive,run)
+tests/test_hive_resources.py:14: in resources
+    from app.hive.resource_store import ResourceStore
+E   ModuleNotFoundError: No module named 'app.hive.resource_store'
+_____________ ERROR at setup of test_receipt_replay_is_idempotent ______________
+tests/test_hive_resources.py:21: in ledger
+    store=resources(hive);store.create_root('root',run,100);attach_resource_run(hive,run)
+tests/test_hive_resources.py:14: in resources
+    from app.hive.resource_store import ResourceStore
+E   ModuleNotFoundError: No module named 'app.hive.resource_store'
+_____________ ERROR at setup of test_unknown_child_prevents_close ______________
+tests/test_hive_resources.py:21: in ledger
+    store=resources(hive);store.create_root('root',run,100);attach_resource_run(hive,run)
+tests/test_hive_resources.py:14: in resources
+    from app.hive.resource_store import ResourceStore
+E   ModuleNotFoundError: No module named 'app.hive.resource_store'
+_____ ERROR at setup of test_competing_process_grants_cannot_overallocate ______
+tests/test_hive_resources.py:21: in ledger
+    store=resources(hive);store.create_root('root',run,100);attach_resource_run(hive,run)
+tests/test_hive_resources.py:14: in resources
+    from app.hive.resource_store import ResourceStore
+E   ModuleNotFoundError: No module named 'app.hive.resource_store'
+_________ ERROR at setup of test_release_dispatch_race_has_one_winner __________
+tests/test_hive_resources.py:21: in ledger
+    store=resources(hive);store.create_root('root',run,100);attach_resource_run(hive,run)
+tests/test_hive_resources.py:14: in resources
+    from app.hive.resource_store import ResourceStore
+E   ModuleNotFoundError: No module named 'app.hive.resource_store'
+________ ERROR at setup of test_crash_reopen_retains_dispatched_charge _________
+tests/test_hive_resources.py:21: in ledger
+    store=resources(hive);store.create_root('root',run,100);attach_resource_run(hive,run)
+tests/test_hive_resources.py:14: in resources
+    from app.hive.resource_store import ResourceStore
+E   ModuleNotFoundError: No module named 'app.hive.resource_store'
+_____ ERROR at setup of test_resource_busy_is_atomic_and_retryable[reader] _____
+tests/test_hive_resources.py:21: in ledger
+    store=resources(hive);store.create_root('root',run,100);attach_resource_run(hive,run)
+tests/test_hive_resources.py:14: in resources
+    from app.hive.resource_store import ResourceStore
+E   ModuleNotFoundError: No module named 'app.hive.resource_store'
+_____ ERROR at setup of test_resource_busy_is_atomic_and_retryable[writer] _____
+tests/test_hive_resources.py:21: in ledger
+    store=resources(hive);store.create_root('root',run,100);attach_resource_run(hive,run)
+tests/test_hive_resources.py:14: in resources
+    from app.hive.resource_store import ResourceStore
+E   ModuleNotFoundError: No module named 'app.hive.resource_store'
+=================================== FAILURES ===================================
+___________________ test_resource_integer_overflow_is_atomic ___________________
+tests/test_hive_resources.py:108: in test_resource_integer_overflow_is_atomic
+    hive=HiveStore(str(tmp_path/'overflow.db'));run=hive.create_run('o',MAX_INT64);store=resources(hive)
+tests/test_hive_resources.py:14: in resources
+    from app.hive.resource_store import ResourceStore
+E   ModuleNotFoundError: No module named 'app.hive.resource_store'
+______________ test_historical_inspection_never_invents_allowance ______________
+tests/test_hive_resources.py:278: in test_historical_inspection_never_invents_allowance
+    info=resources(hive).inspect(run)
+tests/test_hive_resources.py:14: in resources
+    from app.hive.resource_store import ResourceStore
+E   ModuleNotFoundError: No module named 'app.hive.resource_store'
+=========================== short test summary info ============================
+FAILED tests/test_hive_resources.py::test_resource_integer_overflow_is_atomic
+FAILED tests/test_hive_resources.py::test_historical_inspection_never_invents_allowance
+ERROR tests/test_hive_resources.py::test_invalid_resource_values_are_atomic[0]
+ERROR tests/test_hive_resources.py::test_invalid_resource_values_are_atomic[-1]
+ERROR tests/test_hive_resources.py::test_invalid_resource_values_are_atomic[True]
+ERROR tests/test_hive_resources.py::test_invalid_resource_values_are_atomic[1.5]
+ERROR tests/test_hive_resources.py::test_invalid_resource_values_are_atomic[9223372036854775808]
+ERROR tests/test_hive_resources.py::test_invalid_resource_values_are_atomic[10]
+ERROR tests/test_hive_resources.py::test_invalid_resource_values_are_atomic[None]
+ERROR tests/test_hive_resources.py::test_nested_grants_conserve_authority - M...
+ERROR tests/test_hive_resources.py::test_close_returns_only_unused_grant - Mo...
+ERROR tests/test_hive_resources.py::test_call_transition_matrix - ModuleNotFo...
+ERROR tests/test_hive_resources.py::test_overrun_freezes_root_and_siblings - ...
+ERROR tests/test_hive_resources.py::test_call_identity_binds_request_and_assignment[request_fingerprint-changed]
+ERROR tests/test_hive_resources.py::test_call_identity_binds_request_and_assignment[endpoint_id-other]
+ERROR tests/test_hive_resources.py::test_call_identity_binds_request_and_assignment[provider-other]
+ERROR tests/test_hive_resources.py::test_call_identity_binds_request_and_assignment[model-other]
+ERROR tests/test_hive_resources.py::test_call_identity_binds_request_and_assignment[sdk_version-other]
+ERROR tests/test_hive_resources.py::test_call_identity_binds_request_and_assignment[budget_mode-estimated]
+ERROR tests/test_hive_resources.py::test_call_identity_binds_request_and_assignment[profile_digest-other]
+ERROR tests/test_hive_resources.py::test_call_identity_binds_request_and_assignment[bound_tokens-51]
+ERROR tests/test_hive_resources.py::test_call_identity_binds_request_and_assignment[max_output_tokens-11]
+ERROR tests/test_hive_resources.py::test_call_identity_binds_request_and_assignment[temperature-0.3]
+ERROR tests/test_hive_resources.py::test_terminal_partial_receipt_releases_only_capacity
+ERROR tests/test_hive_resources.py::test_partial_overrun_is_lower_bound_not_double_hold
+ERROR tests/test_hive_resources.py::test_receipt_replay_is_idempotent - Modul...
+ERROR tests/test_hive_resources.py::test_unknown_child_prevents_close - Modul...
+ERROR tests/test_hive_resources.py::test_competing_process_grants_cannot_overallocate
+ERROR tests/test_hive_resources.py::test_release_dispatch_race_has_one_winner
+ERROR tests/test_hive_resources.py::test_crash_reopen_retains_dispatched_charge
+ERROR tests/test_hive_resources.py::test_resource_busy_is_atomic_and_retryable[reader]
+ERROR tests/test_hive_resources.py::test_resource_busy_is_atomic_and_retryable[writer]
+========================= 2 failed, 30 errors in 0.55s =========================

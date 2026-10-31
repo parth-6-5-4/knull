@@ -4,15 +4,15 @@ Hive Lite uses Superpowers to move changes from intent through reviewed specific
 
 ## Authoritative documents
 
-| Document | Responsibility |
-|---|---|
-| [AGENTS.md](../AGENTS.md) | Agent entry point, conditional context pointers, project constraints |
-| [CONTEXT.md](../CONTEXT.md) | Domain vocabulary |
-| This file | Development stages, review gates, and completion criteria |
-| [Spec index](superpowers/README.md) | Current work, status, dependencies, and next stage |
-| `docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md` | Intended behavior, scope, invariants, interfaces, acceptance criteria, and trade-offs |
-| `docs/superpowers/plans/YYYY-MM-DD-<topic>.md` | Implementation steps, requirement coverage, execution progress, and verification evidence |
-| [Architecture review](reviews/hive-modularization-review.md) | Dated observations, reproduced defects, proposed fixes, and migration context |
+| Document                                                    | Responsibility                                                                            |
+| ----------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| [AGENTS.md](../AGENTS.md)                                    | Agent entry point, conditional context pointers, project constraints                      |
+| [CONTEXT.md](../CONTEXT.md)                                  | Domain vocabulary                                                                         |
+| This file                                                   | Development stages, review gates, and completion criteria                                 |
+| [Spec index](superpowers/README.md)                         | Current work, status, dependencies, and next stage                                        |
+| `docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md`     | Intended behavior, scope, invariants, interfaces, acceptance criteria, and trade-offs     |
+| ` docs/superpowers/plans/YYYY-MM-DD-<topic>.md`           | Implementation steps, requirement coverage, execution progress, and verification evidence |
+| [Architecture review](reviews/hive-modularization-review.md) | Dated observations, reproduced defects,   3e  proposed fixes, and migration context    |
 
 Specs define what must hold. Plans define how a specific change will establish it. Tests supply executable evidence. Current source establishes what exists today; an unimplemented spec must not be described as current behavior.
 
@@ -20,13 +20,13 @@ Specs define what must hold. Plans define how a specific change will establish i
 
 Use Superpowers `brainstorming` to classify each request.
 
-| Class | Required artifact | Before implementation |
-|---|---|---|
-| Read-only investigation | Findings with source evidence | No product implementation |
-| Spike | One question and a bounded probe, recorded in discussion | User approves probe; output stays throwaway |
-| Bounded behavior change | Short design with explicit expected behavior and acceptance checks in discussion, issue, or PR | User approves that design; no separate implementation-plan file required |
-| Architectural or multi-module change | Written design spec, then a linked implementation plan | User reviews spec; then reviews plan and selects execution method |
-| Documentation/formatting only | Describe intent and verify links/content or formatting | Existing task authorization suffices; no product tests or feature spec for a typo |
+| Class                                | Required artifact                                                                              | Before implementation                                                             |
+| ------------------------------------ | ---------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| Read-only investigation              | Findings with source evidence                                                                  | No product implementation                                                         |
+| Spike                                | One question and a bounded probe, recorded in discussion                                       | User approves probe; output stays throwaway                                       |
+| Bounded behavior change              | Short design with explicit expected behavior and acceptance checks in discussion, issue, or PR | User approves that design; no separate implementation-plan file required          |
+| Architectural or multi-module change | Written design spec, then a linked implementation plan                                         | User reviews spec; then reviews plan and selects execution method                 |
+| Documentation/formatting only        | Describe intent and verify links/content or formatting                                         | Existing task authorization suffices; no product tests or feature spec for a typo |
 
 The bounded design is the specification for a small change. Promote to a full file if interfaces, persistence, concurrency, permissions, spend, or scope introduce architectural uncertainty. Split large programs into independently reviewable specs; do not write one implementation plan for the entire modular hive.
 
@@ -49,16 +49,16 @@ When scope changes, update the spec before continuing dependent work. A change w
 
 Use these index states consistently:
 
-| State | Meaning / required evidence |
-|---|---|
-| Backlog | Work identified; no written spec yet |
-| Draft | Written design exists; user approval pending |
-| Spec approved | User approved a particular design revision; planning may begin |
-| Plan review | Plan exists and self-review is complete; user review/execution choice pending |
-| Ready | Plan approved and execution method recorded |
-| In progress | Approved implementation underway |
-| Verified | Acceptance criteria and required checks completed with recorded evidence |
-| Superseded | Another spec replaces this one; link replacement and explain compatibility |
+| State         | Meaning / required evidence                                                   |
+| ------------- | ----------------------------------------------------------------------------- |
+| Backlog       | Work identified; no written spec yet                                          |
+| Draft         | Written design exists; user approval pending                                  |
+| Spec approved | User approved a particular design revision; planning may begin                |
+| Plan review   | Plan exists and self-review is complete; user review/execution choice pending |
+| Ready         | Plan approved and execution method recorded                                   |
+| In progress   | Approved implementation underway                                              |
+| Verified      | Acceptance criteria and required checks completed with recorded evidence      |
+| Superseded    | Another spec replaces this one; link replacement and explain compatibility    |
 
 Spec header records spec status/approval. Index records overall delivery state. Plan header records plan review/execution method; plan checklist records actual task progress. Never advance a state from elapsed time, silence, a tool's success message, or an assumption of approval.
 

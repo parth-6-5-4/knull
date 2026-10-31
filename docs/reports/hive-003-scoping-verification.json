@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-20",
+  "documents_checked": 5,
+  "local_links_checked": 84,
+  "unique_requirements": 12,
+  "diagnosis_runs_checked": 2,
+  "gate_probes_per_run": 6,
+  "full_mock_runs_per_run": 3,
+  "source_fingerprints_match": true,
+  "probe_syntax": "valid",
+  "status": "documentation and defect-reproduction checks passed; runtime fixes not implemented",
+  "checker_note": "Initial helper counted REP-11 in the verification matrix as a declaration; corrected helper scopes requirement declarations to the requirements section. No design change required."
+}

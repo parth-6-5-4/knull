@@ -6,7 +6,7 @@ import pytest
 from app.hive import run_hive
 from app.hive.store import HiveStore
 from app.hive.watchdog import is_looping
-from app.hive.agents import final_gate, parse_json
+from app.hive.agents import parse_json
 from app.llm import LLMConfig, LLMRouter, ModelSpec, set_router
 from app.llm.config import load_llm_config
 
@@ -29,7 +29,7 @@ def routed_config() -> LLMConfig:
                      agents={"writer": m("m-writer")})
 
 
-def make_handler(bad_quote=False, bad_verdict=False, uncited=False):
+def make_handler(bad_quote=False, bad_verdict=False, malformed_writer=False):
     def h(spec, messages):
         sysmsg = messages[0]["content"]
         user = messages[-1]["content"]
@@ -51,11 +51,10 @@ def make_handler(bad_quote=False, bad_verdict=False, uncited=False):
                 return json.dumps({"verdict": "unsupported", "note": "overstated"})
             return json.dumps({"verdict": "supported", "note": "ok"})
         if "writer symbiote" in sysmsg:
-            facts = re.findall(r"\[(F-[0-9a-f]{8})\] (.*)", user)
-            body = "## Findings\n" + " ".join(f"{c} [{i}]" for i, c in facts)
-            if uncited:
-                body += " This sentence has no citation. This one cites a fake fact [F-deadbeef]."
-            return body
+            facts = json.loads(user)["candidates"]
+            if malformed_writer:
+                return "Unsupported prose with a fake fact [F-deadbeef]."
+            return json.dumps({"fact_ids": [fact["id"] for fact in facts]})
         return "{}"
     return h
 
@@ -137,12 +136,6 @@ def test_looping_detector():
     assert not is_looping(["alpha beta", "gamma delta", "epsilon zeta"])
 
 
-def test_final_gate_removes_uncited_and_unverified():
-    body, gate = final_gate("## Findings\nGood claim [F-aaaaaaaa]. Unsupported prose here. Fake [F-bbbbbbbb].", {"F-aaaaaaaa"})
-    assert "Good claim" in body and "Unsupported" not in body and "Fake" not in body
-    assert not gate["passed"] and len(gate["removed_uncited_or_unverified"]) == 2
-
-
 def test_parse_json_tolerant():
     assert parse_json('Sure!\n```json\n{"a": 1}\n```') == {"a": 1}
     assert parse_json("no json") is None
@@ -175,11 +168,13 @@ async def test_verifier_rejection_keeps_claim_out_of_report():
     assert r.facts_verified == 1 and r.facts_rejected == 1 and "Caching" not in r.report
 
 
-async def test_writer_uncited_sentences_are_stripped():
-    set_router(LLMRouter(routed_config(), mock_handler=make_handler(uncited=True)))
+async def test_writer_malformed_selection_is_rejected_whole():
+    set_router(LLMRouter(routed_config(), mock_handler=make_handler(malformed_writer=True)))
     r = await run_hive("x", workers=1, max_subtasks=1, search=fake_search, tick_s=0.01)
     set_router(None)
-    assert r.status == "done_with_removals" and "no citation" not in r.report and "deadbeef" not in r.report
+    assert r.status == "blocked" and r.report == ""
+    assert r.facts_verified == 2 and r.facts_rejected == 0
+    assert any(e["kind"] == "task_error" and e["code"] == "report_selection_invalid" for e in r.events)
 
 
 async def test_budget_cap_stops_run_instead_of_reporting_done():
@@ -199,3 +194,33 @@ async def test_worker_crash_is_requeued_and_run_completes(router):
         return SRC
     r = await run_hive("x", workers=1, max_subtasks=1, search=flaky, tick_s=0.01)
     assert r.status == "done" and any(e["kind"] == "task_error" for e in r.events)
+
+
+@pytest.mark.parametrize('changed',[False,True],ids=['repeated-source','changed-source'])
+async def test_repeated_source_runs_share_file_store(tmp_path, changed):
+    store=HiveStore(str(tmp_path/'runs.db'))
+    verifier_inputs=[]; expected_marker=['snapshot one']
+    handler=make_handler()
+    def recording_handler(spec,messages):
+        if 'verifier' in messages[0]['content']:
+            verifier_inputs.append(messages[-1]['content'])
+            assert expected_marker[0] in messages[-1]['content']
+        return handler(spec,messages)
+    async def search(q,n):
+        return [{**s,'abstract':s['abstract']+' '+expected_marker[0]} for s in SRC]
+    set_router(LLMRouter(routed_config(),mock_handler=recording_handler))
+    try:
+        first=await run_hive('first objective',store,workers=2,max_subtasks=1,search=search,tick_s=.01)
+        expected_marker[0]='snapshot two' if changed else 'snapshot one'
+        second=await run_hive('second objective',store,workers=2,max_subtasks=1,search=search,tick_s=.01)
+        assert first.run_id!=second.run_id
+        assert first.status==second.status=='done'
+        assert first.facts_verified==second.facts_verified==2
+        assert '[F-' in first.report and '[F-' in second.report
+        assert len(store.evidence(first.run_id))==len(store.evidence(second.run_id))==2
+        assert len(verifier_inputs)==4
+        if changed:
+            assert all('snapshot two' not in e['text'] for e in store.evidence(first.run_id))
+            assert all('snapshot one' not in e['text'] for e in store.evidence(second.run_id))
+    finally:
+        set_router(None); store.db.close()

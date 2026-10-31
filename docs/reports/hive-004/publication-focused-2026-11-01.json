@@ -1,0 +1,28 @@
+{
+  "publication_date": "2026-11-01",
+  "argv": [
+    "/opt/anaconda3/bin/python",
+    "-m",
+    "pytest",
+    "tests/test_hive_resources.py",
+    "tests/test_hive_resource_migrations.py",
+    "tests/test_hive_report_store.py",
+    "-q"
+  ],
+  "env_overrides": {
+    "DEBUG": "false",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "exit_code": 0,
+  "log": "publication-focused-2026-11-01.log",
+  "started_epoch": 1793474395.474795,
+  "ended_epoch": 1793474400.810791,
+  "source_sha256": {
+    "app/hive/resource_store.py": "33630e77d5f016b4b7f5da6f03888275528d5a037562c12c3fa92359e5a33c5e",
+    "tests/test_hive_resources.py": "446c25661423b1369cfc7fbe4bb8d0b7aad81cf0165ff27353cfa360bf69dc66",
+    "app/hive/store.py": "c694b023327c0a6b5b587a77354de8024d31ce2ea21b4ab7fa55a633dce8149b",
+    "tests/hive_resource_testkit.py": "fa7bcb8b4a444e76e0405af1630a6360fa8fb27ab1ca920276209669bb51ad30",
+    "app/hive/resource_schema.py": "3c3a717157519dc674c7ceb95e239dc02a1f90fb5076ffb6b4549bdfc1a39a05",
+    "tests/test_hive_resource_migrations.py": "466d08f47b9c8d53841158ca3482e262096e5c32931d8fd9501771c059be6a6c"
+  }
+}

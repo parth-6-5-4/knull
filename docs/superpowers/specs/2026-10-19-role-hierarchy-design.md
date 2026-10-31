@@ -10,7 +10,7 @@
 
 ## Intent and current behavior
 
-Spin specialist invocations from task demand, with optional branch coordination and explicit authority. Today every worker handles research/verify/else-write in one runner closure. There is no role registry, parent link, branch aggregation or delegated allowance. [Audit F9/F11](../../reviews/hive-modularization-review.md).
+Spin specialist invocations from task demand, with optional branch coordination and explicit authority. Today the lite runner has explicit fixed research/verify/write handlers; HIVE-002 rejects unknown kinds. There is no role registry, parent link, branch aggregation or delegated allowance. [Audit F9/F11](../../reviews/hive-modularization-review.md).
 
 “Spin an agent” means create a task-scoped invocation with a pinned role/context/tool manifest on an admitted worker. It does not mean launch an unbounded process, self-install a skill or give an LLM the root coordinator's entire authority. [Domain vocabulary](../../../CONTEXT.md).
 

@@ -1,0 +1,35 @@
+/opt/anaconda3/lib/python3.12/site-packages/pytest_asyncio/plugin.py:247: PytestDeprecationWarning: The configuration option "asyncio_default_fixture_loop_scope" is unset.
+The event loop scope for asynchronous fixtures will default to the fixture caching scope. Future versions of pytest-asyncio will default the loop scope for asynchronous fixtures to function scope. Set the default fixture loop scope explicitly in order to avoid unexpected behavior in the future. Valid fixture loop scopes are: "function", "class", "module", "package", "session"
+
+  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))
+============================= test session starts ==============================
+platform darwin -- Python 3.12.7, pytest-8.2.2, pluggy-1.6.0
+rootdir: /Users/parthsdambhare/hive-lite-v5
+configfile: pytest.ini
+plugins: mock-3.15.1, anyio-4.9.0, asyncio-1.3.0, cov-7.0.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 35 items / 34 deselected / 1 selected
+
+tests/test_hive_execution.py F                                           [100%]
+
+=================================== FAILURES ===================================
+__________ test_zero_retry_router_failure_has_no_post_failure_backoff __________
+/opt/anaconda3/lib/python3.12/asyncio/tasks.py:520: in wait_for
+    return await fut
+app/llm/router.py:172: in complete
+    await asyncio.sleep(min(2 ** attempt, 8))
+/opt/anaconda3/lib/python3.12/asyncio/tasks.py:665: in sleep
+    return await future
+E   asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+tests/test_hive_execution.py:270: in test_zero_retry_router_failure_has_no_post_failure_backoff
+    await asyncio.wait_for(router.complete([{'role':'user','content':'x'}],retries=0),.1)
+/opt/anaconda3/lib/python3.12/asyncio/tasks.py:519: in wait_for
+    async with timeouts.timeout(timeout):
+/opt/anaconda3/lib/python3.12/asyncio/timeouts.py:115: in __aexit__
+    raise TimeoutError from exc_val
+E   TimeoutError
+=========================== short test summary info ============================
+FAILED tests/test_hive_execution.py::test_zero_retry_router_failure_has_no_post_failure_backoff
+======================= 1 failed, 34 deselected in 0.32s =======================

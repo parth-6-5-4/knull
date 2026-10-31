@@ -4,6 +4,7 @@
 
 - Before changing behavior, architecture, interfaces, dependencies, or operational configuration, read [the development workflow](docs/DEVELOPMENT.md) and [the spec index](docs/superpowers/README.md). Resume the relevant spec's current stage.
 - For domain terms and relationships, read [CONTEXT.md](CONTEXT.md).
+- For a beginner overview, module ownership or an implementation handoff, read [ARCHITECTURE.md](ARCHITECTURE.md) and its [visual atlas](docs/architecture/index.html). These explain current code and proposed contracts; the spec index remains authoritative for delivery state.
 - When tracing existing code relationships, use [the knowledge graph guide](docs/knowledge-graph.md) and installed Graphify skill if available. Check snapshot freshness and verify graph-derived claims against current source; the code graph does not encode draft specifications.
 - For orchestration, persistence, verification, routing, hierarchy, or scaling work, read [the architecture review](docs/reviews/hive-modularization-review.md). Its findings are evidence and proposals; spec approval establishes the intended behavior.
 - When investigating problems, scoping fixes, or changing affected code, maintain [the problems/fixes register](docs/reports/problems-and-fixes.md) using the reporting rules in `docs/DEVELOPMENT.md`.
@@ -24,6 +25,7 @@ Skill discovery and missing-skill handling are documented in `docs/DEVELOPMENT.m
 - The hive and legacy LangGraph are separate execution paths. Identify which one each change affects and verify the entrypoint actually used.
 - Update the governing spec when intended behavior changes. Keep implementation checklists and executed verification evidence in the linked plan.
 - Check the actual Git root before worktree, staging, commit, or push operations. Operate on a project-owned checkout; do not stage unrelated parent-directory content.
+- Before staging or pushing, apply [the local-only publication rules](docs/LOCAL_ONLY.md). Keep personal host configuration, agent scratch workspaces, query history and runtime data out of commits; inspect already tracked files as well as ignore rules.
 
 ## Completion
 

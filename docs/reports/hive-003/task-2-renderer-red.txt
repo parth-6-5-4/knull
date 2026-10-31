@@ -1,0 +1,488 @@
+/opt/anaconda3/lib/python3.12/site-packages/pytest_asyncio/plugin.py:247: PytestDeprecationWarning: The configuration option "asyncio_default_fixture_loop_scope" is unset.
+The event loop scope for asynchronous fixtures will default to the fixture caching scope. Future versions of pytest-asyncio will default the loop scope for asynchronous fixtures to function scope. Set the default fixture loop scope explicitly in order to avoid unexpected behavior in the future. Valid fixture loop scopes are: "function", "class", "module", "package", "session"
+
+  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))
+============================= test session starts ==============================
+platform darwin -- Python 3.12.7, pytest-8.2.2, pluggy-1.6.0
+rootdir: /Users/parthsdambhare/hive-lite-v5
+configfile: pytest.ini
+plugins: mock-3.15.1, anyio-4.9.0, asyncio-1.3.0, cov-7.0.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 47 items
+
+tests/test_hive_reports.py FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF [ 95%]
+FF                                                                       [100%]
+
+=================================== FAILURES ===================================
+____________________ test_render_uses_only_selected_claims _____________________
+tests/test_hive_reports.py:36: in test_render_uses_only_selected_claims
+    report, gate = render(s, ("F-one",))
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+_____________________ test_sources_match_selected_findings _____________________
+tests/test_hive_reports.py:60: in test_sources_match_selected_findings
+    report, gate = render(snapshot([row(), row("F-two", claim="Second finding.",
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+_____ test_shared_evidence_and_legacy_ids_keep_distinct_ordinal_references _____
+tests/test_hive_reports.py:71: in test_shared_evidence_and_legacy_ids_keep_distinct_ordinal_references
+    report, gate = render(snapshot([row(hostile_id), row("F-two", claim="Distinct claim.")]),
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+_______________ test_direct_renderer_revalidates_selection[ids0] _______________
+tests/test_hive_reports.py:83: in test_direct_renderer_revalidates_selection
+    render(snapshot(), ids)
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+_______________ test_direct_renderer_revalidates_selection[ids1] _______________
+tests/test_hive_reports.py:83: in test_direct_renderer_revalidates_selection
+    render(snapshot(), ids)
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+_______________ test_direct_renderer_revalidates_selection[ids2] _______________
+tests/test_hive_reports.py:83: in test_direct_renderer_revalidates_selection
+    render(snapshot(), ids)
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+_______________ test_direct_renderer_revalidates_selection[ids3] _______________
+tests/test_hive_reports.py:83: in test_direct_renderer_revalidates_selection
+    render(snapshot(), ids)
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+_______________ test_direct_renderer_revalidates_selection[ids4] _______________
+tests/test_hive_reports.py:83: in test_direct_renderer_revalidates_selection
+    render(snapshot(), ids)
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+_______________ test_direct_renderer_revalidates_selection[ids5] _______________
+tests/test_hive_reports.py:83: in test_direct_renderer_revalidates_selection
+    render(snapshot(), ids)
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+____ test_empty_report_has_no_supporting_artifact[rows0-no_verified_facts] _____
+tests/test_hive_reports.py:88: in test_empty_report_has_no_supporting_artifact
+    report, gate = render(snapshot(rows), ())
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+___ test_empty_report_has_no_supporting_artifact[rows1-no_selected_findings] ___
+tests/test_hive_reports.py:88: in test_empty_report_has_no_supporting_artifact
+    report, gate = render(snapshot(rows), ())
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+________________ test_unsafe_url_is_inert[javascript:alert(1)] _________________
+tests/test_hive_reports.py:108: in test_unsafe_url_is_inert
+    report, gate = render(snapshot([row(url=url)]), ("F-one",))
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+_________________ test_unsafe_url_is_inert[data:text/html,hi] __________________
+tests/test_hive_reports.py:108: in test_unsafe_url_is_inert
+    report, gate = render(snapshot([row(url=url)]), ("F-one",))
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+_________________ test_unsafe_url_is_inert[file:///etc/passwd] _________________
+tests/test_hive_reports.py:108: in test_unsafe_url_is_inert
+    report, gate = render(snapshot([row(url=url)]), ("F-one",))
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+__________________ test_unsafe_url_is_inert[//example.org/x] ___________________
+tests/test_hive_reports.py:108: in test_unsafe_url_is_inert
+    report, gate = render(snapshot([row(url=url)]), ("F-one",))
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+_________ test_unsafe_url_is_inert[https://user:password@example.org/] _________
+tests/test_hive_reports.py:108: in test_unsafe_url_is_inert
+    report, gate = render(snapshot([row(url=url)]), ("F-one",))
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+_____________ test_unsafe_url_is_inert[https://user@example.org/] ______________
+tests/test_hive_reports.py:108: in test_unsafe_url_is_inert
+    report, gate = render(snapshot([row(url=url)]), ("F-one",))
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+______________ test_unsafe_url_is_inert[https://example.org/a b] _______________
+tests/test_hive_reports.py:108: in test_unsafe_url_is_inert
+    report, gate = render(snapshot([row(url=url)]), ("F-one",))
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+____________ test_unsafe_url_is_inert[https://example.org/\nattack] ____________
+tests/test_hive_reports.py:108: in test_unsafe_url_is_inert
+    report, gate = render(snapshot([row(url=url)]), ("F-one",))
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+____________ test_unsafe_url_is_inert[https://example.org/\rattack] ____________
+tests/test_hive_reports.py:108: in test_unsafe_url_is_inert
+    report, gate = render(snapshot([row(url=url)]), ("F-one",))
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+____________ test_unsafe_url_is_inert[https://example.org/\tattack] ____________
+tests/test_hive_reports.py:108: in test_unsafe_url_is_inert
+    report, gate = render(snapshot([row(url=url)]), ("F-one",))
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+___________ test_unsafe_url_is_inert[https://example.org/%0aattack] ____________
+tests/test_hive_reports.py:108: in test_unsafe_url_is_inert
+    report, gate = render(snapshot([row(url=url)]), ("F-one",))
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+___________ test_unsafe_url_is_inert[https://example.org/%1Fattack] ____________
+tests/test_hive_reports.py:108: in test_unsafe_url_is_inert
+    report, gate = render(snapshot([row(url=url)]), ("F-one",))
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+______________ test_unsafe_url_is_inert[https://example.org/%7f] _______________
+tests/test_hive_reports.py:108: in test_unsafe_url_is_inert
+    report, gate = render(snapshot([row(url=url)]), ("F-one",))
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+_____________ test_unsafe_url_is_inert[https://example.org/%C2%85] _____________
+tests/test_hive_reports.py:108: in test_unsafe_url_is_inert
+    report, gate = render(snapshot([row(url=url)]), ("F-one",))
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+______ test_unsafe_url_is_inert[https://example.org/" onclick="alert(1)] _______
+tests/test_hive_reports.py:108: in test_unsafe_url_is_inert
+    report, gate = render(snapshot([row(url=url)]), ("F-one",))
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+_______________ test_unsafe_url_is_inert[https://example.org/'] ________________
+tests/test_hive_reports.py:108: in test_unsafe_url_is_inert
+    report, gate = render(snapshot([row(url=url)]), ("F-one",))
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+______________ test_unsafe_url_is_inert[https://example.org:bad/] ______________
+tests/test_hive_reports.py:108: in test_unsafe_url_is_inert
+    report, gate = render(snapshot([row(url=url)]), ("F-one",))
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+_____________ test_unsafe_url_is_inert[https://example.org:65536/] _____________
+tests/test_hive_reports.py:108: in test_unsafe_url_is_inert
+    report, gate = render(snapshot([row(url=url)]), ("F-one",))
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+_______________ test_unsafe_url_is_inert[https://example.org:/] ________________
+tests/test_hive_reports.py:108: in test_unsafe_url_is_inert
+    report, gate = render(snapshot([row(url=url)]), ("F-one",))
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+__________________ test_unsafe_url_is_inert[https:///missing] __________________
+tests/test_hive_reports.py:108: in test_unsafe_url_is_inert
+    report, gate = render(snapshot([row(url=url)]), ("F-one",))
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+_______________ test_unsafe_url_is_inert[https://-bad.example/] ________________
+tests/test_hive_reports.py:108: in test_unsafe_url_is_inert
+    report, gate = render(snapshot([row(url=url)]), ("F-one",))
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+_______________ test_unsafe_url_is_inert[https://bad_.example/] ________________
+tests/test_hive_reports.py:108: in test_unsafe_url_is_inert
+    report, gate = render(snapshot([row(url=url)]), ("F-one",))
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+__________________ test_unsafe_url_is_inert[https://[broken/] __________________
+tests/test_hive_reports.py:108: in test_unsafe_url_is_inert
+    report, gate = render(snapshot([row(url=url)]), ("F-one",))
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+________________ test_unsafe_url_is_inert[https://999.999.1.1/] ________________
+tests/test_hive_reports.py:108: in test_unsafe_url_is_inert
+    report, gate = render(snapshot([row(url=url)]), ("F-one",))
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+_____________ test_unsafe_url_is_inert[https://example.org\\evil/] _____________
+tests/test_hive_reports.py:108: in test_unsafe_url_is_inert
+    report, gate = render(snapshot([row(url=url)]), ("F-one",))
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+_______________ test_unsafe_url_is_inert[https://%65xample.org/] _______________
+tests/test_hive_reports.py:108: in test_unsafe_url_is_inert
+    report, gate = render(snapshot([row(url=url)]), ("F-one",))
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+_____________ test_valid_http_urls_are_links[http://example.org/] ______________
+tests/test_hive_reports.py:117: in test_valid_http_urls_are_links
+    report, gate = render(snapshot([row(url=url)]), ("F-one",))
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+___ test_valid_http_urls_are_links[https://example.org:8443/a?b=1&c=2#part] ____
+tests/test_hive_reports.py:117: in test_valid_http_urls_are_links
+    report, gate = render(snapshot([row(url=url)]), ("F-one",))
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+____________ test_valid_http_urls_are_links[HTTPS://EXAMPLE.ORG/a] _____________
+tests/test_hive_reports.py:117: in test_valid_http_urls_are_links
+    report, gate = render(snapshot([row(url=url)]), ("F-one",))
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+_____________ test_valid_http_urls_are_links[https://127.0.0.1/a] ______________
+tests/test_hive_reports.py:117: in test_valid_http_urls_are_links
+    report, gate = render(snapshot([row(url=url)]), ("F-one",))
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+_____________ test_valid_http_urls_are_links[https://[::1]:443/a] ______________
+tests/test_hive_reports.py:117: in test_valid_http_urls_are_links
+    report, gate = render(snapshot([row(url=url)]), ("F-one",))
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+__ test_valid_http_urls_are_links[https://\u4f8b\u3048.\u30c6\u30b9\u30c8/a] ___
+tests/test_hive_reports.py:117: in test_valid_http_urls_are_links
+    report, gate = render(snapshot([row(url=url)]), ("F-one",))
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+______________ test_warning_count_is_bounded_by_selected_findings ______________
+tests/test_hive_reports.py:124: in test_warning_count_is_bounded_by_selected_findings
+    _, gate = render(snapshot(rows), tuple(entry["id"] for entry in rows))
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+_______________ test_escaping_expansion_cannot_bypass_output_cap _______________
+tests/test_hive_reports.py:131: in test_escaping_expansion_cannot_bypass_output_cap
+    render(snapshot(rows), tuple(entry["id"] for entry in rows))
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+_________________ test_output_cap_exact_boundary_and_one_over __________________
+tests/test_hive_reports.py:138: in test_output_cap_exact_boundary_and_one_over
+    base, _ = render(snapshot(rows), ids)
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+_______________________ test_marked_rendering_round_trip _______________________
+tests/test_hive_reports.py:164: in test_marked_rendering_round_trip
+    markdown, _ = render(s, ("F-one",))
+tests/test_hive_reports.py:28: in render
+    assert callable(getattr(r, "render_report", None)), "literal report renderer is missing"
+E   AssertionError: literal report renderer is missing
+E   assert False
+E    +  where False = callable(None)
+E    +    where None = getattr(r, 'render_report', None)
+=========================== short test summary info ============================
+FAILED tests/test_hive_reports.py::test_render_uses_only_selected_claims - As...
+FAILED tests/test_hive_reports.py::test_sources_match_selected_findings - Ass...
+FAILED tests/test_hive_reports.py::test_shared_evidence_and_legacy_ids_keep_distinct_ordinal_references
+FAILED tests/test_hive_reports.py::test_direct_renderer_revalidates_selection[ids0]
+FAILED tests/test_hive_reports.py::test_direct_renderer_revalidates_selection[ids1]
+FAILED tests/test_hive_reports.py::test_direct_renderer_revalidates_selection[ids2]
+FAILED tests/test_hive_reports.py::test_direct_renderer_revalidates_selection[ids3]
+FAILED tests/test_hive_reports.py::test_direct_renderer_revalidates_selection[ids4]
+FAILED tests/test_hive_reports.py::test_direct_renderer_revalidates_selection[ids5]
+FAILED tests/test_hive_reports.py::test_empty_report_has_no_supporting_artifact[rows0-no_verified_facts]
+FAILED tests/test_hive_reports.py::test_empty_report_has_no_supporting_artifact[rows1-no_selected_findings]
+FAILED tests/test_hive_reports.py::test_unsafe_url_is_inert[javascript:alert(1)]
+FAILED tests/test_hive_reports.py::test_unsafe_url_is_inert[data:text/html,hi]
+FAILED tests/test_hive_reports.py::test_unsafe_url_is_inert[file:///etc/passwd]
+FAILED tests/test_hive_reports.py::test_unsafe_url_is_inert[//example.org/x]
+FAILED tests/test_hive_reports.py::test_unsafe_url_is_inert[https://user:password@example.org/]
+FAILED tests/test_hive_reports.py::test_unsafe_url_is_inert[https://user@example.org/]
+FAILED tests/test_hive_reports.py::test_unsafe_url_is_inert[https://example.org/a b]
+FAILED tests/test_hive_reports.py::test_unsafe_url_is_inert[https://example.org/\nattack]
+FAILED tests/test_hive_reports.py::test_unsafe_url_is_inert[https://example.org/\rattack]
+FAILED tests/test_hive_reports.py::test_unsafe_url_is_inert[https://example.org/\tattack]
+FAILED tests/test_hive_reports.py::test_unsafe_url_is_inert[https://example.org/%0aattack]
+FAILED tests/test_hive_reports.py::test_unsafe_url_is_inert[https://example.org/%1Fattack]
+FAILED tests/test_hive_reports.py::test_unsafe_url_is_inert[https://example.org/%7f]
+FAILED tests/test_hive_reports.py::test_unsafe_url_is_inert[https://example.org/%C2%85]
+FAILED tests/test_hive_reports.py::test_unsafe_url_is_inert[https://example.org/" onclick="alert(1)]
+FAILED tests/test_hive_reports.py::test_unsafe_url_is_inert[https://example.org/']
+FAILED tests/test_hive_reports.py::test_unsafe_url_is_inert[https://example.org:bad/]
+FAILED tests/test_hive_reports.py::test_unsafe_url_is_inert[https://example.org:65536/]
+FAILED tests/test_hive_reports.py::test_unsafe_url_is_inert[https://example.org:/]
+FAILED tests/test_hive_reports.py::test_unsafe_url_is_inert[https:///missing]
+FAILED tests/test_hive_reports.py::test_unsafe_url_is_inert[https://-bad.example/]
+FAILED tests/test_hive_reports.py::test_unsafe_url_is_inert[https://bad_.example/]
+FAILED tests/test_hive_reports.py::test_unsafe_url_is_inert[https://[broken/]
+FAILED tests/test_hive_reports.py::test_unsafe_url_is_inert[https://999.999.1.1/]
+FAILED tests/test_hive_reports.py::test_unsafe_url_is_inert[https://example.org\\evil/]
+FAILED tests/test_hive_reports.py::test_unsafe_url_is_inert[https://%65xample.org/]
+FAILED tests/test_hive_reports.py::test_valid_http_urls_are_links[http://example.org/]
+FAILED tests/test_hive_reports.py::test_valid_http_urls_are_links[https://example.org:8443/a?b=1&c=2#part]
+FAILED tests/test_hive_reports.py::test_valid_http_urls_are_links[HTTPS://EXAMPLE.ORG/a]
+FAILED tests/test_hive_reports.py::test_valid_http_urls_are_links[https://127.0.0.1/a]
+FAILED tests/test_hive_reports.py::test_valid_http_urls_are_links[https://[::1]:443/a]
+FAILED tests/test_hive_reports.py::test_valid_http_urls_are_links[https://\u4f8b\u3048.\u30c6\u30b9\u30c8/a]
+FAILED tests/test_hive_reports.py::test_warning_count_is_bounded_by_selected_findings
+FAILED tests/test_hive_reports.py::test_escaping_expansion_cannot_bypass_output_cap
+FAILED tests/test_hive_reports.py::test_output_cap_exact_boundary_and_one_over
+FAILED tests/test_hive_reports.py::test_marked_rendering_round_trip - Asserti...
+============================== 47 failed in 0.37s ==============================

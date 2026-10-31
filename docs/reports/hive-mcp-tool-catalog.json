@@ -1,0 +1,116 @@
+{
+  "_meta": {
+    "io.modelcontextprotocol/serverInfo": {
+      "name": "Hive Lite",
+      "version": "0.1.0"
+    }
+  },
+  "ttlMs": 0,
+  "cacheScope": "private",
+  "tools": [
+    {
+      "name": "hive_health",
+      "description": "Read Hive health and configured routing. Does not generate a model response.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "title": "hive_healthArguments",
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "additionalProperties": true,
+        "title": "hive_healthDictOutput",
+        "type": "object"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "hive_start_run",
+      "description": "Start research using Hive's configured providers; can incur provider costs.\n\n        Returns run_id and running status. Poll hive_get_run for completion.\n        Requested budget is forwarded; current lite engine has a known concurrent overshoot defect.\n        Submission is not idempotent. After uncertain delivery, inspect Hive before resubmitting.\n        Disconnecting the MCP client does not cancel an accepted run.\n        ",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "objective": {
+            "maxLength": 10000,
+            "minLength": 5,
+            "title": "Objective",
+            "type": "string"
+          },
+          "workers": {
+            "default": 3,
+            "maximum": 8,
+            "minimum": 1,
+            "title": "Workers",
+            "type": "integer"
+          },
+          "subtasks": {
+            "default": 4,
+            "maximum": 8,
+            "minimum": 1,
+            "title": "Subtasks",
+            "type": "integer"
+          },
+          "budget_tokens": {
+            "default": 200000,
+            "maximum": 200000,
+            "minimum": 1000,
+            "title": "Budget Tokens",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "objective"
+        ],
+        "title": "hive_start_runArguments",
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "additionalProperties": true,
+        "title": "hive_start_runDictOutput",
+        "type": "object"
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "hive_get_run",
+      "description": "Read a run's status, report, facts, tasks, usage and recent events.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "run_id": {
+            "pattern": "^[a-f0-9]{12}$",
+            "title": "Run Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "run_id"
+        ],
+        "title": "hive_get_runArguments",
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "additionalProperties": true,
+        "title": "hive_get_runDictOutput",
+        "type": "object"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    }
+  ],
+  "resultType": "complete"
+}

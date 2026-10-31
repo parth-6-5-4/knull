@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "architecture",
+  "quality": "showcase",
+  "specification": {
+    "path": ".archify/architecture-knull-guide-20261020-121808/04-roles-skills-routing/candidate.json",
+    "sha256": "53626b43e4ef190ca0bf11b1c914d850cf9e081324e7878157f14b56769f4b36",
+    "bytes": 5746
+  },
+  "artifact": {
+    "path": ".archify/architecture-knull-guide-20261020-121808/04-roles-skills-routing/04-roles-skills-routing.html",
+    "sha256": "953d3d8dd7cb908d382032762b82eee44498aaf185f93bb1b70ddc3129fb9e38",
+    "bytes": 761419
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "pass"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": ".archify/architecture-knull-guide-20261020-121808/04-roles-skills-routing/source-review/04-roles-skills-routing.finalize.json",
+    "summaryReceipt": ".archify/architecture-knull-guide-20261020-121808/04-roles-skills-routing/source-review/04-roles-skills-routing.finalize-summary.json",
+    "browserCheckReceipt": ".archify/architecture-knull-guide-20261020-121808/04-roles-skills-routing/source-review/04-roles-skills-routing.browser-check.json"
+  },
+  "update": {
+    "status": "update_available",
+    "installedVersion": "3.0.1",
+    "availableVersion": "3.2.0",
+    "releaseNotes": "https://github.com/tt-a1i/archify/releases/tag/v3.2.0",
+    "severity": "normal",
+    "checkedAt": "2026-10-20T06:58:40.719Z",
+    "source": "cache",
+    "noticeRequired": true,
+    "noticeText": "Archify update: 3.0.1 \u2192 3.2.0. A previous check at 2026-10-20T06:58:40.719Z found a newer release. Release notes: https://github.com/tt-a1i/archify/releases/tag/v3.2.0. The installed Skill has not changed; ask to snooze or ignore this reminder.",
+    "eventKey": "archify@sha256:70e210265c59f24dcbdf2a502ff671104b5454e7ee7d3554aecd86bad32384f5"
+  },
+  "visualReview": "not-requested",
+  "durationMs": 9502,
+  "visualReviewRecommendation": {
+    "action": "inspect-route-readability",
+    "signals": {
+      "routesOverSuggestedBends": 1
+    },
+    "reason": "Automated gates passed, but crossings or detours still need perceptual review before claiming visual quality.",
+    "affectedRoutes": {
+      "crossings": [],
+      "detours": [
+        {
+          "relationship": {
+            "from": "eligible",
+            "to": "binding",
+            "label": "one choice",
+            "collectionIndex": 7,
+            "artifactIndex": 8
+          },
+          "bends": 3,
+          "stretch": 1
+        }
+      ],
+      "truncated": false
+    },
+    "hints": [
+      "eligible \u2192 binding needs 3 bends: move node eligible or binding so they share a row or column with matching centers, or sit diagonally with a clear corner."
+    ],
+    "repair": "Trace these relationships at the desktop viewport. For Architecture, use references/architecture-layout-repair.md: reflow a blocked main path or tangled connected scene, and repair an isolated defect locally only when the surrounding composition is accepted. Preserve all semantic content and user-fixed geometry. Rerun finalize once after the edit."
+  },
+  "publicationRedaction": "Personal absolute host paths sanitized; original receipt retained in ignored local scratch. Original artifact and candidate hashes unchanged."
+}

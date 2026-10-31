@@ -1,14 +1,14 @@
 # Attempt integrity and terminal progress design
 
 **Spec ID:** HIVE-002
-**Status:** Draft
+**Status:** Verified (SQLite lite scope, 2026-10-20)
 **Date:** 2026-10-19
 **Owner:** Project maintainer
-**Approval:** Pending user review
+**Approval:** Direct execution instruction, 2026-10-20; see linked plan.
 **Depends on:** None; coordinate persistence edits with HIVE-001
-**Plan:** Not written; requires spec approval
+**Plan:** [Execution plan](../plans/2026-10-20-execution-integrity.md)
 
-## Intent and evidence
+## Intent and pre-implementation evidence
 
 Accepted work must not be overwritten by a late worker, and a permanently failed prerequisite must not leave a run polling forever. The current store fences `publish()`/`set_fact_status()` but not `mark_exhausted()`; expiry/renewal contain unguarded read-then-write operations. Runner never calls heartbeat. Exhausted tasks leave pending descendants counted as open. [Audit F2/F5/F8](../../reviews/hive-modularization-review.md), [probe observations](../../reviews/hive-gap-evidence.json).
 
@@ -51,4 +51,8 @@ Deploy to the lite executor first behind focused tests. No active task schema is
 | EXE-04/05/07 | Permanent outage, invalid arguments, missing/cyclic dependencies, mixed successful/failed branches and no-progress termination |
 | EXE-06/08 | Async cancellation/leak checks; unavailable verifier remains an execution outcome |
 
-Existing probes are historical observations, not these acceptance tests. No new acceptance checks executed. Self-reviewed 2026-10-19; review pending. Proposed timing values require review, but every configured value must obey the stated invariants.
+Existing probes are historical observations, not these acceptance tests. At initial draft, no new acceptance checks had executed. Self-review dated 2026-10-19; current delivery evidence follows. Proposed timing values require review, but every configured value must obey the stated invariants.
+
+## Implementation acceptance — 2026-10-20
+
+User explicitly requested completion of HIVE-001 then HIVE-002. Native serial implementation, focused real-SQLite/fault/API/CLI checks and one independent review completed. All important review findings received failing-then-passing regressions. See [requirement traceability and verification limits](../../reports/hive-integrity/summary.md). No real application database was migrated. Unrelated dependency-suite failures remain HIVE-011; broader modular/Postgres claims remain excluded.

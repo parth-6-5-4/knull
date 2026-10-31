@@ -1,0 +1,33 @@
+/opt/anaconda3/lib/python3.12/site-packages/pytest_asyncio/plugin.py:247: PytestDeprecationWarning: The configuration option "asyncio_default_fixture_loop_scope" is unset.
+The event loop scope for asynchronous fixtures will default to the fixture caching scope. Future versions of pytest-asyncio will default the loop scope for asynchronous fixtures to function scope. Set the default fixture loop scope explicitly in order to avoid unexpected behavior in the future. Valid fixture loop scopes are: "function", "class", "module", "package", "session"
+
+  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))
+============================= test session starts ==============================
+platform darwin -- Python 3.12.7, pytest-8.2.2, pluggy-1.6.0
+rootdir: <repo>
+configfile: pytest.ini
+plugins: mock-3.15.1, anyio-4.9.0, asyncio-1.3.0, cov-7.0.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 3 items
+
+tests/test_hive_resource_migrations.py FF                                [ 66%]
+tests/test_hive_resource_types.py F                                      [100%]
+
+=================================== FAILURES ===================================
+_ test_exact_shape_preserves_check_literal_case_and_spaces['HARD','estimated'] _
+tests/test_hive_resource_migrations.py:200: in test_exact_shape_preserves_check_literal_case_and_spaces
+    with pytest.raises(HiveSchemaError):inspect_hive_schema(db)
+E   Failed: DID NOT RAISE <class 'app.hive.schema.HiveSchemaError'>
+_ test_exact_shape_preserves_check_literal_case_and_spaces['hard ','estimated'] _
+tests/test_hive_resource_migrations.py:200: in test_exact_shape_preserves_check_literal_case_and_spaces
+    with pytest.raises(HiveSchemaError):inspect_hive_schema(db)
+E   Failed: DID NOT RAISE <class 'app.hive.schema.HiveSchemaError'>
+_____ test_inspection_requires_measured_counts_even_when_headroom_unknown ______
+tests/test_hive_resource_types.py:118: in test_inspection_requires_measured_counts_even_when_headroom_unknown
+    with pytest.raises(ResourceInputError):replace(historical,actual_tokens=None)
+E   Failed: DID NOT RAISE <class 'app.hive.resource_types.ResourceInputError'>
+=========================== short test summary info ============================
+FAILED tests/test_hive_resource_migrations.py::test_exact_shape_preserves_check_literal_case_and_spaces['HARD','estimated']
+FAILED tests/test_hive_resource_migrations.py::test_exact_shape_preserves_check_literal_case_and_spaces['hard ','estimated']
+FAILED tests/test_hive_resource_types.py::test_inspection_requires_measured_counts_even_when_headroom_unknown
+============================== 3 failed in 0.22s ===============================

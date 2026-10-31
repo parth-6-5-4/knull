@@ -6,6 +6,7 @@ Records observed behavior, not desired acceptance behavior. Never opens app_data
 from __future__ import annotations
 
 import asyncio
+from datetime import datetime, timezone
 import json
 import os
 from pathlib import Path
@@ -18,7 +19,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from app.hive import run_hive
 from app.hive.agents import run_writer
-from app.hive.store import HiveStore
+from app.hive.store import HiveStore, EvidenceIntegrityError
 from app.llm import LLMRouter, set_router
 from tests.test_hive import fake_search, make_handler, routed_config
 
@@ -36,7 +37,7 @@ def publish(store, task, evidence, facts=()):
 
 
 async def main():
-    result = {"date": "2026-10-19", "python": sys.version.split()[0],
+    result = {"observed_at_utc": datetime.now(timezone.utc).isoformat(), "python": sys.version.split()[0],
               "sqlite": sqlite3.sqlite_version, "providers": "mock only",
               "database_scope": "disposable TemporaryDirectory; no application data"}
     set_router(LLMRouter(routed_config(), mock_handler=make_handler()))
@@ -54,7 +55,7 @@ async def main():
                                  "evidence_rows": len(store.evidence(run.run_id))})
                 result["repeated_source_runs"] = runs
                 result["current_evidence_primary_key"] = [r["name"] for r in
-                    store.db.execute("PRAGMA table_info(evidence)") if r["pk"]]
+                    sorted(store.db.execute("PRAGMA table_info(evidence)"), key=lambda row: row["pk"]) if r["pk"]]
                 result["current_schema_version"] = store.db.execute("PRAGMA user_version").fetchone()[0]
             finally:
                 store.db.close()
@@ -66,7 +67,10 @@ async def main():
                       "url": "http://fixture/paper-a", "text": "Original evidence text."}
                 assert publish(store, claimed(store, first, "original"), [ev])
                 conflict = claimed(store, first, "conflict")
-                accepted = publish(store, conflict, [{**ev, "text": "Changed evidence text."}])
+                try:
+                    accepted = publish(store, conflict, [{**ev, "text": "Changed evidence text."}])
+                except EvidenceIntegrityError:
+                    accepted = False
                 result["same_run_conflict"] = {
                     "accepted": accepted, "task_status": store.get_task(conflict["id"])["status"],
                     "retained_text": store.evidence(first, ev["id"])[0]["text"]}
@@ -76,7 +80,10 @@ async def main():
                 fact = {"id": "F-aaaaaaaa", "claim": "Claim with foreign-only evidence.",
                         "evidence_id": ev["id"], "quote": "Original evidence text.", "status": "verified"}
                 extra = {**ev, "id": "E-bbbbbbbb", "url": "http://fixture/extra"}
-                accepted = publish(store, task, [extra], [fact])
+                try:
+                    accepted = publish(store, task, [extra], [fact])
+                except EvidenceIntegrityError:
+                    accepted = False
                 result["unresolved_reference_publication"] = {
                     "accepted": accepted, "task_status": store.get_task(task["id"])["status"],
                     "facts_committed": len(store.facts(second)),
@@ -84,12 +91,25 @@ async def main():
                     "referenced_evidence_found": bool(store.evidence(second, ev["id"]))}
 
                 async def writer_call(layer, agent, system, user, max_tokens):
-                    return "## Findings\nClaim with foreign-only evidence. [F-aaaaaaaa]"
+                    return json.dumps({"fact_ids": [fact["id"] for fact in json.loads(user)["candidates"]]})
 
-                report, gate = await run_writer(store, second, "Missing provenance", writer_call)
+                # Historical corruption enters only through a frozen legacy fixture and explicit upgrade.
+                from tests.hive_testkit import legacy_database
+                from app.hive.migrate import upgrade_hive_database
+                historical_path = Path(folder) / 'historical.db'
+                legacy_database(historical_path)
+                upgrade_hive_database(str(historical_path), str(Path(folder) / 'historical-backup.db'))
+                historical = HiveStore(str(historical_path))
+                historical.db.execute("DELETE FROM evidence WHERE run_id='old'")
+                try:
+                    report, gate = await run_writer(historical, 'old', 'Missing provenance', writer_call)
+                    eligible = len(historical.facts('old', 'verified'))
+                finally:
+                    historical.db.close()
                 result["missing_provenance_marked_verified"] = {
-                    "eligible_verified_facts": len(store.facts(second, "verified")),
+                    "eligible_verified_facts": eligible,
                     "writer_report_nonempty": bool(report), "writer_gate_passed": gate["passed"],
+                    "policy_version": gate["policy_version"], "reason": gate.get("reason"),
                     "source_reference_present": "http://fixture/paper-a" in report}
             finally:
                 store.db.close()

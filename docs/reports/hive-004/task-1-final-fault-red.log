@@ -1,0 +1,39 @@
+/opt/anaconda3/lib/python3.12/site-packages/pytest_asyncio/plugin.py:247: PytestDeprecationWarning: The configuration option "asyncio_default_fixture_loop_scope" is unset.
+The event loop scope for asynchronous fixtures will default to the fixture caching scope. Future versions of pytest-asyncio will default the loop scope for asynchronous fixtures to function scope. Set the default fixture loop scope explicitly in order to avoid unexpected behavior in the future. Valid fixture loop scopes are: "function", "class", "module", "package", "session"
+
+  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))
+============================= test session starts ==============================
+platform darwin -- Python 3.12.7, pytest-8.2.2, pluggy-1.6.0
+rootdir: <repo>
+configfile: pytest.ini
+plugins: mock-3.15.1, anyio-4.9.0, asyncio-1.3.0, cov-7.0.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 44 items
+
+tests/test_hive_transactions.py ..........F                              [ 25%]
+tests/test_hive_resource_types.py ........F                              [ 45%]
+tests/test_hive_resource_migrations.py ........................          [100%]
+
+=================================== FAILURES ===================================
+____ test_deadline_default_acquires_reader_conflicting_lock_before_decision ____
+tests/test_hive_transactions.py:167: in test_deadline_default_acquires_reader_conflicting_lock_before_decision
+    SQLiteTransactions(db,threading.Lock()).write(lambda db:pytest.fail('guarded decision ran under held reader'),deadline_monotonic=time.monotonic()+.2)
+app/hive/transactions.py:58: in write
+    result = _sync_result(fn(self.db))
+tests/test_hive_transactions.py:167: in <lambda>
+    SQLiteTransactions(db,threading.Lock()).write(lambda db:pytest.fail('guarded decision ran under held reader'),deadline_monotonic=time.monotonic()+.2)
+E   Failed: guarded decision ran under held reader
+________ test_oversized_numeric_deadlines_and_parameters_reject_cleanly ________
+tests/test_hive_resource_types.py:107: in test_oversized_numeric_deadlines_and_parameters_reject_cleanly
+    with pytest.raises(ResourceInputError):ResourcePolicy(queue_wait_s=10**1000)
+<string>:19: in __init__
+    ???
+app/hive/resource_types.py:143: in __post_init__
+    finite_number(getattr(self,name),name,positive=True)
+app/hive/resource_types.py:67: in finite_number
+    if type(value) not in (int, float) or not math.isfinite(value) or (positive and value <= 0):
+E   OverflowError: int too large to convert to float
+=========================== short test summary info ============================
+FAILED tests/test_hive_transactions.py::test_deadline_default_acquires_reader_conflicting_lock_before_decision
+FAILED tests/test_hive_resource_types.py::test_oversized_numeric_deadlines_and_parameters_reject_cleanly
+========================= 2 failed, 42 passed in 0.98s =========================

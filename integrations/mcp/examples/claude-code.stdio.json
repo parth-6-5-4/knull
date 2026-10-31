@@ -2,7 +2,7 @@
   "mcpServers": {
     "hive": {
       "type": "stdio",
-      "command": "/Users/parthsdambhare/hive-lite-v5/integrations/mcp/.venv/bin/hive-mcp",
+      "command": "/absolute/path/to/knull/integrations/mcp/.venv/bin/hive-mcp",
       "args": ["--api-url", "http://127.0.0.1:8000"]
     }
   }

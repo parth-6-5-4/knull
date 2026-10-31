@@ -1,0 +1,45 @@
+/opt/anaconda3/lib/python3.12/site-packages/pytest_asyncio/plugin.py:247: PytestDeprecationWarning: The configuration option "asyncio_default_fixture_loop_scope" is unset.
+The event loop scope for asynchronous fixtures will default to the fixture caching scope. Future versions of pytest-asyncio will default the loop scope for asynchronous fixtures to function scope. Set the default fixture loop scope explicitly in order to avoid unexpected behavior in the future. Valid fixture loop scopes are: "function", "class", "module", "package", "session"
+
+  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))
+============================= test session starts ==============================
+platform darwin -- Python 3.12.7, pytest-8.2.2, pluggy-1.6.0
+rootdir: <repo>
+configfile: pytest.ini
+plugins: mock-3.15.1, anyio-4.9.0, asyncio-1.3.0, cov-7.0.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 31 items
+
+tests/test_hive_resource_types.py ......F.                               [ 25%]
+tests/test_hive_transactions.py ........F.                               [ 58%]
+tests/test_hive_resource_migrations.py ...........FF                     [100%]
+
+=================================== FAILURES ===================================
+_____ test_inspection_hard_indicator_is_boolean_and_historical_is_unknown ______
+tests/test_hive_resource_types.py:77: in test_inspection_hard_indicator_is_boolean_and_historical_is_unknown
+    hard=ResourceInspection('governed-v1','hard',True,10,5,0,15,0,False,{}, {})
+<string>:14: in __init__
+    ???
+app/hive/resource_types.py:372: in __post_init__
+    if getattr(self,name) is not None: integer(getattr(self,name),name)
+app/hive/resource_types.py:53: in integer
+    raise ResourceInputError(f'{name}: expected signed-64-bit integer >= {minimum}')
+E   app.hive.resource_types.ResourceInputError: hard_tokens: expected signed-64-bit integer >= 0
+__________ test_store_owns_shared_transaction_and_drains_before_close __________
+tests/test_hive_transactions.py:132: in test_store_owns_shared_transaction_and_drains_before_close
+    clock=SystemClock();store=HiveStore(str(tmp_path/'owned.db'),clock=clock)
+E   TypeError: HiveStore.__init__() got an unexpected keyword argument 'clock'
+____________ test_backup_source_change_is_detected_before_mutation _____________
+tests/test_hive_resource_migrations.py:94: in test_backup_source_change_is_detected_before_mutation
+    with pytest.raises(HiveSchemaError,match='changed'):upgrade_hive_database(str(path),str(tmp_path/'backup.db'))
+E   Failed: DID NOT RAISE <class 'app.hive.schema.HiveSchemaError'>
+___________ test_exact_shape_rejects_unexpected_similar_sqlite_name ____________
+tests/test_hive_resource_migrations.py:104: in test_exact_shape_rejects_unexpected_similar_sqlite_name
+    with pytest.raises(HiveSchemaError):inspect_hive_schema(store.db)
+E   Failed: DID NOT RAISE <class 'app.hive.schema.HiveSchemaError'>
+=========================== short test summary info ============================
+FAILED tests/test_hive_resource_types.py::test_inspection_hard_indicator_is_boolean_and_historical_is_unknown
+FAILED tests/test_hive_transactions.py::test_store_owns_shared_transaction_and_drains_before_close
+FAILED tests/test_hive_resource_migrations.py::test_backup_source_change_is_detected_before_mutation
+FAILED tests/test_hive_resource_migrations.py::test_exact_shape_rejects_unexpected_similar_sqlite_name
+========================= 4 failed, 27 passed in 0.67s =========================

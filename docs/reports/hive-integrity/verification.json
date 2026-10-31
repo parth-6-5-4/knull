@@ -1,0 +1,115 @@
+{
+  "date": "2026-10-20",
+  "scope": "HIVE-001 + HIVE-002; lite SQLite",
+  "specs": {
+    "HIVE-001": "Verified",
+    "HIVE-002": "Verified"
+  },
+  "python": "3.12.7",
+  "sqlite": "3.45.3",
+  "branch": "hive-001-002-integrity",
+  "baseRevision": "f4f541332b3f78a755bccc5f4890931b1b256d07",
+  "focused": {
+    "passed": 140,
+    "failed": 0,
+    "output": "combined-acceptance.txt"
+  },
+  "mcp": {
+    "passed": 54,
+    "failed": 0,
+    "skipped": 0,
+    "output": "mcp-compatibility.txt"
+  },
+  "fullSuite": {
+    "passed": 153,
+    "failed": 10,
+    "errors": 3,
+    "classification": "Pre-existing embedding import incompatibility and sandbox socket restriction",
+    "output": "combined-full-suite.txt"
+  },
+  "sdkSocketRerun": {
+    "passed": 3,
+    "failed": 1,
+    "cause": "Anthropic SDK absent",
+    "output": "sdk-local-socket.txt"
+  },
+  "review": {
+    "importantFindings": 3,
+    "resolved": 3,
+    "regressionsFailedBefore": 8,
+    "regressionsPassedAfter": 8,
+    "report": "review.md"
+  },
+  "documentCheck": {
+    "files": 20,
+    "localLinks": 164,
+    "broken": []
+  },
+  "graph": {
+    "counts": {
+      "nodes": 1271,
+      "edges": 2890,
+      "communities": 75
+    },
+    "sourceHashesMatched": 110,
+    "missingOrDanglingEndpoints": 0,
+    "duplicateEdges": 0,
+    "knownExtractorSelfLoops": 1,
+    "browserScope": "Chrome page load/counts/labels only"
+  },
+  "runtimeSourceSha256": {
+    "app/hive/__init__.py": "028d15ccc699b8f322e16beeebd0c52d8432bbb4debede9b9286f1d2cf639bb2",
+    "app/hive/agents.py": "bedbc170c871d55fa8c420b8ca1f62a6d6640f9a62fb06271eeada6bb36d9a66",
+    "app/hive/cli.py": "8b7bab1d1c6e1380cded0e2972e55dee2b8d73e94417fdd04810fda7dc008b9a",
+    "app/hive/migrate.py": "d17855a7890503b86d9b435bc5b64a402c045bba85b3111cfb154de0b2d77864",
+    "app/hive/runner.py": "a6a98d15f3a4462d5c1c50edda468a5c0d34a2c3d2ef1348dbd4f25e99b8db95",
+    "app/hive/schema.py": "8a027184bc27db2834f525b3386a53cda0b5e1874112ae5a092b9e946afdfa04",
+    "app/hive/store.py": "f89eb914da1dd29187a7dd2b2824f0fb247cf0c63a9368a708f8b8da51565d45",
+    "app/hive/watchdog.py": "e019dccd463fbe98bbf45eef942f9bddd741a707aeaffc20b501be028f94d9ab",
+    "app/api/routes_hive.py": "61ba0f9ac196060ee7bd81fd364286bb3aeffba3edbd3bc542163533a5d20690",
+    "app/llm/router.py": "7a1df6ab229904e3adf2e5129d1d8c892b1056aff990b280830bce2ef4c7a9c8",
+    "app/tools/arxiv.py": "7f9c8fb829164e613d65d522c31e6622f6dd0626fb757a06d52bffc220a92b0d",
+    "app/tools/semantic_scholar.py": "fd7079adf425cb6629240ace5b29fb8ef6a21940ebab76980b945c2215b23b5e",
+    "app/tools/wikipedia.py": "cfa90e14358c15466d610dd0cdd4d4d0322edef9c7fcb6871e03d34f268cf1c6",
+    "tests/hive_testkit.py": "60812f4288f7069ec9a62d2f5f813e26c37f5a05bda0efba2a4a3af737c74e17",
+    "tests/test_hive.py": "a9b7ee4461be45c435a4ae1036d947dcfbe223b085b8299a9abbb70296ba691d",
+    "tests/test_hive_cli.py": "f053604e55db80e72bc5636fe8345d1701cced79dee3f835c6896b0efccfce8b",
+    "tests/test_hive_evidence.py": "af350bd73609fa35e8bbbe95a31516dd7beaea4b3eef4ebfbb28f6d28a346e1e",
+    "tests/test_hive_execution.py": "9984ea3efccac7ca6ed184b6650ba8b315eda23ec56a014e955d01937e405e5e",
+    "tests/test_hive_migrations.py": "31d3a30f5a9807badc18a128f3cbe6721d5ea05201fef4b274b722c66940aaee",
+    "tests/test_api_research.py": "1c26a41daefc22c5abb737642573a8b3fc7b33d7d8f7a1addf9c196da3c8bd93"
+  },
+  "evidenceSha256": {
+    "hive002-execution-acceptance.txt": "2263bfddbdf48ebf0f554668b402ac040268d717410996c10bf7f8e206f1687f",
+    "combined-acceptance.txt": "dac74f6a71ff63f1616468df98d8d0ec5736f47d771f06138dccd341ef7b3be3",
+    "review-regressions-green.txt": "92bb403901b076ebcd2c2a09cca80365f389cbd2ecc3bdb9a321939e006b18a1",
+    "hive001-migration-green.txt": "5dc0df01462a055fa4dfa1cc4ca9a4605514f563a9f2d777afab6dbd9053ef2c",
+    "hive001-migration-red.txt": "056302927f0b45c4dacb7bd8a3448b76ee7a9cea64ba24699059e3770b4ab22f",
+    "mcp-compatibility.txt": "f19ca6a4e6ab44c40fcb0ea121407e52693044a9341d65f631c448c7dc7f70e0",
+    "graph-final-cluster.txt": "40bc0a8d1e32f10f7dc0f8bf39e1193408a03461f9206d239744220ba5555f4b",
+    "hive001-store-green.txt": "160ef5a35c86dac13ea2ee71f849b2ce6795fd9c9081025ad8c719f6e71a3b0e",
+    "graph-cluster.txt": "35e40e156f61aacb46d240f42f0fdda2a253b8c3cd41464ed1088bfc0c79dd5b",
+    "hive002-retry-red.txt": "8eba91995372213b5acf3c1f1454c995850a25e54ece20f29d76694541e1a03e",
+    "sdk-local-socket.txt": "83e66d40e43785b73bded1f77b7b998c77ded74249eb4e558321f07940f29594",
+    "combined-full-suite.txt": "abd74f9b5d892319b0e3c9199a6b37ac5b115b5f8392eee7c80f53ec946b5849",
+    "hive002-store-red.txt": "7055b57b8566908944e4f9745e4a525c11e2667668418025d66b2db47542ebe0",
+    "hive001-evidence-red.txt": "dfacafd589e6d015907c668cfca1c77f7213b0d488142180836dc151e9efb77c",
+    "hive002-runtime-red.txt": "8ff7cf4d51388afb3b855e6a5e0414ef3cc774e76410b5b7f090a7f5f3d3a72b",
+    "hive002-runtime-green.txt": "2d2b097bc4ae6af84223548646c43a3c48ffc5e43b3c39d5d3b18797a9606ff4",
+    "hive002-store-green.txt": "ce3720a968b0ceaf91dd3ce39f4e8c38c1fca98fc4420e36ce35ad2abbb2c7d1",
+    "hive001-acceptance.txt": "495de4ae18ee0ac1d5366cc4b129ca843e837e97d71c163a154c09dec702491a",
+    "lease-loss-integration.txt": "81470a070ab4ab54db2ba1a140629f6f979f653acb152f91ec3930d9dd8124a8",
+    "hive001-full-suite.txt": "881e284d3ebce6ec7db15749dab36b08a56fc12e824faf11e0fdf8300e4ebfcf",
+    "graph-final-refresh.txt": "7127028c1cc0e43d3e218c8925f52d709e1a1e600f59d09f8d739a1522f1b209",
+    "graph-refresh.txt": "373373478f086acfb297358a61821eaf0f2763b561467e33a857643c91b34f05",
+    "hive001-schema-red.txt": "3964289a645d2d91397efb96f8a7d3bbd332984aeee7a48d7bd88eca4ed86ead",
+    "hive002-interface-red.txt": "fe343c1e1fdfdcff7954c1add7f425fe35ce5d31b2bffd225137e2467acbf814",
+    "review-regressions-red.txt": "99092a0a6d779625ea084b732dbc0cc8d7fab5bd72d808756baa186658e51e41"
+  },
+  "limitations": [
+    "Underlying sync SDK thread cannot be forcibly cancelled; late publication fenced; CLI shutdown may wait.",
+    "Full dependency suite remains red under HIVE-011.",
+    "No real data migration, Postgres/crash-resume/global budget reservation/hierarchy/Jev implementation.",
+    "Local feature branch preserves pending edits; no commit/push/deployment."
+  ]
+}

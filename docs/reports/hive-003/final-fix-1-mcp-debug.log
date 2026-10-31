@@ -1,0 +1,46 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_________________ test_submit_and_poll_real_hive_through_stdio _________________
+  + Exception Group Traceback (most recent call last):
+  |   File "/Users/parthsdambhare/hive-lite-v5/integrations/mcp/tests/test_hive_integration.py", line 62, in test_submit_and_poll_real_hive_through_stdio
+  |     async with Client(params, read_timeout_seconds=10) as client:
+  |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/parthsdambhare/hive-lite-v5/integrations/mcp/.venv/lib/python3.12/site-packages/mcp/client/client.py", line 480, in __aexit__
+  |     await self._exit_stack.__aexit__(exc_type, exc_val, exc_tb)
+  |   File "/opt/anaconda3/lib/python3.12/contextlib.py", line 754, in __aexit__
+  |     raise exc_details[1]
+  |   File "/opt/anaconda3/lib/python3.12/contextlib.py", line 737, in __aexit__
+  |     cb_suppress = await cb(*exc_details)
+  |                   ^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/opt/anaconda3/lib/python3.12/contextlib.py", line 231, in __aexit__
+  |     await self.gen.athrow(value)
+  |   File "/Users/parthsdambhare/hive-lite-v5/integrations/mcp/.venv/lib/python3.12/site-packages/mcp/client/stdio.py", line 201, in stdio_client
+  |     async with anyio.create_task_group() as tg:
+  |                ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/Users/parthsdambhare/hive-lite-v5/integrations/mcp/.venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 847, in __aexit__
+  |     raise BaseExceptionGroup(
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Exception Group Traceback (most recent call last):
+    |   File "/Users/parthsdambhare/hive-lite-v5/integrations/mcp/.venv/lib/python3.12/site-packages/mcp/client/stdio.py", line 205, in stdio_client
+    |     yield read_stream, write_stream
+    |   File "/opt/anaconda3/lib/python3.12/contextlib.py", line 737, in __aexit__
+    |     cb_suppress = await cb(*exc_details)
+    |                   ^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/Users/parthsdambhare/hive-lite-v5/integrations/mcp/.venv/lib/python3.12/site-packages/mcp/client/session.py", line 514, in __aexit__
+    |     result = await self._task_group.__aexit__(exc_type, exc_val, exc_tb)
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/Users/parthsdambhare/hive-lite-v5/integrations/mcp/.venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 847, in __aexit__
+    |     raise BaseExceptionGroup(
+    | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+    +-+---------------- 1 ----------------
+      | Traceback (most recent call last):
+      |   File "/Users/parthsdambhare/hive-lite-v5/integrations/mcp/tests/test_hive_integration.py", line 79, in test_submit_and_poll_real_hive_through_stdio
+      |     assert result["status"] == "done"
+      | AssertionError: assert 'stopped' == 'done'
+      |   
+      |   - done
+      |   + stopped
+      +------------------------------------
+=========================== short test summary info ============================
+FAILED integrations/mcp/tests/test_hive_integration.py::test_submit_and_poll_real_hive_through_stdio

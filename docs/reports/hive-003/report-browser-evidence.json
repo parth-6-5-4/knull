@@ -1,0 +1,143 @@
+{
+  "fixtures": 9,
+  "viewport_checks": 18,
+  "network_requests": [],
+  "page_errors": [],
+  "screenshots": [
+    "docs/reports/hive-003/report-fixture-0-390x844.png",
+    "docs/reports/hive-003/report-fixture-0-1440x900.png",
+    "docs/reports/hive-003/report-fixture-4-390x844.png",
+    "docs/reports/hive-003/report-fixture-4-1440x900.png",
+    "docs/reports/hive-003/report-fixture-5-390x844.png",
+    "docs/reports/hive-003/report-fixture-5-1440x900.png"
+  ],
+  "viewports": [
+    {
+      "fixture": 0,
+      "width": 390,
+      "height": 844,
+      "document_width": 390,
+      "report_width": 342
+    },
+    {
+      "fixture": 0,
+      "width": 1440,
+      "height": 900,
+      "document_width": 1440,
+      "report_width": 560.4375
+    },
+    {
+      "fixture": 1,
+      "width": 390,
+      "height": 844,
+      "document_width": 390,
+      "report_width": 342
+    },
+    {
+      "fixture": 1,
+      "width": 1440,
+      "height": 900,
+      "document_width": 1440,
+      "report_width": 560.4375
+    },
+    {
+      "fixture": 2,
+      "width": 390,
+      "height": 844,
+      "document_width": 390,
+      "report_width": 342
+    },
+    {
+      "fixture": 2,
+      "width": 1440,
+      "height": 900,
+      "document_width": 1440,
+      "report_width": 560.4375
+    },
+    {
+      "fixture": 3,
+      "width": 390,
+      "height": 844,
+      "document_width": 390,
+      "report_width": 342
+    },
+    {
+      "fixture": 3,
+      "width": 1440,
+      "height": 900,
+      "document_width": 1440,
+      "report_width": 560.4375
+    },
+    {
+      "fixture": 4,
+      "width": 390,
+      "height": 844,
+      "document_width": 390,
+      "report_width": 342
+    },
+    {
+      "fixture": 4,
+      "width": 1440,
+      "height": 900,
+      "document_width": 1440,
+      "report_width": 560.4375
+    },
+    {
+      "fixture": 5,
+      "width": 390,
+      "height": 844,
+      "document_width": 390,
+      "report_width": 342
+    },
+    {
+      "fixture": 5,
+      "width": 1440,
+      "height": 900,
+      "document_width": 1440,
+      "report_width": 560.4375
+    },
+    {
+      "fixture": 6,
+      "width": 390,
+      "height": 844,
+      "document_width": 390,
+      "report_width": 342
+    },
+    {
+      "fixture": 6,
+      "width": 1440,
+      "height": 900,
+      "document_width": 1440,
+      "report_width": 560.4375
+    },
+    {
+      "fixture": 7,
+      "width": 390,
+      "height": 844,
+      "document_width": 390,
+      "report_width": 342
+    },
+    {
+      "fixture": 7,
+      "width": 1440,
+      "height": 900,
+      "document_width": 1440,
+      "report_width": 560.4375
+    },
+    {
+      "fixture": 8,
+      "width": 390,
+      "height": 844,
+      "document_width": 390,
+      "report_width": 342
+    },
+    {
+      "fixture": 8,
+      "width": 1440,
+      "height": 900,
+      "document_width": 1440,
+      "report_width": 560.4375
+    }
+  ],
+  "chromium_version": "156.0.8078.4"
+}

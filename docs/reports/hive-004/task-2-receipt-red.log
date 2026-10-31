@@ -1,0 +1,35 @@
+/opt/anaconda3/lib/python3.12/site-packages/pytest_asyncio/plugin.py:247: PytestDeprecationWarning: The configuration option "asyncio_default_fixture_loop_scope" is unset.
+The event loop scope for asynchronous fixtures will default to the fixture caching scope. Future versions of pytest-asyncio will default the loop scope for asynchronous fixtures to function scope. Set the default fixture loop scope explicitly in order to avoid unexpected behavior in the future. Valid fixture loop scopes are: "function", "class", "module", "package", "session"
+
+  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))
+============================= test session starts ==============================
+platform darwin -- Python 3.12.7, pytest-8.2.2, pluggy-1.6.0
+rootdir: /Users/parthsdambhare/hive-lite-v5
+configfile: pytest.ini
+plugins: mock-3.15.1, anyio-4.9.0, asyncio-1.3.0, cov-7.0.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 39 items
+
+tests/test_hive_resources.py ................................FF.....     [100%]
+
+=================================== FAILURES ===================================
+_________ test_receipt_reordering_retains_immutable_partial_provenance _________
+tests/test_hive_resources.py:312: in test_receipt_reordering_retains_immutable_partial_provenance
+    assert store.settle('call',partial)==done
+app/hive/resource_store.py:305: in settle
+    return self._write(settle)
+app/hive/resource_store.py:33: in _write
+    return self._hive.transactions.write(fn, deadline_monotonic=deadline_monotonic)
+app/hive/transactions.py:58: in write
+    result = _sync_result(fn(self.db))
+app/hive/resource_store.py:273: in settle
+    raise ResourceConflict('resource_receipt_conflict')
+E   app.hive.resource_types.ResourceConflict: resource_receipt_conflict
+______ test_old_partial_receipt_identity_cannot_be_reused_on_another_call ______
+tests/test_hive_resources.py:325: in test_old_partial_receipt_identity_cannot_be_reused_on_another_call
+    with pytest.raises(ResourceConflict):store.settle('second',partial)
+E   Failed: DID NOT RAISE <class 'app.hive.resource_types.ResourceConflict'>
+=========================== short test summary info ============================
+FAILED tests/test_hive_resources.py::test_receipt_reordering_retains_immutable_partial_provenance
+FAILED tests/test_hive_resources.py::test_old_partial_receipt_identity_cannot_be_reused_on_another_call
+========================= 2 failed, 37 passed in 1.24s =========================

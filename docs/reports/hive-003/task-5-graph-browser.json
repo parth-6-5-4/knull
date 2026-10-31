@@ -1,0 +1,12 @@
+{
+  "date": "2026-10-21",
+  "artifact": "graphify-out/graph.html",
+  "chromium": "156.0.8078.4",
+  "pageErrors": [],
+  "failedRequests": [],
+  "stats": "1440 nodes · 3538 edges · 76 communities",
+  "searchResults": ".report_snapshot()",
+  "details": ".report_snapshot()\nType: code\nCommunity: test_tools_arxiv.py\nSource: app/hive/store.py\nDegree: 13\nNeighbors (13)\nReportSnapshot\nWriterAssignment\nHiveStore\nrun_writer()\nsnapshot_from_rows()\nCapture count and candidate sources in one short SQLite read snapshot.\ntest_direct_writer_rejects_mismatched_snapshot_before_dispatch()\ntest_candidate_window_is_stable()\ntest_report_publication_rejects_nonwriter_task()\ntest_snapshot_excludes_unaccepted_or_foreign_provenance()\ntest_snapshot_read_is_coherent()\ntest_snapshot_releases_transaction_before_model_await()\ntest_stale_report_attempt_cannot_publish()",
+  "passed": true,
+  "visualQualityReview": false
+}

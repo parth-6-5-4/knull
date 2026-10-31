@@ -33,6 +33,8 @@ class HiveRequest(BaseModel):
     workers: int = Field(3, ge=1, le=8)
     subtasks: int = Field(4, ge=1, le=8)
     budget_tokens: int = Field(200_000, ge=1_000, description="hard token cap for the whole run")
+    task_timeout_s: float = Field(600, gt=0, allow_inf_nan=False)
+    run_timeout_s: float = Field(1800, gt=0, allow_inf_nan=False)
 
 
 @router.post("/hive/runs", status_code=202)
@@ -40,7 +42,8 @@ async def start_hive(req: HiveRequest, bg: BackgroundTasks):
     store = get_store()
     run_id = store.create_run(req.objective, req.budget_tokens)
     bg.add_task(run_hive, req.objective, store, workers=req.workers, max_subtasks=req.subtasks,
-                budget_tokens=req.budget_tokens, run_id=run_id)
+                budget_tokens=req.budget_tokens, run_id=run_id,
+                task_timeout_s=req.task_timeout_s, run_timeout_s=req.run_timeout_s)
     return {"run_id": run_id, "status": "running"}
 
 

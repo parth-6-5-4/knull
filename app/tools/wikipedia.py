@@ -36,6 +36,7 @@ async def search_wikipedia(
     query: str,
     max_results: int = 3,
     extract_chars: int = 500,
+    *, raise_on_error: bool = False,
 ) -> list[WikipediaSource]:
     """
     Search Wikipedia for relevant articles.
@@ -110,6 +111,8 @@ async def search_wikipedia(
         
     except Exception as e:
         logger.error(f"Wikipedia search failed: {e}")
+        if raise_on_error:
+            raise
         return []
 
 

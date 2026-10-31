@@ -1,0 +1,46 @@
+{
+  "observed_at_utc": "2026-10-21T07:48:56.733715+00:00",
+  "python": "3.12.7",
+  "sqlite": "3.45.3",
+  "providers": "mock only",
+  "database_scope": "disposable TemporaryDirectory; no application data",
+  "repeated_source_runs": [
+    {
+      "status": "done",
+      "verified": 2,
+      "rejected": 0,
+      "evidence_rows": 2
+    },
+    {
+      "status": "done",
+      "verified": 2,
+      "rejected": 0,
+      "evidence_rows": 2
+    }
+  ],
+  "current_evidence_primary_key": [
+    "run_id",
+    "id"
+  ],
+  "current_schema_version": 1,
+  "same_run_conflict": {
+    "accepted": false,
+    "task_status": "claimed",
+    "retained_text": "Original evidence text."
+  },
+  "unresolved_reference_publication": {
+    "accepted": false,
+    "task_status": "claimed",
+    "facts_committed": 0,
+    "extra_evidence_committed": false,
+    "referenced_evidence_found": false
+  },
+  "missing_provenance_marked_verified": {
+    "eligible_verified_facts": 0,
+    "writer_report_nonempty": false,
+    "writer_gate_passed": false,
+    "policy_version": "accepted-claims-v1",
+    "reason": "no_verified_facts",
+    "source_reference_present": false
+  }
+}
