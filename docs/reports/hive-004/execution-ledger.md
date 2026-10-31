@@ -14,8 +14,8 @@ Fresh [full-suite baseline](execution-baseline.log): **397 passed, 11 failed**, 
 
 | Task | State | Evidence |
 |---|---|---|
-| 1 — Schema/types/transactions and explicit migration | Verified foundation; fresh review approved | [Review](task-1-review.md): spec compliant, quality approved; 130 focused passed; full452passed/11 unchanged dependency failures; no real data or package changes |
-| 2 — Conserved allocations/call accounting | In progress | Fresh implementer; independent review follows |
+| 1 — Schema/types/transactions and explicit migration | Verified foundation; fresh review approved | [Review](task-1-review.md): spec compliant, quality approved; 130 focused passed; full 452 passed / 11 unchanged dependency failures; no real data or package changes |
+| 2 — Conserved allocations/call accounting | Reviewed accounting foundation; publication checkpoint | [Independent report](task-2-review.md): spec compliant, quality Approved; [fresh focused check](publication-focused-2026-11-01.log): 118 passed. Runtime integration remains open. |
 | 3 — Shared queues/permits/fairness | Pending | No implementation |
 | 4 — Provider preparation/single-attempt controls | Pending | No implementation |
 | 5 — Async governed Caller | Pending | No implementation |
@@ -51,3 +51,13 @@ Task2 schema ruling: add immutable allocation.run_id FK and inherit it through c
 Task2 uses trusted internal request_fingerprint identity; Task4 owns canonical hashing of exact messages/generation parameters and must prohibit public supplied hashes. Messages stay local. Cost: mutation/forgery handling at that producer boundary remains a mandatory later acceptance gate.
 
 HIVE-003 closure/evidence/dated graph recorded separately in12415a1. All77committed blobs match the frozen publication manifest;121graph source hashes match source checkpoint4290d88. Raw retained command logs preserve pytest whitespace; staged non-log whitespace checks pass.
+
+## Development publication checkpoint — 1 November 2026
+
+User requested scoped commits and a push of the unfinished project as it stands. No Task3–8 implementation is included. Task2's complete independent review report was written before its agent turn ended at the usage limit; the written report contains both required approvals and no blocking findings. [Controller check](task-2-controller-check.json) records its cross-task dispositions. Minor test readability and the inherited pytest fixture-loop warning are retained for final review.
+
+Fresh publication verification ran the three-file accounting/migration/report-store command: **118 passed**. [Exact receipt](publication-focused-2026-11-01.json). Historical full restricted evidence remains **490 passed, 11 failed, 3 errors**; a separate permitted boundary rerun recorded **4 passed, 1 baseline dependency failure**. Those are October runs, not a new November full-suite result or a synthesized green suite.
+
+All canonical fingerprint/category/provider-control/fairness/integrated-permit checks remain Tasks3–8 gates. Public call identity and receipt-provenance inspection must be included in Task7. No real database migration, deployment, main-branch merge or live model call is part of this checkpoint. The generated graph remains the dated HIVE003 snapshot.
+
+Task2 accounting source recorded in `566b6ae` (`feat: conserve allocations and call usage`). Six staged source/test hashes matched the frozen review; fresh 118 focused checks passed; path/credential/non-log whitespace checks passed. Source remained unchanged during publication.

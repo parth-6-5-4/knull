@@ -2,9 +2,15 @@
 
 **Hive Lite is the first, lite version of the Knull agentic hive mind (AI Engineering 101, Ch. 15 "The Symbiote Swarm"). The full-fledged hive mind is coming soon.**
 
-An AI-powered research hive that transforms vague research objectives into structured, citation-backed reports: Knull plans a task DAG, researcher symbiotes claim tasks with leases and fences, an independent verifier checks every claim against verbatim evidence, and a watchdog plus a hard token budget keep runaways in check. Built for **local execution on resource-constrained hardware** (MacBook Pro M2, 8GB RAM).
+An AI-powered research hive that transforms vague research objectives into structured, citation-backed reports: Knull plans a task DAG, researcher symbiotes claim tasks with leases and fences, an independent verifier checks every claim against verbatim evidence, and a watchdog plus token accounting track execution and usage. Built for **local execution on resource-constrained hardware** (MacBook Pro M2, 8GB RAM).
 
 > **Note**: This project is not currently deployed as a hosted service. If you'd like to try it out, you're welcome to clone the repository and run it locally. The setup is straightforward and documented below. I'd appreciate any feedback or suggestions.
+
+## Development status
+
+**Active development — 1 November 2026.** Evidence isolation, task fencing and supported-report construction have recorded acceptance evidence. The new resource-accounting foundation is implemented and task-reviewed, but shared admission queues, provider controls and governed Caller integration are still unfinished. Current execution does not yet enforce the proposed shared hard budget.
+
+See the [development checkpoint](docs/reports/development-status-2026-11-01.md) for implemented modules, remaining work, verification results and the next task. The MCP adapter is an implemented local candidate with protocol test evidence; its design review and shared-host deployment gates remain open.
 
 ## Development workflow
 
@@ -397,8 +403,8 @@ Branch `hive-lite` adds a first, lite version of the "Symbiote Swarm" from *AI E
 | Claim table with leases | `app/hive/store.py`: atomic claim, attempt id, increasing fence, expiry; publish re-checks all of them |
 | Hive memory | `facts` table: proposed -> verified / rejected, each with an evidence id and a verbatim quote |
 | Verifier | separate context (sees only claim + evidence); non-verbatim quotes are rejected before any LLM call; fails closed |
-| Watchdog / governor | plain code in `app/hive/watchdog.py` and `runner.py`: lease expiry requeue, attempt cap, loop detector, hard token cap |
-| Final gate | findings sentences without a citation to a verified fact are removed; budget exhaustion returns `stopped`, never `done` |
+| Watchdog / governor | plain code in `app/hive/watchdog.py` and `runner.py`: lease expiry requeue, attempt cap, loop detector, measured-usage budget stop (concurrent overshoot remains open) |
+| Final gate | model selects accepted fact IDs; code renders their claims literally. Empty findings block the run; budget exhaustion returns `stopped`, never `done` |
 
 Not in this lite version: lieutenants, human console / steering, 20-30 workers, broadcast/recheck on superseded facts,
 long-term memory, process-crash replay across restarts of a live run (state is in SQLite but there is no resume command yet).

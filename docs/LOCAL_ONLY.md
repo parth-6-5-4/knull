@@ -29,3 +29,7 @@ Before every commit/push:
 `python3 scripts/check_publication.py` checks the index against ignore rules, including files force-added despite those rules. This checkout installs the shared pre-commit/pre-push hooks through `git config core.hooksPath .githooks`; fresh clones can run that command to enable the same guard. Existing unrelated hook configuration should be integrated rather than overwritten. Hooks can be bypassed deliberately, so the explicit review remains necessary. The guard checks paths, not the contents of every possible secret format.
 
 On 2026-10-21, tracked Graphify query-memory/reflection/vocabulary artifacts were designated local-only and removed from the index while keeping local copies. Earlier Git history may still contain those artifacts; this task does not rewrite published history. No credential was identified in them by the publication scan.
+
+## Development checkpoint — 1 November 2026
+
+The publication audit retained `.superpowers/sdd/` task briefs, frozen baselines, review packages and recovery files locally. `.local-only/publication/` manifests and regenerated HIVE003 screenshot copies also remain ignored. Do not force-add those directories in later commits. Only curated reports under `docs/reports/hive-004/` are shared; they contain disposable/mock-data verification evidence. Personal host configuration, installed global skills, credentials, run databases and dependency environments are not part of this checkpoint.
