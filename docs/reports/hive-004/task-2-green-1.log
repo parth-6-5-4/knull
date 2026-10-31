@@ -1,0 +1,61 @@
+/opt/anaconda3/lib/python3.12/site-packages/pytest_asyncio/plugin.py:247: PytestDeprecationWarning: The configuration option "asyncio_default_fixture_loop_scope" is unset.
+The event loop scope for asynchronous fixtures will default to the fixture caching scope. Future versions of pytest-asyncio will default the loop scope for asynchronous fixtures to function scope. Set the default fixture loop scope explicitly in order to avoid unexpected behavior in the future. Valid fixture loop scopes are: "function", "class", "module", "package", "session"
+
+  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))
+============================= test session starts ==============================
+platform darwin -- Python 3.12.7, pytest-8.2.2, pluggy-1.6.0
+rootdir: /Users/parthsdambhare/hive-lite-v5
+configfile: pytest.ini
+plugins: mock-3.15.1, anyio-4.9.0, asyncio-1.3.0, cov-7.0.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 107 items
+
+tests/test_hive_resources.py ........F..F..................              [ 28%]
+tests/test_hive_resource_migrations.py ........................F.....    [ 56%]
+tests/test_hive_report_store.py ........................................ [ 93%]
+.......                                                                  [100%]
+
+=================================== FAILURES ===================================
+_____________________ test_close_returns_only_unused_grant _____________________
+tests/test_hive_resources.py:70: in test_close_returns_only_unused_grant
+    with pytest.raises(ResourceDenied):reserve(store,run,allocation_id='child',call_id='later')
+tests/test_hive_resources.py:28: in reserve
+    return p,store.reserve(p,deadline_monotonic=time.monotonic()+3)
+app/hive/resource_store.py:175: in reserve
+    return self._write(lambda db: self._reserve_in_transaction(
+app/hive/resource_store.py:33: in _write
+    return self._hive.transactions.write(fn, deadline_monotonic=deadline_monotonic)
+app/hive/transactions.py:58: in write
+    result = _sync_result(fn(self.db))
+app/hive/resource_store.py:175: in <lambda>
+    return self._write(lambda db: self._reserve_in_transaction(
+app/hive/resource_store.py:196: in _reserve_in_transaction
+    raise ResourceConflict('resource_call_identity_conflict')
+E   app.hive.resource_types.ResourceConflict: resource_call_identity_conflict
+___________________ test_resource_integer_overflow_is_atomic ___________________
+tests/test_hive_resources.py:115: in test_resource_integer_overflow_is_atomic
+    p,_=reserve(store,run,allocation_id='child',call_id='next',bound_tokens=1,max_output_tokens=1,authority=replace(p.authority,ordinal=2));dispatch(store,p)
+tests/test_hive_resources.py:28: in reserve
+    return p,store.reserve(p,deadline_monotonic=time.monotonic()+3)
+app/hive/resource_store.py:175: in reserve
+    return self._write(lambda db: self._reserve_in_transaction(
+app/hive/resource_store.py:33: in _write
+    return self._hive.transactions.write(fn, deadline_monotonic=deadline_monotonic)
+app/hive/transactions.py:58: in write
+    result = _sync_result(fn(self.db))
+app/hive/resource_store.py:175: in <lambda>
+    return self._write(lambda db: self._reserve_in_transaction(
+app/hive/resource_store.py:202: in _reserve_in_transaction
+    available = self._available(db, identity['allocation_id'])
+app/hive/resource_store.py:99: in _available
+    raise ResourceDenied('resource_root_frozen')
+E   app.hive.resource_types.ResourceDenied: resource_root_frozen
+________ test_resource_schema_enforces_identity_checks_and_foreign_keys ________
+tests/test_hive_resource_migrations.py:170: in test_resource_schema_enforces_identity_checks_and_foreign_keys
+    db.execute("INSERT INTO resource_allocations VALUES('a','a',NULL,200,0,0)")
+E   sqlite3.OperationalError: table resource_allocations has 7 columns but 6 values were supplied
+=========================== short test summary info ============================
+FAILED tests/test_hive_resources.py::test_close_returns_only_unused_grant - a...
+FAILED tests/test_hive_resources.py::test_resource_integer_overflow_is_atomic
+FAILED tests/test_hive_resource_migrations.py::test_resource_schema_enforces_identity_checks_and_foreign_keys
+======================== 3 failed, 104 passed in 4.67s =========================

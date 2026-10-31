@@ -1,0 +1,169 @@
+[
+  {
+    "argv": [
+      "/opt/anaconda3/bin/python",
+      "-m",
+      "pytest",
+      "tests/test_hive_resources.py",
+      "-q"
+    ],
+    "env_overrides": {
+      "DEBUG": "false"
+    },
+    "cwd": "/Users/parthsdambhare/hive-lite-v5",
+    "exit": 1,
+    "log": "docs/reports/hive-004/task-2-red.log",
+    "started_utc": 1792675375.999694,
+    "ended_utc": 1792675377.135009
+  },
+  {
+    "argv": [
+      "/opt/anaconda3/bin/python",
+      "-m",
+      "pytest",
+      "tests/test_hive_resources.py",
+      "tests/test_hive_resource_migrations.py",
+      "tests/test_hive_report_store.py",
+      "-q"
+    ],
+    "env_overrides": {
+      "DEBUG": "false"
+    },
+    "cwd": "/Users/parthsdambhare/hive-lite-v5",
+    "exit": 1,
+    "log": "docs/reports/hive-004/task-2-green-1.log",
+    "started_utc": 1792675501.2271569,
+    "ended_utc": 1792675506.3900402
+  },
+  {
+    "argv": [
+      "/opt/anaconda3/bin/python",
+      "-m",
+      "pytest",
+      "tests/test_hive_resources.py",
+      "-q"
+    ],
+    "env_overrides": {
+      "DEBUG": "false"
+    },
+    "cwd": "/Users/parthsdambhare/hive-lite-v5",
+    "exit": 1,
+    "log": "docs/reports/hive-004/task-2-receipt-red.log",
+    "started_utc": 1792675579.3225012,
+    "ended_utc": 1792675581.1197388
+  },
+  {
+    "argv": [
+      "/opt/anaconda3/bin/python",
+      "-m",
+      "pytest",
+      "tests/test_hive_resources.py",
+      "tests/test_hive_resource_migrations.py",
+      "tests/test_hive_report_store.py",
+      "-q"
+    ],
+    "env_overrides": {
+      "DEBUG": "false"
+    },
+    "cwd": "/Users/parthsdambhare/hive-lite-v5",
+    "exit": 0,
+    "log": "docs/reports/hive-004/task-2-green-2.log",
+    "started_utc": 1792675616.0026612,
+    "ended_utc": 1792675620.687814
+  },
+  {
+    "argv": [
+      "/opt/anaconda3/bin/python",
+      "-m",
+      "pytest",
+      "tests/test_hive_resources.py",
+      "-q",
+      "-k",
+      "internal_composition or complete_receipt_pair_overflow"
+    ],
+    "env_overrides": {
+      "DEBUG": "false"
+    },
+    "cwd": "/Users/parthsdambhare/hive-lite-v5",
+    "exit": 1,
+    "log": "docs/reports/hive-004/task-2-self-review-red.log",
+    "started_utc": 1792675661.923732,
+    "ended_utc": 1792675662.6144462
+  },
+  {
+    "argv": [
+      "/opt/anaconda3/bin/python",
+      "-m",
+      "pytest",
+      "tests/test_hive_resources.py",
+      "tests/test_hive_resource_migrations.py",
+      "tests/test_hive_report_store.py",
+      "-q"
+    ],
+    "env_overrides": {
+      "DEBUG": "false"
+    },
+    "cwd": "/Users/parthsdambhare/hive-lite-v5",
+    "exit": 0,
+    "log": "docs/reports/hive-004/task-2-green-final.log",
+    "started_utc": 1792675684.257312,
+    "ended_utc": 1792675688.834678
+  },
+  {
+    "argv": [
+      "/opt/anaconda3/bin/python",
+      "-m",
+      "pytest",
+      "-q"
+    ],
+    "env_overrides": {
+      "DEBUG": "false",
+      "PLAYWRIGHT_BROWSERS_PATH": "/tmp/hive-003-browsers"
+    },
+    "cwd": "/Users/parthsdambhare/hive-lite-v5",
+    "exit": 1,
+    "log": "docs/reports/hive-004/task-2-full-final.log",
+    "started_utc": 1792675721.483316,
+    "ended_utc": 1792675745.4140532
+  },
+  {
+    "argv": [
+      "/opt/anaconda3/bin/python",
+      "-m",
+      "pytest",
+      "tests/test_hive_reports.py::test_marked_rendering_round_trip",
+      "tests/test_llm_sdk_wiring.py",
+      "-q"
+    ],
+    "env_overrides": {
+      "DEBUG": "false",
+      "PLAYWRIGHT_BROWSERS_PATH": "/tmp/hive-003-browsers"
+    },
+    "cwd": "/Users/parthsdambhare/hive-lite-v5",
+    "sandbox_permissions": "require_escalated",
+    "exit": 1,
+    "log": "docs/reports/hive-004/task-2-permitted-boundaries.log",
+    "started_utc": 1792675852.607384,
+    "ended_utc": 1792675857.851079
+  },
+  {
+    "argv": [
+      "git",
+      "diff",
+      "--check",
+      "--",
+      "app/hive/resource_schema.py",
+      "app/hive/store.py",
+      "app/hive/resource_store.py",
+      "tests/hive_resource_testkit.py",
+      "tests/test_hive_resource_migrations.py",
+      "tests/test_hive_resources.py"
+    ],
+    "env_overrides": {},
+    "cwd": "/Users/parthsdambhare/hive-lite-v5",
+    "exit": 0,
+    "log": "docs/reports/hive-004/task-2-diff-check.log",
+    "started_utc": 1792675890.9897301,
+    "ended_utc": 1792675891.008548
+  }
+]
